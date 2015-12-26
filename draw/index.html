@@ -499,6 +499,18 @@ p{
 	#infoMenu li a {
 		color: #fff;
 	}
+
+		/* Overwriting fullPage.js tooltip color
+	* --------------------------------------- */
+	.fp-tooltip{
+		color: #AAA;
+	}
+	#fp-nav span, .fp-slidesNav span{
+		border-color: #AAA;
+	}
+	#fp-nav li .active span, .fp-slidesNav .active span{
+		background: #AAA;
+	}
 	</style>
 
 	<!--[if IE]>
@@ -574,7 +586,7 @@ p{
 	<div class="section" id="section2">
 		<div class="intro">
 		<p>
-			 Draw! is available in <a href="https://play.google.com/store/apps/details?id=com.android.thewongandonly.QuickDraw">Google Play</a>
+			 Draw! is available in <a style="font-size: xx-small;" href="https://play.google.com/store/apps/details?id=com.android.thewongandonly.QuickDraw">Google Play</a>
 		</p>
 		<br>
 		 <IMG SRC="http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=https%3A//play.google.com/store/apps/details%3Fid%3Dcom.android.thewongandonly.QuickDraw&chld=H|0">
@@ -672,8 +684,11 @@ c.find(".fp-scrollable")},scrollHeight:function(c){return c.find(".fp-scrollable
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#fullpage').fullpage({
+				navigation: true, 
+				navigationPosition: 'left',
+				navigationTooltips: ['Draw!', 'Features', 'Play'],
 				anchors: ['draw', 'features', 'play', '4thPage'],
-				sectionsColor: ['#4A6FB1', '#E79A32', '#939FAA'],
+				sectionsColor: ['#4A6FB1', '#E79A32', '#e3e3e3'],
 				scrollOverflow: true
 			});
 		});
