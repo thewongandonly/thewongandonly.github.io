@@ -14,7 +14,7 @@
 <body>
     <script src="https://unpkg.com/vue@2.4.2"></script>
     <div id="content">
-        <navigate v-on:change-page="changePage" v-bind:page="curpage"></navigate>
+        <navigate v-model="curpage"></navigate> <!-- <navigate v-on:change-page="changePage" v-bind:page="curpage"></navigate> -->
         <greeting v-bind:page="curpage"></greeting>
     </div>
     <script>
@@ -29,16 +29,16 @@
             </div> `,
         methods: {
             homeView: function(event) {
-                this.$emit('change-page', 1);
+                this.$emit('input', 1);
             },
             contactView: function(event) {
-                this.$emit('change-page', 2);
+                this.$emit('input', 2);
             }
         },
-        props: ['page'],
+        props: ['value'],
         computed: {
             showContact: function() {
-                return this.page == 2;
+                return this.value == 2;
             }
         }
     });
@@ -79,11 +79,11 @@
 
     var app = new Vue({
         el: '#content',
-        methods: {
+        /*methods: {
             changePage: function(page) {
                 this.curpage = page;
             }
-        },
+        },*/
         data: {
             curpage: 1
 
