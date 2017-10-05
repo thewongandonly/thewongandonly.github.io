@@ -17,16 +17,32 @@
         <navigate v-model="curpage"></navigate> <!-- <navigate v-on:change-page="changePage" v-bind:page="curpage"></navigate> -->
         <greeting v-bind:page="curpage"></greeting>
     </div>
+    
+<script type="text/x-template" id="navigate-template">
+    <div class="ph-line-nav nav">
+        <a v-bind:class="{'navcurrent': !showContact}" v-on:click.prevent="homeView">Wong</a>
+        <a v-bind:class="{'navcurrent': showContact}" v-on:click.prevent="contactView">Contact</a>
+      <div class="effect" />
+    </div>
+</script>    
+<my-greet inline-template>
+<div>
+    <h1>The Wong<sub> And Only</sub></h1>
+    <div id="titles">
+      <div id="titlecontent">
+        <p class="center" v-html="this.header"></p>
+        <p> </p>
+        <p class="center" v-html="this.body"></p>              
+      </div>
+    </div>
+    <div id="bottom-left" />
+  </div>
+</my-greet>    
     <script>
     //var globalvuebus = new Vue({});
 
     Vue.component('navigate', {
-        template: ` 
-            <div class="ph-line-nav nav">
-                <a v-bind:class="{'navcurrent': !showContact}" v-on:click.prevent="homeView">Wong</a>
-                <a v-bind:class="{'navcurrent': showContact}" v-on:click.prevent="contactView">Contact</a>
-              <div class="effect" />
-            </div> `,
+        template: '#navigate-template',
         methods: {
             homeView: function(event) {
                 this.$emit('input', 1);
@@ -44,17 +60,7 @@
     });
 
     Vue.component('greeting', {
-        template: `<div>
-            <h1>The Wong<sub> And Only</sub></h1>
-            <div id="titles">
-              <div id="titlecontent">
-                <p class="center" v-html="this.header"></p>
-                <p> </p>
-                <p class="center" v-html="this.body"></p>              
-              </div>
-            </div>
-            <div id="bottom-left" />
-          </div>`,
+        template: 'my-greet',
         props: ['page'],
         data: function() {
             return {
