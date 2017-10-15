@@ -25,8 +25,8 @@
       <div class="effect" />
     </div>
 </script>    
-<my-greet inline-template>
-<div>
+<script type="text/x-template" id="my-greet">
+ <div>
     <h1>The Wong<sub> And Only</sub></h1>
     <div id="titles">
       <div id="titlecontent">
@@ -37,7 +37,8 @@
     </div>
     <div id="bottom-left" />
   </div>
-</my-greet>    
+</script>  
+    
     <script>
     //var globalvuebus = new Vue({});
 
@@ -60,7 +61,7 @@
     });
 
     Vue.component('greeting', {
-        template: 'my-greet',
+        template: '#my-greet',
         props: ['page'],
         data: function() {
             return {
