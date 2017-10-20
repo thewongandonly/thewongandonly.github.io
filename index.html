@@ -235,20 +235,22 @@ h1 + p, p + p {
 
 
 <div id="app" class="container">
+  <card data-image="wongs.JPG">
+    <h1 slot="header">The Wongs</h1>
+    <p slot="content">Somehow somewhere something went Wrong.</p>
+  </card>
   <card data-image="rug.jpg">
     <h1 slot="header">Rug</h1>
     <p slot="content">This rug really ties the page together.</p>
   </card>
 </div>
+    
     <div id="bottom-left" />
-
-
-
  
     
     <script>
       
-Vue.config.devtools = true;
+//Vue.config.devtools = true;
 
 Vue.component('card', {
   template: '<div class="card-wrap"\n' + 
