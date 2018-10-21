@@ -305,14 +305,15 @@
 
 #footer {
    position:fixed;
-   left:0px;
+   right:0px;
    bottom:0px;
    height:70px;
-   width:100%;
-   background:#999;
+   width:580px;
    background-image: url("tilebg.png");
    background-size: 19px;
    background-repeat: repeat;
+   border-top-left-radius: 50%;
+   border-top-right-radius: 50%;
 }
 .bottom-right {
     position: fixed;
@@ -336,6 +337,8 @@
   transform-origin: 50% 50%;
   animation: jump 0.5s linear alternate 2;
 }
+
+
     </style>
 </head>
 
@@ -361,6 +364,7 @@
         <div id="footer">
 
         </div>
+
         <div id="bottom-left"></div>
         <div class="bottom-right">
             <div v-bind:class="{dokidoki:true ,jump: natsukiJumping }">
@@ -573,4 +577,5 @@
         });
     </script>
 </body>
+
 </html>
