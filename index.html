@@ -6,7 +6,7 @@
     <title>David Wong</title>
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway" />
     <style>
-    body {
+        body {
         margin: 40px 0;
         font-family: "Raleway";
         font-size: 14px;
@@ -301,27 +301,82 @@
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
     }
+
+
+#footer {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:70px;
+   width:100%;
+   background:#999;
+   background-image: url("tilebg.png");
+   background-size: 19px;
+   background-repeat: repeat;
+}
+.bottom-right {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-right: 30px;
+}
+.bottom-right img
+{
+   max-width:60%;
+}
+.dokidoki {
+  float: right;
+}
+@keyframes jump {
+  0%   {transform: translate3d(0,0%,0) scale3d(1,1,1);}
+  50%  {transform: translate3d(0,-98%,0) scale3d(.97,1.05,1);}
+  100% {transform: translate3d(0,0%,0) scale3d(1.05,.97,1);}
+}
+.jump {
+  transform-origin: 50% 50%;
+  animation: jump 0.5s linear alternate 2;
+}
     </style>
 </head>
 
 <body>
     <script src="https://unpkg.com/vue@2.4.2"></script>
-    <div id="app" class="container">
-        <card data-image="amsterdam07.png" v-on:change-page="changePage">
-            <h1 slot="header">Amsterdam</h1>
-            <p slot="content">Somehow, somewhere, </p>
-        </card>
-        <card data-image="wongs.png" v-on:change-page="changePage">
-            <h1 slot="header">Paris</h1>
-            <p slot="content">something went ...</p>
-        </card>
-        <card data-image="torontobbq.jpg" v-on:change-page="changePage">
-            <h1 slot="header">Toronto</h1>
-            <p slot="content">terribly Wrong.</p>
-        </card>
-        <new-comment-modal v-bind:photosrc="curpage" :show="showNewCommentModal" @close="showNewCommentModal = false"></new-comment-modal>
+
+    <div id="app">
+        <div class="container">
+            <card data-image="amsterdam07.png" v-on:change-page="changePage">
+                <h1 slot="header">Amsterdam</h1>
+                <p slot="content">Somehow, somewhere, </p>
+            </card>
+            <card data-image="wongs.png" v-on:change-page="changePage">
+                <h1 slot="header">Paris</h1>
+                <p slot="content">something went ...</p>
+            </card>
+            <card data-image="torontobbq.jpg" v-on:change-page="changePage">
+                <h1 slot="header">Toronto</h1>
+                <p slot="content">terribly Wrong.</p>
+            </card>
+            <new-comment-modal v-bind:photosrc="curpage" :show="showNewCommentModal" @close="showNewCommentModal = false"></new-comment-modal>
+        </div>
+        <div id="footer">
+
+        </div>
+        <div id="bottom-left"></div>
+        <div class="bottom-right">
+            <div v-bind:class="{dokidoki:true ,jump: natsukiJumping }">
+                <img src="natsuki.png" @click="dokiclick('natsuki')" />
+            </div>
+            <div v-bind:class="{dokidoki:true ,jump: sayoriJumping }">
+                <img src="sayori.png" @click="dokiclick('sayori')" />
+            </div>
+            <div v-bind:class="{dokidoki:true ,jump: monikaJumping }">
+                <img src="monika.png" @click="dokiclick('monika')" />
+            </div>
+            <div v-bind:class="{dokidoki:true ,jump: yuriJumping }">
+                <img src="yuri.png" @click="dokiclick('yuri')" />
+            </div>
+        </div>
     </div>
-    <div id="bottom-left" />
     <script type="x/template" id="modal-template">
         <transition name="modal">
             <div class="modal-mask" @click="close" v-show="show">
@@ -343,161 +398,179 @@
         </modal>
     </script>
     <script>
-    //Vue.config.devtools = true;
+        //Vue.config.devtools = true;
 
-    Vue.component('card', {
-        template: '<div class="card-wrap"\n v-on:click.prevent="onView" ' +
-            '      @mousemove="handleMouseMove"\n' +
-            '      @mouseenter="handleMouseEnter"\n' +
-            '      @mouseleave="handleMouseLeave"\n' +
-            '      ref="card">\n' +
-            '      <div class="card" :style="cardStyle">\n' +
-            '        <div class="card-bg" :style="[cardBgTransform, cardBgImage]"></div>\n' +
-            '        <div class="card-info">\n' +
-            '          <slot name="header"></slot>\n' +
-            '          <slot name="content"></slot>\n' +
-            '        </div>\n' +
-            '      </div>\n' +
-            '</div>',
-        mounted: function mounted() {
-            this.width = this.$refs.card.offsetWidth;
-            this.height = this.$refs.card.offsetHeight;
-        },
+        Vue.component('card', {
+            template: '<div class="card-wrap"\n v-on:click.prevent="onView" ' +
+                '      @mousemove="handleMouseMove"\n' +
+                '      @mouseenter="handleMouseEnter"\n' +
+                '      @mouseleave="handleMouseLeave"\n' +
+                '      ref="card">\n' +
+                '      <div class="card" :style="cardStyle">\n' +
+                '        <div class="card-bg" :style="[cardBgTransform, cardBgImage]"></div>\n' +
+                '        <div class="card-info">\n' +
+                '          <slot name="header"></slot>\n' +
+                '          <slot name="content"></slot>\n' +
+                '        </div>\n' +
+                '      </div>\n' +
+                '</div>',
+            mounted: function mounted() {
+                this.width = this.$refs.card.offsetWidth;
+                this.height = this.$refs.card.offsetHeight;
+            },
 
-        props: ['dataImage'],
-        data: function data() {
-            return {
-                width: 0,
-                height: 0,
-                mouseX: 0,
-                mouseY: 0,
-                mouseLeaveDelay: null
-            };
-        },
-        computed: {
-            mousePX: function mousePX() {
-                return this.mouseX / this.width;
-            },
-            mousePY: function mousePY() {
-                return this.mouseY / this.height;
-            },
-            cardStyle: function cardStyle() {
-                var rX = this.mousePX * 30;
-                var rY = this.mousePY * -30;
+            props: ['dataImage'],
+            data: function data() {
                 return {
-                    transform: 'rotateY(' + rX + 'deg) rotateX(' + rY + 'deg)'
+                    width: 0,
+                    height: 0,
+                    mouseX: 0,
+                    mouseY: 0,
+                    mouseLeaveDelay: null
                 };
             },
-            cardBgTransform: function cardBgTransform() {
-                var tX = this.mousePX * -40;
-                var tY = this.mousePY * -40;
-                return {
-                    transform: 'translateX(' + tX + 'px) translateY(' + tY + 'px)'
-                };
-            },
-            cardBgImage: function cardBgImage() {
-                return {
-                    backgroundImage: 'url(' + this.dataImage + ')'
-                };
-            }
-        },
-        methods: {
-            onView: function(event) {
-                console.log(this.dataImage)
-                this.$emit('change-page', this.dataImage);
-            },
-            handleMouseMove: function handleMouseMove(e) {
-                this.mouseX = e.pageX - this.$refs.card.offsetLeft - this.width / 2;
-                this.mouseY = e.pageY - this.$refs.card.offsetTop - this.height / 2;
-            },
-            handleMouseEnter: function handleMouseEnter() {
-                clearTimeout(this.mouseLeaveDelay);
-            },
-            handleMouseLeave: function handleMouseLeave() {
-                var _this = this;
-
-                this.mouseLeaveDelay = setTimeout(function() {
-                    _this.mouseX = 0;
-                    _this.mouseY = 0;
-                }, 1000);
-            }
-        }
-    });
-
-
-
-    Vue.component('Modal', {
-        template: '#modal-template',
-        props: ['show'],
-        methods: {
-            close: function() {
-                this.$emit('close');
-            }
-        },
-        mounted: function() {
-            document.addEventListener("keydown", (e) => {
-                if (this.show && e.keyCode == 27) {
-                    this.close();
+            computed: {
+                mousePX: function mousePX() {
+                    return this.mouseX / this.width;
+                },
+                mousePY: function mousePY() {
+                    return this.mouseY / this.height;
+                },
+                cardStyle: function cardStyle() {
+                    var rX = this.mousePX * 30;
+                    var rY = this.mousePY * -30;
+                    return {
+                        transform: 'rotateY(' + rX + 'deg) rotateX(' + rY + 'deg)'
+                    };
+                },
+                cardBgTransform: function cardBgTransform() {
+                    var tX = this.mousePX * -40;
+                    var tY = this.mousePY * -40;
+                    return {
+                        transform: 'translateX(' + tX + 'px) translateY(' + tY + 'px)'
+                    };
+                },
+                cardBgImage: function cardBgImage() {
+                    return {
+                        backgroundImage: 'url(' + this.dataImage + ')'
+                    };
                 }
-            });
-        }
-    });
-
-
-    Vue.component('NewCommentModal', {
-        template: '#new-comment-modal-template',
-        props: ['show', 'photosrc'],
-        data: function() {
-            return {
-                comment: ''
-            };
-        },
-        methods: {
-            close: function() {
-                this.$emit('close');
-                this.comment = '';
             },
-            getWidth: function() {
-                // Some save logic goes here...
+            methods: {
+                onView: function (event) {
+                    //console.log(this.dataImage)
+                    this.$emit('change-page', this.dataImage);
+                },
+                handleMouseMove: function handleMouseMove(e) {
+                    this.mouseX = e.pageX - this.$refs.card.offsetLeft - this.width / 2;
+                    this.mouseY = e.pageY - this.$refs.card.offsetTop - this.height / 2;
+                },
+                handleMouseEnter: function handleMouseEnter() {
+                    clearTimeout(this.mouseLeaveDelay);
+                },
+                handleMouseLeave: function handleMouseLeave() {
+                    var _this = this;
 
-                return Math.floor((0.69* window.innerWidth)) + "px";
+                    this.mouseLeaveDelay = setTimeout(function () {
+                        _this.mouseX = 0;
+                        _this.mouseY = 0;
+                    }, 1000);
+                }
             }
-        }
-    });
+        });
 
 
 
-    var app = new Vue({
-        el: '#app',
-        methods: {
-            changePage: function(page) {
-                this.curpage = page;
-                this.showNewCommentModal = true;
+        Vue.component('Modal', {
+            template: '#modal-template',
+            props: ['show'],
+            methods: {
+                close: function () {
+                    this.$emit('close');
+                }
+            },
+            mounted: function () {
+                document.addEventListener("keydown", (e) => {
+                    if (this.show && e.keyCode == 27) {
+                        this.close();
+                    }
+                });
             }
-        },
-        data: {
-            showNewPostModal: false,
-            showNewCommentModal: false,
-            curpage: ''
-        }
-    });
-    </script>
-    <script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        });
 
-    ga('create', 'UA-361215-3', 'auto');
-    ga('send', 'pageview');
+
+        Vue.component('NewCommentModal', {
+            template: '#new-comment-modal-template',
+            props: ['show', 'photosrc'],
+            data: function () {
+                return {
+                    comment: ''
+                };
+            },
+            methods: {
+                close: function () {
+                    this.$emit('close');
+                    this.comment = '';
+                },
+                getWidth: function () {
+                    // Some save logic goes here...
+
+                    return Math.floor((0.69 * window.innerWidth)) + "px";
+                }
+            }
+        });
+
+
+
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                changePage: function (page) {
+                    this.curpage = page;
+                    this.showNewCommentModal = true;
+                },
+                dokiclick: function (doki) {
+
+                    this.animateJump(doki)
+                },
+                animateJump: function (doki) {
+                    let that = this;
+                    that[doki + 'Jumping'] = !that[doki + 'Jumping'];
+                    window.setTimeout(function () {
+                        that[doki + 'Jumping'] = !that[doki + 'Jumping'];
+                    }, 3000);
+
+                }
+            },
+            data: {
+                showNewPostModal: false,
+                showNewCommentModal: false,
+                curpage: '',
+                natsukiJumping: false,
+                monikaJumping: false,
+                yuriJumping: false,
+                sayoriJumping: false,
+            },
+
+            mounted: function () {
+                let that = this;
+                window.setTimeout(function () {
+                    that.animateJump('natsuki')
+                }, 1800);
+
+                window.setTimeout(function () {
+                    that.animateJump('monika')
+                }, 5000);
+
+                window.setTimeout(function () {
+                    that.animateJump('sayori')
+                }, 9000);
+
+                window.setTimeout(function () {
+                    that.animateJump('yuri')
+                }, 11000);
+            }
+        });
     </script>
 </body>
-
 </html>
