@@ -338,7 +338,60 @@
   animation: jump 0.5s linear alternate 2;
 }
 
-
+  .mdv-modal-fullscreen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+  }
+  .mdv-modal-fullscreen .mdv-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+  }
+  .mdv-modal-fullscreen .mdv-modal-header {
+    padding: 21.2px 0px;
+  }
+  .mdv-modal-fullscreen .mdv-modal-body {
+    height: calc(100vh - 130px);
+    max-height: inherit;
+  }
+  .mdv-modal-fullscreen .mdv-modal-body {
+    height: calc(100vh - 130px);
+    max-height: inherit;
+  }
+  .mdv-show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+    z-index: 99999;
+  }
+  .mdv-modal-scrollable {
+    overflow-y: auto;
+  }
+  .centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    }
+    .clickable:hover{
+        cursor: pointer;
+    }
     </style>
 </head>
 
@@ -361,6 +414,19 @@
             </card>
             <new-comment-modal v-bind:photosrc="curpage" :show="showNewCommentModal" @close="showNewCommentModal = false"></new-comment-modal>
         </div>
+
+        <div class="mdv-modal-fullscreen" :class="{ 'mdv-show': showFullscreen }">
+            <div class="mdv-modal-content">
+
+                <div class="mdv-modal-body" :class="{ 'mdv-modal-scrollable': false }">
+                    <img v-if="showStatic" src="tenor.gif" v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }" />
+                    <img v-if="showStatic" src="justmonika.png" class="centered clickable" @click="onJustMonikaClick" />
+                    <img v-if="!showStatic" src="dokimonika.jpg" v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }" />
+                </div>
+
+            </div>
+        </div>
+
         <div id="footer">
 
         </div>
@@ -368,16 +434,16 @@
         <div id="bottom-left"></div>
         <div class="bottom-right">
             <div v-bind:class="{dokidoki:true ,jump: natsukiJumping }">
-                <img src="natsuki.png" @click="dokiclick('natsuki')" />
+                <img src="natsuki.png" @click="dokiclick('natsuki')" class="clickable" />
             </div>
             <div v-bind:class="{dokidoki:true ,jump: sayoriJumping }">
-                <img src="sayori.png" @click="dokiclick('sayori')" />
+                <img src="sayori.png" @click="dokiclick('sayori')" class="clickable" />
             </div>
             <div v-bind:class="{dokidoki:true ,jump: monikaJumping }">
-                <img src="monika.png" @click="dokiclick('monika')" />
+                <img src="monika.png" @click="dokiclick('monika')" class="clickable" />
             </div>
             <div v-bind:class="{dokidoki:true ,jump: yuriJumping }">
-                <img src="yuri.png" @click="dokiclick('yuri')" />
+                <img src="yuri.png" @click="dokiclick('yuri')" class="clickable" />
             </div>
         </div>
     </div>
@@ -517,8 +583,6 @@
                     this.comment = '';
                 },
                 getWidth: function () {
-                    // Some save logic goes here...
-
                     return Math.floor((0.69 * window.innerWidth)) + "px";
                 }
             }
@@ -539,11 +603,15 @@
                 },
                 animateJump: function (doki) {
                     let that = this;
+                    if (doki === 'monika') that.monikaclicked++;
                     that[doki + 'Jumping'] = !that[doki + 'Jumping'];
                     window.setTimeout(function () {
                         that[doki + 'Jumping'] = !that[doki + 'Jumping'];
                     }, 3000);
 
+                },
+                onJustMonikaClick: function () {
+                    this.showStatic = false;
                 }
             },
             data: {
@@ -554,9 +622,19 @@
                 monikaJumping: false,
                 yuriJumping: false,
                 sayoriJumping: false,
+                monikaclicked: 0,
+                windowwidth: 0,
+                windowheight: 0,
+                showStatic: true,
             },
-
+            computed: {
+                showFullscreen: function () {
+                    return this.monikaclicked > 4;
+                }
+            },
             mounted: function () {
+                this.windowheight = window.innerHeight;
+                this.windowwidth = window.innerWidth;
                 let that = this;
                 window.setTimeout(function () {
                     that.animateJump('natsuki')
