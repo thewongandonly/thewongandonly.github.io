@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>David Wong</title>
@@ -399,15 +400,15 @@
 
     <div id="app">
         <div class="container">
-            <card data-image="amsterdam07.png" v-on:change-page="changePage">
+            <card v-if="showAmsterdam" data-image="amsterdam07.png" v-on:change-page="changePage">
                 <h1 slot="header">Amsterdam</h1>
                 <p slot="content">Somehow, somewhere, </p>
             </card>
-            <card data-image="wongs.png" v-on:change-page="changePage">
+            <card v-if="showParis" data-image="wongs.png" v-on:change-page="changePage">
                 <h1 slot="header">Paris</h1>
                 <p slot="content">something went ...</p>
             </card>
-            <card data-image="torontobbq.jpg" v-on:change-page="changePage">
+            <card v-if="showToronto" data-image="torontobbq.jpg" v-on:change-page="changePage">
                 <h1 slot="header">Toronto</h1>
                 <p slot="content">terribly Wrong.</p>
             </card>
@@ -597,12 +598,12 @@
                     this.showNewCommentModal = true;
                 },
                 dokiclick: function (doki) {
-
-                    this.animateJump(doki)
+                    if (doki === 'monika') this.onMonikaClick();
+                    this.animateJump(doki);
                 },
                 animateJump: function (doki) {
                     let that = this;
-                    if (doki === 'monika') that.monikaclicked++;
+
                     that[doki + 'Jumping'] = !that[doki + 'Jumping'];
                     window.setTimeout(function () {
                         that[doki + 'Jumping'] = !that[doki + 'Jumping'];
@@ -611,6 +612,29 @@
                 },
                 onJustMonikaClick: function () {
                     this.showStatic = false;
+                },
+                onMonikaClick: function () {
+                    let that = this;
+                    this.monikaclicked++;
+                    if (this.monikaclicked == 3) {
+                        window.setTimeout(function () {
+                            that.showToronto = false;
+
+                            window.setTimeout(function () {
+                                that.showAmsterdam = false;
+
+                                window.setTimeout(function () {
+                                    that.showParis = false;
+                                    window.setTimeout(function () {
+                                        that.showFullscreen = true;
+                                    }, 1800);
+
+                                }, 2800);
+
+                            }, 4800);
+
+                        }, 1800);
+                    }
                 }
             },
             data: {
@@ -625,12 +649,11 @@
                 windowwidth: 0,
                 windowheight: 0,
                 showStatic: true,
-            },
-            computed: {
-                showFullscreen: function () {
-                    return this.monikaclicked > 4;
-                }
-            },
+                showAmsterdam: true,
+                showParis: true,
+                showToronto: true,
+                showFullscreen: false,
+            }, 
             mounted: function () {
                 this.windowheight = window.innerHeight;
                 this.windowwidth = window.innerWidth;
@@ -654,4 +677,5 @@
         });
     </script>
 </body>
+
 </html>
