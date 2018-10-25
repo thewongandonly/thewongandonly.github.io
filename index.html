@@ -610,8 +610,8 @@
                 onJustMonikaClick: function () {
                     let that = this;
                     this.showStatic = false;
-                    this.playSound("BGM03g.mp3");
-
+                    
+                    that.dispatch(300, function () { that.playSound("BGM03g.mp3"); });
                     that.dispatch(4900, function () {
                     that.dokislides = "windows-8-blue-screen-of-death.jpg";
                         that.dispatch(5100, function () { that.dokislides = "Eron-Rauch-Doki-Doki-Screen-Sculpture-1.jpg"; });
