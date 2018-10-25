@@ -421,7 +421,7 @@
                 <div class="mdv-modal-body" :class="{ 'mdv-modal-scrollable': false }">
                     <img v-if="showStatic" src="tenor.gif" v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }" />
                     <img v-if="showStatic" src="justmonika.png" class="centered clickable" @click="onJustMonikaClick" />
-                    <img v-if="!showStatic" src="dokimonika.jpg" v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }" />
+                    <img v-if="!showStatic" :src="dokislides" v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }" />
                 </div>
 
             </div>
@@ -611,7 +611,15 @@
 
                 },
                 onJustMonikaClick: function () {
+                    let that = this;
                     this.showStatic = false;
+                    window.setTimeout(function () {
+                        that.dokislides = "windows-8-blue-screen-of-death.jpg";
+                        window.setTimeout(function () {
+                            that.dokislides = "Eron-Rauch-Doki-Doki-Screen-Sculpture-1.jpg";
+                        }, 5800);
+                    }, 3800);
+
                 },
                 onMonikaClick: function () {
                     let that = this;
@@ -653,7 +661,8 @@
                 showParis: true,
                 showToronto: true,
                 showFullscreen: false,
-            }, 
+                dokislides: "dokimonika.jpg"
+            },
             mounted: function () {
                 this.windowheight = window.innerHeight;
                 this.windowwidth = window.innerWidth;
