@@ -605,43 +605,45 @@
                     let that = this;
 
                     that[doki + 'Jumping'] = !that[doki + 'Jumping'];
-                    window.setTimeout(function () {
-                        that[doki + 'Jumping'] = !that[doki + 'Jumping'];
-                    }, 3000);
-
+                    that.dispatch(3100, function () { that[doki + 'Jumping'] = !that[doki + 'Jumping']; });
                 },
                 onJustMonikaClick: function () {
                     let that = this;
                     this.showStatic = false;
-                    window.setTimeout(function () {
-                        that.dokislides = "windows-8-blue-screen-of-death.jpg";
-                        window.setTimeout(function () {
-                            that.dokislides = "Eron-Rauch-Doki-Doki-Screen-Sculpture-1.jpg";
-                        }, 5800);
-                    }, 3800);
+                    this.playSound("BGM03g.mp3");
 
+                    that.dispatch(4900, function () {
+                    that.dokislides = "windows-8-blue-screen-of-death.jpg";
+                        that.dispatch(5100, function () { that.dokislides = "Eron-Rauch-Doki-Doki-Screen-Sculpture-1.jpg"; });
+                    });
+                },
+                playSound(sound) {
+                    if (sound) {
+                        var audio = new Audio(sound);
+                        audio.play();
+                    }
+                },
+                dispatch: function (timeout, callback) {
+                    window.setTimeout(function () {
+                        callback();
+                    }, timeout);
                 },
                 onMonikaClick: function () {
                     let that = this;
                     this.monikaclicked++;
                     if (this.monikaclicked == 3) {
-                        window.setTimeout(function () {
+
+                        that.dispatch(1800, function () {
                             that.showToronto = false;
-
-                            window.setTimeout(function () {
+                            that.dispatch(4400, function () {
                                 that.showAmsterdam = false;
-
-                                window.setTimeout(function () {
+                                that.dispatch(2800, function () {
                                     that.showParis = false;
-                                    window.setTimeout(function () {
-                                        that.showFullscreen = true;
-                                    }, 1800);
+                                    that.dispatch(1800, function () { that.showFullscreen = true; });
+                                });
+                            });
+                        });
 
-                                }, 2800);
-
-                            }, 4800);
-
-                        }, 1800);
                     }
                 }
             },
@@ -667,21 +669,10 @@
                 this.windowheight = window.innerHeight;
                 this.windowwidth = window.innerWidth;
                 let that = this;
-                window.setTimeout(function () {
-                    that.animateJump('natsuki')
-                }, 1800);
-
-                window.setTimeout(function () {
-                    that.animateJump('monika')
-                }, 5000);
-
-                window.setTimeout(function () {
-                    that.animateJump('sayori')
-                }, 9000);
-
-                window.setTimeout(function () {
-                    that.animateJump('yuri')
-                }, 11000);
+                that.dispatch(1800, function () { that.animateJump('natsuki'); });
+                that.dispatch(4800, function () { that.animateJump('monika'); });
+                that.dispatch(8800, function () { that.animateJump('sayori'); });
+                that.dispatch(10800, function () { that.animateJump('yuri'); });
             }
         });
     </script>
