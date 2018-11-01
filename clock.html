@@ -43,15 +43,11 @@
             var s = today.getSeconds();
             m = checkTime(m);
             s = checkTime(s);
-
+/*
             $jsonp.send('http://worldclockapi.com/api/jsonp/cet/now?callback=mycallback', {
                 callbackName: 'mycallback',
                 onSuccess: function (json) {
-                    /*
-                    currentDateTime: "2018-11-01T19:58+01:00"
-        currentFileTime: 131855758846419680
-        dayOfTheWeek: "Thursday"
-                    */
+ 
                     if (!!json) {
                         today = new Date(json.currentDateTime);
                         if (!!today) {
@@ -74,7 +70,7 @@
                 timeout: 5
             });
 
-
+*/
 
             document.getElementById('txt').innerHTML =
                 h + ":" + m;//+ ":" + s;
