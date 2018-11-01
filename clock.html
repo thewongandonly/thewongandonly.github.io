@@ -1,39 +1,110 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<script>
-function startTime() {
-    var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('txt').innerHTML =
-    h + ":" + m ;//+ ":" + s;
-    var t = setTimeout(startTime, 66000);
-}
-function checkTime(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
-}
-</script>
-<style>
-body{
-    background-color: black;
-    color:antiquewhite;
-}
-.centered {
-    text-align:center;
-display:block;
-  
-}
-</style>
+    <script>
+
+
+
+        var $jsonp = (function () {
+            var that = {};
+
+            that.send = function (src, options) {
+                var callback_name = options.callbackName || 'callback',
+                    on_success = options.onSuccess || function () { },
+                    on_timeout = options.onTimeout || function () { },
+                    timeout = options.timeout || 10; // sec
+
+                var timeout_trigger = window.setTimeout(function () {
+                    window[callback_name] = function () { };
+                    on_timeout();
+                }, timeout * 1000);
+
+                window[callback_name] = function (data) {
+                    window.clearTimeout(timeout_trigger);
+                    on_success(data);
+                }
+
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.async = true;
+                script.src = src;
+
+                document.getElementsByTagName('head')[0].appendChild(script);
+            }
+
+            return that;
+        })();
+
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+
+            $jsonp.send('http://worldclockapi.com/api/jsonp/cet/now?callback=mycallback', {
+                callbackName: 'mycallback',
+                onSuccess: function (json) {
+                    /*
+                    currentDateTime: "2018-11-01T19:58+01:00"
+        currentFileTime: 131855758846419680
+        dayOfTheWeek: "Thursday"
+                    */
+                    if (!!json) {
+                        today = new Date(json.currentDateTime);
+                        if (!!json) {
+                            h = today.getHours();
+                            m = today.getMinutes();
+                            s = today.getSeconds();
+                            m = checkTime(m);
+                            s = checkTime(s);
+                            document.getElementById('txt').innerHTML =
+                                h + ":" + m;//+ ":" + s;
+
+                            document.getElementById('txt2').innerHTML = json.dayOfTheWeek + " " + today.toLocaleDateString();;
+                        }
+                    }
+                    console.log('success!', json);
+                },
+                onTimeout: function () {
+                    console.log('timeout!');
+                },
+                timeout: 5
+            });
+
+
+
+            document.getElementById('txt').innerHTML =
+                h + ":" + m;//+ ":" + s;
+
+
+
+            var t = setTimeout(startTime, 66000);
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+    </script>
+    <style>
+        body {
+            background-color: black;
+            color: #B0E0E6;
+        }
+
+        .centered {
+            text-align: center;
+            display: block;
+
+        }
+    </style>
 </head>
 
 <body onload="startTime()">
-
-<div id="txt" class="centered" style="font-size: 9em;"></div>
-
+    <div id="txt" class="centered" style="font-size: 9em;"></div>
+    <div id="txt2" class="centered" style="font-size: 1.1em;"></div>
 </body>
+
 </html>
