@@ -70,8 +70,7 @@
 
 */
 
-            document.getElementById('txt').innerHTML =
-                h + ":" + m;//+ ":" + s;
+            document.getElementById('txt').innerHTML = convertText( h + ":" + m);
 
 
 
@@ -81,6 +80,97 @@
             if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
             return i;
         }
+        
+
+function convertText(srcText) {
+  //var srcText = document.getElementById( 'src' ).value;
+  var out = '';
+  var chArray = srcText.split('');
+  // strike text:
+  for( var i in chArray ) {
+    out += chArray[i] + '\u0336';
+  }
+  //document.getElementById( 'strike' ).value = out;
+  // mirror text:
+  var mirrorHash = {
+    'A': 'A',
+    'B': '\u1660',
+    'C': '\u0186',
+    'D': '\u15E1',
+    'E': '\u018E',
+    'F': '\u15B7',
+    'G': '\u13AE',  // need better G
+    'H': 'H',
+    'I': 'I',
+    'J': '\u10B1',
+    'K': '\u1434',
+    'L': '\u2143',
+    'M': 'M',
+    'N': '\u0418',
+    'O': 'O',
+    'P': '\uA7FC',  //  may be \u146B
+    'Q': '\u1ECC',
+    'R': '\u042F',
+    'S': '\u01A7',
+    'T': 'T',
+    'U': 'U',
+    'V': 'V',
+    'W': 'W',
+    'X': 'X',
+    'Y': 'Y',
+    'Z': '\u01B8',
+    'a': '\u0252',
+    'b': 'd',
+    'c': '\u0254',
+    'd': 'b',
+    'e': '\u0258',
+    'f': '\u0287',
+    'g': '\u01EB',
+    'h': '\u029C',
+    'i': 'i',
+    'j': '\u10B1',
+    'k': '\u029E',
+    'l': 'l',
+    'm': 'm',
+    'n': 'n',
+    'o': 'o',
+    'p': 'q',
+    'q': 'p',
+    'r': '\u027F',
+    's': '\u01A8',
+    't': '\u019A',
+    'u': 'u',
+    'v': 'v',
+    'w': 'w',
+    'x': 'x',
+    'y': 'y',   // need better y
+    'z': 'z',   // need better z
+    '0': '0',
+    '1': '1',   // need better 1
+    '2': '2',   // need better 
+    '3': '\u01B8',
+    '4': '4',   // need better 4
+    '5': '5',   // need better 5
+    '6': '6',   // need better 6
+    '7': '7',   // need better 7
+    '?': '\u241A',
+    ';': '\u204F',
+  }
+  out = '';
+  ch = '';
+  for( var i in chArray ) {
+    ch = chArray[i];
+    if( mirrorHash[ch] ) {
+      out += mirrorHash[ch];
+    } else {
+      out += ch;
+    }
+  }
+ return out.split("").reverse().join("");
+  
+}
+        
+        
     </script>
     <style>
         body {
