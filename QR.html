@@ -796,17 +796,17 @@ var QRCode;
   <input type="text" name="name" class="question" id="text" required autocomplete="off" />	
 	<br />
 	<div id="outer">  
-    <div id="inner">QR
+    <div id="inner">
 
-<div id="qrcode" style="width:200px; height:200px; margin-top:15px;"></div>		
+         <div id="qrcode" style="width:200px; height:200px; margin-top:15px;"></div>		
 </div>
 </div>
 	
 
 <script type="text/javascript">
 var qrcode = new QRCode(document.getElementById("qrcode"), {
-	width : 300,
-	height : 300
+	width : 200,
+	height : 200
 });
 
 function makeCode () {		
