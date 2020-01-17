@@ -510,7 +510,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
         v-if="showbox"
         class="box box-1"
         :style="{  top: boxbeforetop + 'px', width:  boxdiameter+'px', height:  boxdiameter+'px' }"
-      ></div>
+      ><div style="background-color: transparent;height:300px" @click="tweenMaxBox"> </div></div>
 
       <div class="container" v-show="showPhotos">
         <card
@@ -803,11 +803,20 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             }
           },
           tweenBox: function() {
-            this.boxdiameter = this.boxdiameter - 12;
+            this.boxdiameter = Math.max(this.boxdiameter - 33, 300-1);
             let that = this;
             if (this.boxdiameter > 300) {
               that.dispatch(150, function() {
                 that.tweenBox();
+              });
+            }
+          },
+          tweenMaxBox: function() {
+            this.boxdiameter = this.boxdiameter + 80;
+            let that = this;
+            if (this.boxdiameter < 3000) {
+              that.dispatch(200, function() {
+                that.tweenMaxBox();
               });
             }
           }
@@ -855,7 +864,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           that.dispatch(10800, function() {
             that.animateJump("yuri");
           });
-          that.dispatch(18100, function() {
+          that.dispatch(15500, function() {
             if (that.monikaclicked !== 0 || that.showPhotos) return;
             that.showbox = true;
             that.tweenBox();
