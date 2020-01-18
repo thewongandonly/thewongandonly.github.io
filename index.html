@@ -308,7 +308,7 @@
         z-index: 6;
         transform: translate(-50%, -50%);
 
-        border: solid 1400px rgba(236, 236, 236, 0.95);
+        border: solid 4400px rgba(236, 236, 236, 0.95);
         border-radius: 50%;
 
         transition: 0.5s ease;
@@ -824,19 +824,19 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             }
           },
           tweenBox: function() {
-            this.boxdiameter = Math.max(this.boxdiameter - 33, 300 - 1);
+            this.boxdiameter = Math.max(this.boxdiameter - 133, 300 - 1);
             let that = this;
             if (this.boxdiameter > 300) {
-              that.dispatch(150, function() {
+              that.dispatch(100, function() {
                 that.tweenBox();
               });
             }
           },
           tweenMaxBox: function() {
-            this.boxdiameter = this.boxdiameter + 80;
+            this.boxdiameter = this.boxdiameter + 133;
             let that = this;
             if (this.boxdiameter < 3000) {
-              that.dispatch(200, function() {
+              that.dispatch(100, function() {
                 that.tweenMaxBox();
               });
             }
@@ -890,8 +890,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           that.dispatch(10800, function() {
             that.animateJump("yuri");
           });
-          that.dispatch(100, function() {
-            if (that.monikaclicked !== 0 || that.showPhotos) return;
+          that.dispatch(50, function() {
             that.showbox = true;
             that.tweenBox();
           });
