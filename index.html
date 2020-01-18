@@ -512,7 +512,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
 -->
   </head>
 
-  <body>
+  <body style="visibility: hidden;" onload="js_Load()">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <div id="app">
       <div
@@ -642,8 +642,6 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
       </modal>
     </script>
     <script>
-      //Vue.config.devtools = true;
-
       Vue.component("card", {
         template:
           '<div class="card-wrap"\n v-on:click.prevent="onView" ' +
@@ -898,6 +896,8 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           });
         }
       });
+
+      document.body.style.visibility = "visible";
     </script>
   </body>
 </html>
