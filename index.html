@@ -320,14 +320,24 @@
         display: inline-block;
       }
 
-      /*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
+      .box-right {
+        position: fixed;
+        z-index: 12;
+        bottom: 402px;
+        width: 250px;
+        left: 401px;
+        font-size: larger;
+      }
+
+      .fade-enter-active,
+      .fade-leave-active {
+        transition: opacity 2.2s ease-out;
+      }
+
+      .fade-enter,
+      .fade-leave-to {
+        opacity: 0;
+      }
 
       .modal-enter {
         opacity: 0;
@@ -503,14 +513,18 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
   </head>
 
   <body>
-    <script src="https://unpkg.com/vue@2.4.2"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <div id="app">
       <div
         v-if="showbox"
         class="box box-1"
         :style="{  top: boxbeforetop + 'px', width:  boxdiameter+'px', height:  boxdiameter+'px' }"
-      ><div style="background-color: transparent;height:300px" @click="tweenMaxBox"> </div></div>
+      >
+        <div
+          style="background-color: transparent;height:300px"
+          @click="tweenMaxBox"
+        ></div>
+      </div>
 
       <div class="container" v-show="showPhotos">
         <card
@@ -599,6 +613,13 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           <img src="yuri.png" @click="dokiclick('yuri')" class="clickable" />
         </div>
       </div>
+
+      <transition name="fade">
+        <div v-if="boxrightshow" class="box-right">
+          <h1>David Wong</h1>
+          The Wong and Only
+        </div>
+      </transition>
     </div>
     <script type="x/template" id="modal-template">
       <transition name="modal">
@@ -803,7 +824,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             }
           },
           tweenBox: function() {
-            this.boxdiameter = Math.max(this.boxdiameter - 33, 300-1);
+            this.boxdiameter = Math.max(this.boxdiameter - 33, 300 - 1);
             let that = this;
             if (this.boxdiameter > 300) {
               that.dispatch(150, function() {
@@ -845,6 +866,11 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           boxbeforetop: -9999,
           boxdiameter: 2800
         },
+        computed: {
+          boxrightshow: function() {
+            return this.showbox && this.boxdiameter < 321;
+          }
+        },
         mounted: function() {
           this.windowheight = window.innerHeight;
           this.windowwidth = window.innerWidth;
@@ -864,7 +890,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           that.dispatch(10800, function() {
             that.animateJump("yuri");
           });
-          that.dispatch(15500, function() {
+          that.dispatch(14500, function() {
             if (that.monikaclicked !== 0 || that.showPhotos) return;
             that.showbox = true;
             that.tweenBox();
