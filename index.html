@@ -860,13 +860,16 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           showToronto: true,
           showFullscreen: false,
           dokislides: "dokimonika.jpg",
-          showbox: false,
+
           boxwidth: 10000,
           boxheight: 10000,
           boxbeforetop: -9999,
           boxdiameter: 2800
         },
         computed: {
+          showbox: function() {
+            return this.boxdiameter < this.windowwidth + 100;
+          },
           boxrightshow: function() {
             return this.showbox && this.boxdiameter < 321;
           }
@@ -891,7 +894,6 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             that.animateJump("yuri");
           });
           that.dispatch(50, function() {
-            that.showbox = true;
             that.tweenBox();
           });
         }
