@@ -1815,10 +1815,10 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             }
           },
           tweenMaxBox: function() {
-            this.boxdiameter = this.boxdiameter + 33;
+            this.boxdiameter = this.boxdiameter + 83;
             let that = this;
             if (this.boxdiameter < this.windowwidth * 3.3) {
-              that.dispatch(10, function() {
+              that.dispatch(50, function() {
                 that.tweenMaxBox();
               });
             }
