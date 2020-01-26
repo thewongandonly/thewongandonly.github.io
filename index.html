@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <base href="http://thewongandonly.com/" target="_blank">
     <meta charset="utf-8" />
     <title>David Wong</title>
     <link
@@ -360,39 +361,52 @@
 
       #footer {
         position: fixed;
-        right: 0px;
-        bottom: 0px;
+        right: 3px;
+        bottom: 7px;
         height: 70px;
-        width: 580px;
+        width: 550px;
         background-image: url("http://thewongandonly.com/tilebg.png");
         background-size: 19px;
         background-repeat: repeat;
-        border-top-left-radius: 50%;
-        border-top-right-radius: 50%;
+        border-top-left-radius: 18px;
+        border-top-right-radius: 18px;
+
+        border-bottom-right-radius: 18px;
+
+        border-bottom-left-radius: 18px;
+        border: 4px solid rgba(251, 224, 242, 0.95);
       }
+
       .bottom-right {
         position: fixed;
         bottom: 0;
         width: 100%;
         padding-right: 30px;
+        padding-bottom: 14px;
       }
+
       .bottom-right img {
         max-width: 60%;
       }
+
       .dokidoki {
         float: right;
       }
+
       @keyframes jump {
         0% {
           transform: translate3d(0, 0%, 0) scale3d(1, 1, 1);
         }
+
         50% {
           transform: translate3d(0, -98%, 0) scale3d(0.97, 1.05, 1);
         }
+
         100% {
           transform: translate3d(0, 0%, 0) scale3d(1.05, 0.97, 1);
         }
       }
+
       .jump {
         transform-origin: 50% 50%;
         animation: jump 0.5s linear alternate 2;
@@ -411,6 +425,7 @@
         transition: visibility 0s linear 0.25s, opacity 0.25s 0s,
           transform 0.25s;
       }
+
       .mdv-modal-fullscreen .mdv-modal-content {
         position: absolute;
         top: 50%;
@@ -422,17 +437,21 @@
         padding: 1rem 1.5rem;
         border-radius: 0.5rem;
       }
+
       .mdv-modal-fullscreen .mdv-modal-header {
         padding: 21.2px 0px;
       }
+
       .mdv-modal-fullscreen .mdv-modal-body {
         height: calc(100vh - 130px);
         max-height: inherit;
       }
+
       .mdv-modal-fullscreen .mdv-modal-body {
         height: calc(100vh - 130px);
         max-height: inherit;
       }
+
       .mdv-show {
         opacity: 1;
         visibility: visible;
@@ -440,9 +459,11 @@
         transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
         z-index: 99999;
       }
+
       .mdv-modal-scrollable {
         overflow-y: auto;
       }
+
       .centered {
         position: fixed;
         top: 50%;
@@ -450,6 +471,7 @@
         /* bring your own prefixes */
         transform: translate(-50%, -50%);
       }
+
       .clickable:hover {
         cursor: pointer;
       }
@@ -1521,7 +1543,8 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           v-bind:photosrc="curpage"
           :show="showNewCommentModal"
           @close="showNewCommentModal = false"
-        ></new-comment-modal>
+        >
+        </new-comment-modal>
       </div>
 
       <div class="mdv-modal-fullscreen" :class="{ 'mdv-show': showFullscreen }">
@@ -1707,7 +1730,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
 
       Vue.component("santa", {
         template:
-          '<transition name="fade"><div v-if="show" @click="close" class="windowsanta"><div class="santa"><div class="head"><div class="face"><div class="redhat"><div class="whitepart"></div><div class="redpart"></div><div class="hatball"></div></div><div class="eyes"></div><div class="beard"><div class="nouse"></div><div class="mouth"></div></div></div><div class="ears"></div></div><div class="body"></div></div></transition>',
+          '<transition name="fade"><div v-if="show" @click="close" class="windowsanta"><div class="santa"><div class="head"><div class="face"><div class="redhat"><div class="whitepart"></div><div class="redpart"></div><div class="hatball"></div></div><div class="eyes"></div><div class="beard"><div class="nouse"></div><div class="mouth"></div></div></div><div class="ears"></div></div><div class="body"></div></div></div></transition>',
         props: ["show"],
         methods: {
           close: function() {
