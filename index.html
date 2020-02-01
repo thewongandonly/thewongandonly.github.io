@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="http://thewongandonly.com/" target="_blank">
+    <base href="http://thewongandonly.com/" target="_blank" />
     <meta charset="utf-8" />
     <title>David Wong</title>
     <link
@@ -13,6 +13,11 @@
       rel="icon"
       type="image/png"
       href="http://thewongandonly.com/myicon.png"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1"
+      rel="stylesheet"
+      type="text/css"
     />
     <style>
       body {
@@ -474,6 +479,10 @@
 
       .clickable:hover {
         cursor: pointer;
+      }
+
+      .dinobox {
+        z-index: 999;
       }
 
       /*<h2 class="copyright">pure css Santa Caul made with ♥ by <a href="https://twitter.com/alireza29675" target="_blank">Alireza Sheikholmolouki</a></h2>*/
@@ -1609,6 +1618,13 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           The Wong and Only
         </div>
       </transition>
+      <transition
+        name="custom-classes-transition"
+        enter-active-class="animated tada"
+        leave-active-class="animated bounceOutRight"
+      >
+        <div class="dinobox" v-if="showdino"><img src="dinosaurrr.png" /></div>
+      </transition>
       <santa :show="showsanta" @close="tweenMaxBox" />
     </div>
     <script type="x/template" id="modal-template">
@@ -1845,9 +1861,46 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
                 that.tweenMaxBox();
               });
             }
+          },
+
+          keyHandler: function(event) {
+            let pattern = [
+              "ArrowUp",
+              "ArrowUp",
+              "ArrowDown",
+              "ArrowDown",
+              "ArrowLeft",
+              "ArrowRight",
+              "ArrowLeft",
+              "ArrowRight",
+              "b",
+              "a"
+            ];
+
+            if (
+              pattern.indexOf(event.key) < 0 ||
+              event.key !== pattern[this.current]
+            ) {
+              this.current = 0;
+              return;
+            }
+
+            this.current++;
+
+            if (pattern.length === this.current) {
+              this.current = 0;
+              this.showdino = true;
+              this.tweenMaxBox();
+              let that = this;
+              that.dispatch(3800, function() {
+                that.showdino = false;
+              });
+            }
           }
         },
         data: {
+          current: 0,
+          showdino: false,
           showPhotos: false,
           showNewPostModal: false,
           showNewCommentModal: false,
@@ -1904,6 +1957,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           that.dispatch(50, function() {
             that.tweenBox();
           });
+          document.addEventListener("keydown", this.keyHandler, false);
         }
       });
       function js_Load() {
