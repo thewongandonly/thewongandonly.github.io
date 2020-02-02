@@ -4,11 +4,7 @@
     <base href="http://thewongandonly.com/" target="_blank" />
     <meta charset="utf-8" />
     <title>David Wong</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="http://fonts.googleapis.com/css?family=Raleway"
-    />
+
     <link
       rel="icon"
       type="image/png"
@@ -22,7 +18,8 @@
     <style>
       body {
         margin: 40px 0;
-        font-family: "Raleway";
+        font-family: "Courier New", Courier, monospace, Helvetica, Arial,
+          sans-serif;
         font-size: 14px;
         font-weight: 500;
         background-color: #ffffff;
@@ -30,7 +27,8 @@
       }
 
       .title {
-        font-family: "Raleway";
+        font-family: "Courier New", Courier, monospace, Helvetica, Arial,
+          sans-serif;
         font-size: 24px;
         font-weight: 700;
         color: #5d4037;
@@ -192,7 +190,8 @@
       }
 
       .card-info h1 {
-        font-family: "Playfair Display";
+        font-family: "Courier New", Courier, monospace, Helvetica, Arial,
+          sans-serif;
         font-size: 36px;
         font-weight: 700;
         text-shadow: rgba(0, 0, 0, 0.5) 0 10px 10px;
@@ -294,7 +293,8 @@
         border-radius: 2px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
         transition: all 0.3s ease;
-        font-family: Helvetica, Arial, sans-serif;
+        font-family: "Courier New", Courier, monospace, Helvetica, Arial,
+          sans-serif;
       }
 
       .modal-header h3 {
@@ -331,11 +331,24 @@
         display: inline-block;
       }
 
+      .site__title {
+        color: #f35626;
+        font-style: italic;
+        font-size: 1.4rem;
+        line-height: 1;
+      }
+
+      span.site__title:before,
+      span.site__title:after {
+        content: '"';
+      }
+
       .box-right {
         position: fixed;
         z-index: 12;
-        bottom: 402px;
-        width: 250px;
+        bottom: 270px;
+        width: 355px;
+        height: 205px;
         left: 401px;
         font-size: larger;
       }
@@ -1523,7 +1536,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
         ></div>
       </div>
 
-      <div class="container" v-show="showPhotos">
+      <div class="container" v-if="showPhotos">
         <card
           v-if="showAmsterdam"
           data-image="amsterdam07.png"
@@ -1564,7 +1577,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           >
             <img
               v-if="showStatic"
-              src="tenor.gif"
+              :src="monikasrc"
               v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }"
             />
             <img
@@ -1612,10 +1625,23 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
         </div>
       </div>
 
-      <transition name="fade">
+      <transition
+        name="custom-classes-transition"
+        enter-active-class="animated fadeInDownBig"
+        leave-active-class="animated fadeOut"
+      >
         <div v-if="boxrightshow" class="box-right">
           <h1>David Wong</h1>
           The Wong and Only
+          <transition
+            name="custom-classes-transition"
+            enter-active-class="animated fadeIn"
+            leave-active-class="animated fadeOut"
+          >
+            <span v-if="quotes" style="display: block;padding-top:28px"
+              ><span class="site__title">{{quote}}</span></span
+            >
+          </transition>
         </div>
       </transition>
       <transition
@@ -1623,8 +1649,9 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
         enter-active-class="animated tada"
         leave-active-class="animated bounceOutRight"
       >
-        <div class="dinobox" v-if="showdino"><img src="dinosaurrr.png" /></div>
+        <div class="dinobox" v-if="showdino"><img :src="dinosrc" /></div>
       </transition>
+
       <santa :show="showsanta" @close="tweenMaxBox" />
     </div>
     <script type="x/template" id="modal-template">
@@ -1862,7 +1889,22 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
               });
             }
           },
-
+          delayNextQuote: function(textquote, r) {
+            if (!this.boxrightshow) return;
+            let that = this;
+            let waitline = 1200;
+            let waitread = r || 2950;
+            return new Promise(function(resolve, reject) {
+              that.dispatch(waitread, function() {
+                that.quotes = false;
+                that.dispatch(waitline, function() {
+                  that.quote = textquote;
+                  that.quotes = true;
+                  resolve("success");
+                });
+              });
+            });
+          },
           keyHandler: function(event) {
             let pattern = [
               "ArrowUp",
@@ -1918,13 +1960,21 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           showToronto: true,
           showFullscreen: false,
           dokislides: "dokimonika.jpg",
-
+          startloadpics: false,
           boxwidth: 20000,
           boxheight: 20000,
           boxbeforetop: -9999,
-          boxdiameter: 3800
+          boxdiameter: 3800,
+          quotes: false,
+          quote: ""
         },
         computed: {
+          monikasrc: function() {
+            return this.startloadpics ? "tenor.gif" : "";
+          },
+          dinosrc: function() {
+            return this.startloadpics ? "dinosaurrr.png" : "";
+          },
           showbox: function() {
             return this.boxdiameter < this.windowwidth * 2.5;
           },
@@ -1947,6 +1997,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           });
           that.dispatch(4800, function() {
             that.animateJump("monika");
+            that.startloadpics = true;
           });
           that.dispatch(8800, function() {
             that.animateJump("sayori");
@@ -1957,6 +2008,70 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           that.dispatch(50, function() {
             that.tweenBox();
           });
+          that.dispatch(15500, function() {
+            that.quote = "I don't know who you are.";
+            that.quotes = true;
+
+            that
+              .delayNextQuote("I don't know what you want.")
+              .then(function() {
+                return that.delayNextQuote("If you are looking for ransom...");
+              })
+              .then(function() {
+                return that.delayNextQuote(
+                  "I can tell you I don't have money."
+                );
+              })
+
+              .then(function() {
+                return that.delayNextQuote("But what I do have...");
+              })
+              .then(function() {
+                return that.delayNextQuote(
+                  "are a very particular set of skills."
+                );
+              })
+              .then(function() {
+                return that.delayNextQuote("Skills I have acquired...");
+              })
+              .then(function() {
+                return that.delayNextQuote("over a very long career.");
+              })
+              .then(function() {
+                return that.delayNextQuote("Skills that make me");
+              })
+              .then(function() {
+                return that.delayNextQuote("a nightmare for people like you.");
+              })
+              .then(function() {
+                return that.delayNextQuote("If you let me alone now,");
+              })
+              .then(function() {
+                return that.delayNextQuote("that'll be the end of it.", 4300);
+              })
+              .then(function() {
+                return that.delayNextQuote("I'll not look for you.");
+              })
+              .then(function() {
+                return that.delayNextQuote("I'll not pursue you.");
+              })
+              .then(function() {
+                return that.delayNextQuote("But if you don't...", 4444);
+              })
+              .then(function() {
+                return that.delayNextQuote("I'll look for you.");
+              })
+              .then(function() {
+                return that.delayNextQuote("I'll find you...");
+              })
+              .then(function() {
+                return that.delayNextQuote("and I will spam you.", 5555);
+              })
+              .then(function() {
+                that.quotes = false;
+              });
+          });
+
           document.addEventListener("keydown", this.keyHandler, false);
         }
       });
