@@ -380,7 +380,7 @@
       #footer {
         position: fixed;
         right: 3px;
-        bottom: 7px;
+        bottom: 3px;
         height: 70px;
         width: 550px;
         background-image: url("http://thewongandonly.com/tilebg.png");
@@ -394,10 +394,18 @@
         border-bottom-left-radius: 18px;
         border: 4px solid rgba(251, 224, 242, 0.95);
       }
-
+      .footer-content {
+        position: absolute;
+        font-size: smaller;
+        bottom: 4px;
+        left: 265px;
+        color: rgb(219, 141, 141);
+        font-weight: 900;
+      }
       .bottom-right {
+        height: 2px;
         position: fixed;
-        bottom: 0;
+        bottom: 106px;
         width: 100%;
         padding-right: 30px;
         padding-bottom: 14px;
@@ -1524,7 +1532,8 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
 
   <body style="visibility: hidden;" onload="js_Load()">
     <!--
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+     
+ <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
    -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <div id="app">
@@ -1598,35 +1607,46 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
         </div>
       </div>
 
-      <div id="footer"></div>
+      <div v-if="showdoki" id="footer" @click="dodoki=!dodoki">
+        <span class="footer-content" @click.stop="showdoki=false;dodoki=false"
+          >Skip</span
+        >
+      </div>
 
       <div id="bottom-left"></div>
-      <div class="bottom-right">
-        <div v-bind:class="{dokidoki:true ,jump: natsukiJumping }">
-          <img
-            src="natsuki.png"
-            @click="dokiclick('natsuki')"
-            class="clickable"
-          />
+
+      <transition
+        name="custom-classes-transition"
+        enter-active-class="animated fadeInRightBig"
+        leave-active-class="animated zoomOutDown"
+      >
+        <div v-if="dodoki" class="bottom-right">
+          <div v-bind:class="{dokidoki:true ,jump: natsukiJumping }">
+            <img
+              src="natsuki.png"
+              @click="dokiclick('natsuki')"
+              class="clickable"
+            />
+          </div>
+          <div v-bind:class="{dokidoki:true ,jump: sayoriJumping }">
+            <img
+              src="sayori.png"
+              @click="dokiclick('sayori')"
+              class="clickable"
+            />
+          </div>
+          <div v-bind:class="{dokidoki:true ,jump: monikaJumping }">
+            <img
+              src="monika.png"
+              @click="dokiclick('monika')"
+              class="clickable"
+            />
+          </div>
+          <div v-bind:class="{dokidoki:true ,jump: yuriJumping }">
+            <img src="yuri.png" @click="dokiclick('yuri')" class="clickable" />
+          </div>
         </div>
-        <div v-bind:class="{dokidoki:true ,jump: sayoriJumping }">
-          <img
-            src="sayori.png"
-            @click="dokiclick('sayori')"
-            class="clickable"
-          />
-        </div>
-        <div v-bind:class="{dokidoki:true ,jump: monikaJumping }">
-          <img
-            src="monika.png"
-            @click="dokiclick('monika')"
-            class="clickable"
-          />
-        </div>
-        <div v-bind:class="{dokidoki:true ,jump: yuriJumping }">
-          <img src="yuri.png" @click="dokiclick('yuri')" class="clickable" />
-        </div>
-      </div>
+      </transition>
 
       <transition
         name="custom-classes-transition"
@@ -1893,7 +1913,6 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             }
           },
           delayNextQuote: function(textquote, r) {
-            if (!this.boxrightshow) return;
             let that = this;
             let waitline = 1200;
             let waitread = r || 2950;
@@ -1903,9 +1922,25 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
                 that.dispatch(waitline, function() {
                   that.quote = textquote;
                   that.quotes = true;
-                  resolve("success");
+                  resolve();
                 });
               });
+            });
+          },
+          delayDoki: function() {
+            let that = this;
+            that.dispatch(1800, function() {
+              that.animateJump("natsuki");
+            });
+            that.dispatch(4800, function() {
+              that.animateJump("monika");
+              that.startloadpics = true;
+            });
+            that.dispatch(8800, function() {
+              that.animateJump("sayori");
+            });
+            that.dispatch(10800, function() {
+              that.animateJump("yuri");
             });
           },
           keyHandler: function(event) {
@@ -1946,6 +1981,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
         data: {
           current: 0,
           showdino: false,
+          showdoki: true,
           showPhotos: false,
           showNewPostModal: false,
           showNewCommentModal: false,
@@ -1968,6 +2004,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           boxheight: 20000,
           boxbeforetop: -9999,
           boxdiameter: 3800,
+          dodoki: false,
           quotes: false,
           quote: ""
         },
@@ -1994,22 +2031,16 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           this.boxheight = this.windowheight;
           this.boxwidth = this.windowwidth;
           this.boxbeforetop = this.boxheight - 400;
+
           let that = this;
-          that.dispatch(1800, function() {
-            that.animateJump("natsuki");
-          });
-          that.dispatch(4800, function() {
-            that.animateJump("monika");
+
+          that.dispatch(2150, function() {
             that.startloadpics = true;
-          });
-          that.dispatch(8800, function() {
-            that.animateJump("sayori");
-          });
-          that.dispatch(10800, function() {
-            that.animateJump("yuri");
           });
           that.dispatch(50, function() {
             that.tweenBox();
+            that.dodoki = true;
+            that.delayDoki();
           });
           that.dispatch(15500, function() {
             that.quote = "I don't know who you are.";
