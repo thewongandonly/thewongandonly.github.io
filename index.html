@@ -405,7 +405,7 @@
       .bottom-right {
         height: 2px;
         position: fixed;
-        bottom: 106px;
+        bottom: 119px;
         width: 100%;
         padding-right: 30px;
         padding-bottom: 14px;
@@ -1588,29 +1588,49 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             :class="{ 'mdv-modal-scrollable': false }"
           >
             <img
-              v-if="showStatic"
+              v-if="showStatic && !showbatman"
               :src="monikasrc"
               v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }"
             />
             <img
-              v-if="showStatic"
-              src="justmonika.png"
+              v-if="showStatic && !showbatman"
+              :src="justmonikasrc"
               class="centered clickable"
               @click="onJustMonikaClick"
             />
             <img
-              v-if="!showStatic"
+              v-if="!showStatic && !showbatman"
               :src="dokislides"
               v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }"
             />
+            <img
+              v-if="showbatman"
+              :src="batmansrc"
+              v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }"
+            />
+
+            <transition
+              name="custom-classes-transition"
+              enter-active-class="animated tada"
+              leave-active-class="animated bounceOutRight"
+            >
+              <img v-if="showbatmanpow" :src="batmanpowsrc" class="centered" />
+              <img v-if="showbatmanpop" :src="batmanpopsrc" class="centered" />
+              <img
+                v-if="showbatmanwham"
+                :src="batmanwhamsrc"
+                class="centered"
+              />
+            </transition>
           </div>
         </div>
       </div>
 
       <div v-if="showdoki" id="footer" @click="dodoki=!dodoki">
-        <span class="footer-content" @click.stop="showdoki=false;dodoki=false"
-          >Skip</span
-        >
+        <span class="footer-content"
+          ><span @click.stop="showdoki=false;dodoki=false">Skip </span>
+          <span title="physical" @click.stop="dobatman"> Contact</span>
+        </span>
       </div>
 
       <div id="bottom-left"></div>
@@ -1857,6 +1877,9 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
 
             that.dispatch(300, function() {
               that.playSound("BGM03g.mp3");
+              that.dispatch(28000, function() {
+                that.showFullscreen = false;
+              });
             });
             that.dispatch(4900, function() {
               that.dokislides = "windows-8-blue-screen-of-death.jpg";
@@ -1888,6 +1911,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
                     that.showParis = false;
                     that.dispatch(1800, function() {
                       that.showFullscreen = true;
+                      this.monikaclicked = 0;
                     });
                   });
                 });
@@ -1941,6 +1965,37 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             });
             that.dispatch(10800, function() {
               that.animateJump("yuri");
+            });
+          },
+          dobatman: function() {
+            this.showbatman = true;
+            this.showFullscreen = true;
+
+            let that = this;
+            that.dispatch(1800, function() {
+              that.showbatmanpow = true;
+              that.playSound("slap.mp3");
+              that.dispatch(1800, function() {
+                that.showbatmanpow = false;
+                that.dispatch(1800, function() {
+                  that.showbatmanpop = true;
+                  that.playSound("slap.mp3");
+                  that.dispatch(1800, function() {
+                    that.showbatmanpop = false;
+                    that.dispatch(1800, function() {
+                      that.showbatmanwham = true;
+                      that.playSound("slap.mp3");
+                      that.dispatch(1800, function() {
+                        that.showbatmanwham = false;
+                        that.dispatch(1800, function() {
+                          that.showbatman = false;
+                          that.showFullscreen = false;
+                        });
+                      });
+                    });
+                  });
+                });
+              });
             });
           },
           keyHandler: function(event) {
@@ -1998,6 +2053,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           showParis: true,
           showToronto: true,
           showFullscreen: false,
+          showbatman: false,
           dokislides: "dokimonika.jpg",
           startloadpics: false,
           boxwidth: 20000,
@@ -2006,9 +2062,27 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           boxdiameter: 3800,
           dodoki: false,
           quotes: false,
+          showbatmanpow: false,
+          showbatmanwham: false,
+          showbatmanpop: false,
           quote: ""
         },
         computed: {
+          batmansrc: function() {
+            return this.startloadpics ? "batman.jpg" : "";
+          },
+          batmanpowsrc: function() {
+            return this.startloadpics ? "pow.png" : "";
+          },
+          batmanpopsrc: function() {
+            return this.startloadpics ? "splat.png" : "";
+          },
+          batmanwhamsrc: function() {
+            return this.startloadpics ? "whack.png" : "";
+          },
+          justmonikasrc: function() {
+            return this.startloadpics ? "justmonika.png" : "";
+          },
           monikasrc: function() {
             return this.startloadpics ? "tenor.gif" : "";
           },
