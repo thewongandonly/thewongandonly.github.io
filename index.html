@@ -2027,6 +2027,11 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
               this.showdino = true;
               this.tweenMaxBox();
               let that = this;
+
+              that.dispatch(300, function() {
+                that.playSound("roar.mp3");
+              });
+
               that.dispatch(3800, function() {
                 that.showdino = false;
               });
