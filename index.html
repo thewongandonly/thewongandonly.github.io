@@ -1515,8 +1515,23 @@
         }
       }
       .preloader {
+        opacity: 0.5;
         align-items: center;
-        background: rgb(196, 183, 183);
+        background-color: #ffb6c1;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        left: 0;
+        position: fixed;
+        top: 0;
+        transition: opacity 0.3s linear;
+        width: 100%;
+        z-index: 9990;
+      }
+      .gamebox {
+        opacity: 0.88;
+        align-items: center;
+        background-color: #ffb6c1;
         display: flex;
         height: 100vh;
         justify-content: center;
@@ -1526,6 +1541,30 @@
         transition: opacity 0.3s linear;
         width: 100%;
         z-index: 9999;
+      }
+      .outer {
+        display: grid;
+        grid-template: 1fr / 1fr;
+        place-items: center;
+      }
+      .outer > * {
+        grid-column: 1 / 1;
+        grid-row: 1 / 1;
+      }
+      .outer .top {
+        z-index: 9991;
+      }
+      .outer .below {
+        z-index: 1;
+      }
+      #myCanvas {
+        background: #eee;
+        display: block;
+        margin: 0 auto;
+      }
+      .soundcloud {
+        position: absolute;
+        bottom: 25px;
       }
     </style>
     <!--<H4>David Wong</H4>
@@ -1599,10 +1638,10 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
       </div>
     </div>
     <!--
-     
- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
    -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <div id="app" style="visibility: hidden;">
       <div
         v-if="showbox"
@@ -1666,7 +1705,25 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
               @click="onJustMonikaClick"
             />
             <img
-              v-if="!showStatic && !showbatman"
+              v-if="showpresident && !showStatic && !showbatman"
+              :src="presidentsrc"
+              :style="{ width: windowwidth+'px', height: windowheight+'px' }"
+            />
+            <div
+              class="soundcloud"
+              v-if="showpresident && !showStatic && !showbatman"
+            >
+              <iframe
+                width="100%"
+                height="300"
+                scrolling="no"
+                frameborder="no"
+                allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/347750226&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+              ></iframe>
+            </div>
+            <img
+              v-if="!showStatic && !showbatman && !this.showpresident && !!dokislides"
               :src="dokislides"
               v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }"
             />
@@ -1694,43 +1751,60 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
       </div>
 
       <div v-if="showdoki" id="footer" @click="dodoki=!dodoki">
-        <span class="footer-content"
-          ><span @click.stop="showdoki=false;dodoki=false">Skip </span>
+        <span class="footer-content">
+          <span @click.stop="showdoki=false;dodoki=false">Skip </span>
+
+          <span @click.stop="startgame">Play </span>
           <span title="physical" @click.stop="dobatman"> Contact</span>
         </span>
       </div>
 
       <div id="bottom-left"></div>
-
+      <div v-if="showgame" class="gamebox" @mouseup.stop="hideGame">
+        <game
+          @mouseup.stop=""
+          @lives="hidegirls"
+          @success="showwin"
+          :show="showgame"
+          v-if="showgame"
+        />
+      </div>
       <transition
         name="custom-classes-transition"
         enter-active-class="animated fadeInRightBig"
         leave-active-class="animated zoomOutDown"
       >
         <div v-if="dodoki" class="bottom-right">
-          <div v-bind:class="{dokidoki:true ,jump: natsukiJumping }">
+          <div :class="{dokidoki:true ,jump: natsukiJumping }">
             <img
+              v-show="!natsukihide"
               src="natsuki.png"
               @click="dokiclick('natsuki')"
               class="clickable"
             />
           </div>
-          <div v-bind:class="{dokidoki:true ,jump: sayoriJumping }">
+          <div :class="{dokidoki:true ,jump: sayoriJumping }">
             <img
+              v-show="!sayorihide"
               src="sayori.png"
               @click="dokiclick('sayori')"
               class="clickable"
             />
           </div>
-          <div v-bind:class="{dokidoki:true ,jump: monikaJumping }">
+          <div :class="{dokidoki:true ,jump: monikaJumping }">
             <img
               src="monika.png"
               @click="dokiclick('monika')"
               class="clickable"
             />
           </div>
-          <div v-bind:class="{dokidoki:true ,jump: yuriJumping }">
-            <img src="yuri.png" @click="dokiclick('yuri')" class="clickable" />
+          <div :class="{dokidoki:true ,jump: yuriJumping }">
+            <img
+              v-show="!yurihide"
+              src="yuri.png"
+              @click="dokiclick('yuri')"
+              class="clickable"
+            />
           </div>
         </div>
       </transition>
@@ -1887,7 +1961,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
         props: ["show"],
         methods: {
           close: function() {
-            this.$emit("close");
+            if (this.show) this.$emit("close");
           }
         },
         mounted: function() {
@@ -1896,6 +1970,355 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
               this.close();
             }
           });
+        }
+      });
+
+      Vue.component("game", {
+        template:
+          '<div class="outer">' +
+          '<div class="top">' +
+          '<canvas ref="canvas" id="myCanvas" width="800" height="540"></canvas>' +
+          "</div>" +
+          ' <div class="below">' +
+          '<div style="display: none;">' +
+          '<img ref="ball" src="cupcake.png" />' +
+          '<img ref="brick" src="strawberry.png" />' +
+          '<img ref="paddle" src="panties.png" />' +
+          '<img ref="heart" src="heart.png" />' +
+          "</div>" +
+          "</div>" +
+          "</div>",
+        props: ["show"],
+        data: function() {
+          return {
+            ballRadius: 10,
+            x: 123,
+            y: 123,
+            dx: 2,
+            dy: -2,
+            paddleHeight: 10,
+            paddleWidth: 45,
+            paddleX: 55,
+            rightPressed: false,
+            leftPressed: false,
+            brickRowCount: 25,
+            brickColumnCount: 5,
+            brickWidth: 20,
+            brickHeight: 20,
+            brickPadding: 10,
+            brickOffsetTop: 30,
+            brickOffsetLeft: 30,
+            score: 0,
+            lives: 3,
+            gameover: false,
+            maxscore: 0,
+            bricks: []
+          };
+        },
+        computed: {
+          canvas: function() {
+            return this.$refs.canvas;
+          },
+          ctx: function() {
+            return this.canvas.getContext("2d");
+          }
+        },
+
+        methods: {
+          // close: function() {
+          //   this.$emit("close");
+          // },
+
+          mouseMoveHandler: function(e) {
+            let relativeX = e.clientX - this.canvas.offsetLeft;
+            if (relativeX > 0 && relativeX < this.canvas.width) {
+              this.paddleX = relativeX - this.paddleWidth / 2;
+            }
+          },
+
+          collisionDetection: function() {
+            for (var c = 0; c < this.brickColumnCount; c++) {
+              for (var r = 0; r < this.brickRowCount; r++) {
+                let b = this.bricks[c][r];
+                if (b.status == 1) {
+                  if (
+                    this.x > b.x &&
+                    this.x < b.x + this.brickWidth &&
+                    this.y > b.y &&
+                    this.y < b.y + this.brickHeight
+                  ) {
+                    this.dy = -this.dy;
+                    b.status = 0;
+                    this.score++;
+                    if (this.score == this.maxscore) {
+                      //end
+                      this.$emit("success");
+                      return false;
+                    }
+                  }
+                }
+              }
+            }
+            return true;
+          },
+
+          drawBall: function() {
+            this.ctx.drawImage(this.$refs.ball, this.x - 15, this.y - 15);
+          },
+
+          drawPaddle: function() {
+            this.ctx.drawImage(
+              this.$refs.paddle,
+              this.paddleX - 2,
+              this.canvas.height - 45
+            );
+          },
+
+          drawBricks: function() {
+            for (var c = 0; c < this.brickColumnCount; c++) {
+              for (var r = 0; r < this.brickRowCount; r++) {
+                if (this.bricks[c][r].status === 1) {
+                  let brickX =
+                    r * (this.brickWidth + this.brickPadding) +
+                    this.brickOffsetLeft;
+                  let brickY =
+                    c * (this.brickHeight + this.brickPadding) +
+                    this.brickOffsetTop;
+                  this.bricks[c][r].x = brickX;
+                  this.bricks[c][r].y = brickY;
+                  this.ctx.drawImage(this.$refs.brick, brickX, brickY, 24, 24);
+                }
+              }
+            }
+          },
+
+          drawLives: function() {
+            if (this.lives >= 1)
+              this.ctx.drawImage(this.$refs.heart, this.canvas.width - 65, 10);
+            if (this.lives >= 2)
+              this.ctx.drawImage(this.$refs.heart, this.canvas.width - 45, 10);
+            if (this.lives === 3)
+              this.ctx.drawImage(this.$refs.heart, this.canvas.width - 25, 10);
+          },
+
+          draw: function() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.drawBricks();
+            this.drawBall();
+            this.drawPaddle();
+
+            this.drawLives();
+            if (!this.collisionDetection()) return;
+
+            if (
+              this.x + this.dx > this.canvas.width - this.ballRadius ||
+              this.x + this.dx < this.ballRadius
+            ) {
+              this.dx = -this.dx;
+            }
+            if (this.y + this.dy < 3.2 * this.ballRadius) {
+              this.dy = -this.dy;
+            } else if (
+              this.y + this.dy >
+              this.canvas.height - 3.2 * this.ballRadius
+            ) {
+              if (
+                this.x > this.paddleX &&
+                this.x < this.paddleX + this.paddleWidth
+              ) {
+                this.dy = -this.dy;
+              } else {
+                this.lives--;
+                this.$emit("lives", this.lives);
+                if (this.lives === 0) {
+                  this.gameover = true;
+                  //gave over
+                  //document.location.reload();
+                } else {
+                  this.x = this.canvas.width / 2;
+                  this.y = this.canvas.height - 30;
+                  this.dx = 3;
+                  this.dy = -3;
+                  this.paddleX = (this.canvas.width - this.paddleWidth) / 2;
+                }
+              }
+            }
+
+            if (
+              this.rightPressed &&
+              this.paddleX < this.canvas.width - this.paddleWidth
+            ) {
+              this.paddleX += 7;
+            } else if (this.leftPressed && this.paddleX > 0) {
+              this.paddleX -= 7;
+            }
+
+            this.x += this.dx;
+            this.y += this.dy;
+            if (!this.gameover && this.show) {
+              try {
+                window.requestAnimationFrame(this.draw);
+              } catch (error) {}
+            }
+          },
+          init: function() {
+            this.x = this.canvas.width / 2;
+            this.y = this.canvas.height - 40;
+            this.paddleX = (this.canvas.width - this.paddleWidth) / 2;
+
+            let bricks = this.bricks;
+            bricks[0] = [];
+            bricks[0][0] = { x: 0, y: 0, status: 1 };
+            bricks[0][1] = { x: 0, y: 0, status: 1 };
+            bricks[0][2] = { x: 0, y: 0, status: 1 };
+            bricks[0][3] = { x: 0, y: 0, status: 0 };
+            bricks[0][4] = { x: 0, y: 0, status: 1 };
+            bricks[0][5] = { x: 0, y: 0, status: 1 };
+            bricks[0][6] = { x: 0, y: 0, status: 1 };
+            bricks[0][7] = { x: 0, y: 0, status: 0 };
+            bricks[0][8] = { x: 0, y: 0, status: 1 };
+            bricks[0][9] = { x: 0, y: 0, status: 1 };
+            bricks[0][10] = { x: 0, y: 0, status: 1 };
+            bricks[0][11] = { x: 0, y: 0, status: 0 };
+            bricks[0][12] = { x: 0, y: 0, status: 1 };
+            bricks[0][13] = { x: 0, y: 0, status: 1 };
+            bricks[0][14] = { x: 0, y: 0, status: 1 };
+            bricks[0][15] = { x: 0, y: 0, status: 0 };
+            bricks[0][16] = { x: 0, y: 0, status: 1 };
+            bricks[0][17] = { x: 0, y: 0, status: 0 };
+            bricks[0][18] = { x: 0, y: 0, status: 1 };
+            bricks[0][19] = { x: 0, y: 0, status: 0 };
+            bricks[0][20] = { x: 0, y: 0, status: 1 };
+            bricks[0][21] = { x: 0, y: 0, status: 0 };
+            bricks[0][22] = { x: 0, y: 0, status: 1 };
+            bricks[0][23] = { x: 0, y: 0, status: 0 };
+            bricks[0][24] = { x: 0, y: 0, status: 1 };
+            bricks[1] = [];
+            bricks[1][0] = { x: 0, y: 0, status: 1 };
+            bricks[1][1] = { x: 0, y: 0, status: 0 };
+            bricks[1][2] = { x: 0, y: 0, status: 1 };
+            bricks[1][3] = { x: 0, y: 0, status: 0 };
+            bricks[1][4] = { x: 0, y: 0, status: 1 };
+            bricks[1][5] = { x: 0, y: 0, status: 0 };
+            bricks[1][6] = { x: 0, y: 0, status: 1 };
+            bricks[1][7] = { x: 0, y: 0, status: 0 };
+            bricks[1][8] = { x: 0, y: 0, status: 0 };
+            bricks[1][9] = { x: 0, y: 0, status: 1 };
+            bricks[1][10] = { x: 0, y: 0, status: 0 };
+            bricks[1][11] = { x: 0, y: 0, status: 0 };
+            bricks[1][12] = { x: 0, y: 0, status: 1 };
+            bricks[1][13] = { x: 0, y: 0, status: 0 };
+            bricks[1][14] = { x: 0, y: 0, status: 0 };
+            bricks[1][15] = { x: 0, y: 0, status: 0 };
+            bricks[1][16] = { x: 0, y: 0, status: 1 };
+            bricks[1][17] = { x: 0, y: 0, status: 0 };
+            bricks[1][18] = { x: 0, y: 0, status: 1 };
+            bricks[1][19] = { x: 0, y: 0, status: 0 };
+            bricks[1][20] = { x: 0, y: 0, status: 1 };
+            bricks[1][21] = { x: 0, y: 0, status: 0 };
+            bricks[1][22] = { x: 0, y: 0, status: 1 };
+            bricks[1][23] = { x: 0, y: 0, status: 0 };
+            bricks[1][24] = { x: 0, y: 0, status: 1 };
+            bricks[2] = [];
+            bricks[2][0] = { x: 0, y: 0, status: 1 };
+            bricks[2][1] = { x: 0, y: 0, status: 0 };
+            bricks[2][2] = { x: 0, y: 0, status: 1 };
+            bricks[2][3] = { x: 0, y: 0, status: 0 };
+            bricks[2][4] = { x: 0, y: 0, status: 1 };
+            bricks[2][5] = { x: 0, y: 0, status: 1 };
+            bricks[2][6] = { x: 0, y: 0, status: 1 };
+            bricks[2][7] = { x: 0, y: 0, status: 0 };
+            bricks[2][8] = { x: 0, y: 0, status: 0 };
+            bricks[2][9] = { x: 0, y: 0, status: 1 };
+            bricks[2][10] = { x: 0, y: 0, status: 0 };
+            bricks[2][11] = { x: 0, y: 0, status: 0 };
+            bricks[2][12] = { x: 0, y: 0, status: 1 };
+            bricks[2][13] = { x: 0, y: 0, status: 1 };
+            bricks[2][14] = { x: 0, y: 0, status: 1 };
+            bricks[2][15] = { x: 0, y: 0, status: 0 };
+            bricks[2][16] = { x: 0, y: 0, status: 1 };
+            bricks[2][17] = { x: 0, y: 0, status: 0 };
+            bricks[2][18] = { x: 0, y: 0, status: 1 };
+            bricks[2][19] = { x: 0, y: 0, status: 0 };
+            bricks[2][20] = { x: 0, y: 0, status: 1 };
+            bricks[2][21] = { x: 0, y: 0, status: 1 };
+            bricks[2][22] = { x: 0, y: 0, status: 0 };
+            bricks[2][23] = { x: 0, y: 0, status: 0 };
+            bricks[2][24] = { x: 0, y: 0, status: 1 };
+            bricks[3] = [];
+            bricks[3][0] = { x: 0, y: 0, status: 1 };
+            bricks[3][1] = { x: 0, y: 0, status: 0 };
+            bricks[3][2] = { x: 0, y: 0, status: 1 };
+            bricks[3][3] = { x: 0, y: 0, status: 0 };
+            bricks[3][4] = { x: 0, y: 0, status: 1 };
+            bricks[3][5] = { x: 0, y: 0, status: 0 };
+            bricks[3][6] = { x: 0, y: 0, status: 1 };
+            bricks[3][7] = { x: 0, y: 0, status: 0 };
+            bricks[3][8] = { x: 0, y: 0, status: 0 };
+            bricks[3][9] = { x: 0, y: 0, status: 1 };
+            bricks[3][10] = { x: 0, y: 0, status: 0 };
+            bricks[3][11] = { x: 0, y: 0, status: 0 };
+            bricks[3][12] = { x: 0, y: 0, status: 0 };
+            bricks[3][13] = { x: 0, y: 0, status: 0 };
+            bricks[3][14] = { x: 0, y: 0, status: 1 };
+            bricks[3][15] = { x: 0, y: 0, status: 0 };
+            bricks[3][16] = { x: 0, y: 0, status: 1 };
+            bricks[3][17] = { x: 0, y: 0, status: 0 };
+            bricks[3][18] = { x: 0, y: 0, status: 1 };
+            bricks[3][19] = { x: 0, y: 0, status: 0 };
+            bricks[3][20] = { x: 0, y: 0, status: 1 };
+            bricks[3][21] = { x: 0, y: 0, status: 0 };
+            bricks[3][22] = { x: 0, y: 0, status: 1 };
+            bricks[3][23] = { x: 0, y: 0, status: 0 };
+            bricks[3][24] = { x: 0, y: 0, status: 1 };
+            bricks[4] = [];
+            bricks[4][0] = { x: 0, y: 0, status: 1 };
+            bricks[4][1] = { x: 0, y: 0, status: 0 };
+            bricks[4][2] = { x: 0, y: 0, status: 1 };
+            bricks[4][3] = { x: 0, y: 0, status: 0 };
+            bricks[4][4] = { x: 0, y: 0, status: 1 };
+            bricks[4][5] = { x: 0, y: 0, status: 0 };
+            bricks[4][6] = { x: 0, y: 0, status: 1 };
+            bricks[4][7] = { x: 0, y: 0, status: 0 };
+            bricks[4][8] = { x: 0, y: 0, status: 0 };
+            bricks[4][9] = { x: 0, y: 0, status: 1 };
+            bricks[4][10] = { x: 0, y: 0, status: 0 };
+            bricks[4][11] = { x: 0, y: 0, status: 0 };
+            bricks[4][12] = { x: 0, y: 0, status: 1 };
+            bricks[4][13] = { x: 0, y: 0, status: 1 };
+            bricks[4][14] = { x: 0, y: 0, status: 1 };
+            bricks[4][15] = { x: 0, y: 0, status: 0 };
+            bricks[4][16] = { x: 0, y: 0, status: 1 };
+            bricks[4][17] = { x: 0, y: 0, status: 1 };
+            bricks[4][18] = { x: 0, y: 0, status: 1 };
+            bricks[4][19] = { x: 0, y: 0, status: 0 };
+            bricks[4][20] = { x: 0, y: 0, status: 1 };
+            bricks[4][21] = { x: 0, y: 0, status: 0 };
+            bricks[4][22] = { x: 0, y: 0, status: 1 };
+            bricks[4][23] = { x: 0, y: 0, status: 0 };
+            bricks[4][24] = { x: 0, y: 0, status: 1 };
+            this.maxscore = 0;
+            for (var c = 0; c < this.brickColumnCount; c++) {
+              for (var r = 0; r < this.brickRowCount; r++) {
+                if (bricks[c][r].status == 1) {
+                  this.maxscore++;
+                }
+              }
+            }
+            this.draw();
+          }
+        },
+
+        mounted: function() {
+          document.addEventListener("mousemove", this.mouseMoveHandler, false);
+          this.init();
+        },
+        beforeDestroy: function() {
+          document.removeEventListener(
+            "mousemove",
+            this.mouseMoveHandler,
+            false
+          );
         }
       });
 
@@ -1941,7 +2364,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           onJustMonikaClick: function() {
             let that = this;
             this.showStatic = false;
-
+            this.dokislides = "dokimonika.jpg";
             that.dispatch(300, function() {
               that.playSound("BGM03g.mp3");
               that.dispatch(28000, function() {
@@ -1969,7 +2392,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           onMonikaClick: function() {
             let that = this;
             this.monikaclicked++;
-            if (this.monikaclicked == 3) {
+            if (this.monikaclicked >= 3) {
               that.dispatch(1800, function() {
                 that.showToronto = false;
                 that.dispatch(4400, function() {
@@ -1978,13 +2401,52 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
                     that.showParis = false;
                     that.dispatch(1800, function() {
                       that.showFullscreen = true;
-                      this.monikaclicked = 0;
+                      that.showStatic = true;
+                      that.monikaclicked = 0;
                     });
                   });
                 });
               });
             }
           },
+
+          startgame: function() {
+            this.yurihide = false;
+            this.sayorihide = false;
+            this.natsukihide = false;
+            this.showgame = true;
+          },
+          showwin: function() {
+            this.showgame = false;
+            this.showFullscreen = true;
+            this.showpresident = true;
+            let that = this;
+            that.dispatch(1000 * 60 * 4, function() {
+              document.location.reload();
+            });
+          },
+          hidegirls: function(lives) {
+            switch (lives) {
+              case 2:
+                this.yurihide = true;
+                break;
+              case 1:
+                this.yurihide = true;
+                this.sayorihide = true;
+                break;
+              case 0:
+                this.yurihide = true;
+                this.sayorihide = true;
+                this.natsukihide = true;
+                this.showgame = false;
+                this.monikaclicked = 3;
+                this.onMonikaClick();
+                break;
+              default:
+                break;
+            }
+          },
+
           tweenBox: function() {
             this.boxdiameter = Math.max(this.boxdiameter - 33, 300 - 1);
             let that = this;
@@ -2034,6 +2496,10 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
               that.animateJump("yuri");
             });
           },
+          hideGame: function() {
+            this.showgame = false;
+          },
+
           dobatman: function() {
             this.showbatman = true;
             this.showFullscreen = true;
@@ -2113,6 +2579,10 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           showNewPostModal: false,
           showNewCommentModal: false,
           curpage: "",
+          natsukihide: false,
+          //monikaJumping: false,
+          yurihide: false,
+          sayorihide: false,
           natsukiJumping: false,
           monikaJumping: false,
           yuriJumping: false,
@@ -2120,13 +2590,14 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           monikaclicked: 0,
           windowwidth: 99990,
           windowheight: 99990,
-          showStatic: true,
+          showStatic: false,
           showAmsterdam: true,
           showParis: true,
           showToronto: true,
           showFullscreen: false,
           showbatman: false,
-          dokislides: "dokimonika.jpg",
+          showpresident: false,
+          dokislides: "",
           startloadpics: false,
           boxwidth: 20000,
           boxheight: 20000,
@@ -2137,6 +2608,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           showbatmanpow: false,
           showbatmanwham: false,
           showbatmanpop: false,
+          showgame: false,
           quote: ""
         },
         computed: {
@@ -2154,6 +2626,9 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           },
           justmonikasrc: function() {
             return this.startloadpics ? "justmonika.png" : "";
+          },
+          presidentsrc: function() {
+            return this.startloadpics ? "president.jpg" : "";
           },
           monikasrc: function() {
             return this.startloadpics ? "tenor.gif" : "";
