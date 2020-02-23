@@ -6,17 +6,20 @@
     <title>David Wong</title>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-361215-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-361215-3"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'UA-361215-3');
-</script>
+      gtag("config", "UA-361215-3");
+    </script>
 
-
-    
     <link
       rel="icon"
       type="image/png"
@@ -1478,6 +1481,52 @@
           width: 20px;
         }
       }
+
+      .lds-ripple {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+      .lds-ripple div {
+        position: absolute;
+        border: 4px solid rgb(230, 146, 146);
+        opacity: 1;
+        border-radius: 50%;
+        animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+      }
+      .lds-ripple div:nth-child(2) {
+        animation-delay: -0.5s;
+      }
+      @keyframes lds-ripple {
+        0% {
+          top: 36px;
+          left: 36px;
+          width: 0;
+          height: 0;
+          opacity: 1;
+        }
+        100% {
+          top: 0px;
+          left: 0px;
+          width: 72px;
+          height: 72px;
+          opacity: 0;
+        }
+      }
+      .preloader {
+        align-items: center;
+        background: rgb(196, 183, 183);
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        left: 0;
+        position: fixed;
+        top: 0;
+        transition: opacity 0.3s linear;
+        width: 100%;
+        z-index: 9999;
+      }
     </style>
     <!--<H4>David Wong</H4>
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNWWWWNNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
@@ -1542,13 +1591,19 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
 -->
   </head>
 
-  <body style="visibility: hidden;" onload="js_Load()">
+  <body onload="js_Load()">
+    <div class="preloader" id="spinner" style="visibility: visible;">
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
     <!--
      
  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
    -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-    <div id="app">
+    <div id="app" style="visibility: hidden;">
       <div
         v-if="showbox"
         class="box box-1"
@@ -2201,7 +2256,8 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
         }
       });
       function js_Load() {
-        document.body.style.visibility = "visible";
+        document.getElementById("spinner").style.visibility = "hidden";
+        document.getElementById("app").style.visibility = "visible";
       }
     </script>
   </body>
