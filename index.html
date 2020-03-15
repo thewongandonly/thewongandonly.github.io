@@ -1694,24 +1694,30 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             :class="{ 'mdv-modal-scrollable': false }"
           >
             <img
-              v-if="showStatic && !showbatman"
+              v-if="showStatic && !showbatman && !showplaySayori"
               :src="monikasrc"
-              v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }"
+              :style="{ width: windowwidth+'px', height: windowheight+'px' }"
             />
             <img
-              v-if="showStatic && !showbatman"
+              v-if="!showStatic &&showplaySayori && !showbatman"
+              :src="playwithsayorisrc"
+              :style="{ width: windowwidth+'px', height: windowheight+'px' }"
+            />
+
+            <img
+              v-if="showStatic && !showbatman  && !showplaySayori"
               :src="justmonikasrc"
               class="centered clickable"
               @click="onJustMonikaClick"
             />
             <img
-              v-if="showpresident && !showStatic && !showbatman"
+              v-if="showpresident && !showStatic && !showbatman && !showplaySayori"
               :src="presidentsrc"
               :style="{ width: windowwidth+'px', height: windowheight+'px' }"
             />
             <div
               class="soundcloud"
-              v-if="showpresident && !showStatic && !showbatman"
+              v-if="showpresident && !showStatic && !showbatman  && !showplaySayori"
             >
               <iframe
                 width="100%"
@@ -1723,12 +1729,12 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
               ></iframe>
             </div>
             <img
-              v-if="!showStatic && !showbatman && !this.showpresident && !!dokislides"
+              v-if="!showStatic && !showbatman && !this.showpresident && !!dokislides  && !showplaySayori"
               :src="dokislides"
               v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }"
             />
             <img
-              v-if="showbatman"
+              v-if="showbatman && !showplaySayori"
               :src="batmansrc"
               v-bind:style="{ width: windowwidth+'px', height: windowheight+'px' }"
             />
@@ -1755,6 +1761,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           <span @click.stop="showdoki=false;dodoki=false">Skip </span>
 
           <span @click.stop="startgame">Play </span>
+          <span @click.stop="startsafe">Safe </span>
           <span title="physical" @click.stop="dobatman"> Contact</span>
         </span>
       </div>
@@ -2378,6 +2385,16 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
               });
             });
           },
+          startsafe() {
+            this.showFullscreen = true;
+            this.showplaySayori = true;
+            let that = this;
+            that.playSound("Phoenix.mp3");
+            that.dispatch(4*60*1000, function() {
+              that.showplaySayori = false;
+              that.showFullscreen = false;
+            });
+          },
           playSound(sound) {
             if (sound) {
               var audio = new Audio(sound);
@@ -2596,6 +2613,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           showToronto: true,
           showFullscreen: false,
           showbatman: false,
+          showplaySayori: false,
           showpresident: false,
           dokislides: "",
           startloadpics: false,
@@ -2632,6 +2650,9 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
           },
           monikasrc: function() {
             return this.startloadpics ? "tenor.gif" : "";
+          },
+          playwithsayorisrc: function() {
+            return this.startloadpics ? "play.png" : "";
           },
           dinosrc: function() {
             return this.startloadpics ? "dinosaurrr.png" : "";
