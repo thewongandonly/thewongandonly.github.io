@@ -5,19 +5,62 @@
     <meta charset="utf-8" />
     <title>David Wong</title>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-361215-3"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
 
-      gtag("config", "UA-361215-3");
+    <script>
+      window.Wong = {};
+      var firebaseConfig = {
+        apiKey: "AIzaSyDM2AeE01HtRZZWoAocMFIwTQzYpmFRzj0",
+        authDomain: "impact-69761.firebaseapp.com",
+        databaseURL: "https://impact-69761.firebaseio.com",
+        projectId: "impact-69761",
+        storageBucket: "impact-69761.appspot.com",
+        messagingSenderId: "122688887467",
+        appId: "1:122688887467:web:28dc9379c754affa94f5ee"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(
+          "lulabadosl@wemel.site",
+          "aaIYy54Y3hYWk4fLuNqDCuHqeax2"
+        )
+        .catch(function(error) {
+          alert(error);
+        });
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (!!user) {
+          firebase
+            .database()
+            .ref("likescounter")
+            .once("value")
+            .then(function(snapshot) {
+              window.Wong["likescounter"] = snapshot.val();
+              console.log(window.Wong);
+            });
+        }
+      });
+      var likedit = function() {
+        console.log("thank you!");
+        firebase
+          .database()
+          .ref("likescounter")
+          .set(window.Wong["likescounter"] + 1);
+        firebase
+          .database()
+          .ref("likescounterdate")
+          .set(Math.round(new Date().getTime() / 1000));
+
+        const element = document.querySelector(".heart2");
+        element.classList.add("animated", "rollOut");
+      };
+ 
     </script>
 
     <link
@@ -1566,6 +1609,59 @@
         position: absolute;
         bottom: 25px;
       }
+
+      .heart2 {
+        position: absolute;
+        margin: auto;
+        top: 25px;
+        right: 35px;
+
+        background-color: #f9b3b3;
+        height: 35px;
+        width: 35px;
+        transform: rotate(-45deg);
+      }
+
+      .heart2::after {
+        background-color: #f9b3b3;
+        content: "";
+        border-radius: 50%;
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        top: 0px;
+        left: 17.5px;
+      }
+
+      .heart2::before {
+        content: "";
+        background-color: #f9b3b3;
+        border-radius: 50%;
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        top: -17.5px;
+        left: 0px;
+      }
+
+      .heart2:hover {
+        transform: scale(0.9);
+        cursor: pointer;
+      }
+
+      .heart2footer {
+        text-align: center;
+        font-size: 0.6em;
+        text-transform: uppercase;
+        padding: 10px;
+        color: grey;
+        letter-spacing: 2px;
+        font-family: sans-serif;
+        position: relative;
+        top: 20px;
+        left: -23px;
+        width: 80px;
+      }
     </style>
     <!--<H4>David Wong</H4>
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNWWWWNNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
@@ -1639,9 +1735,14 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
     </div>
     <!--
        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-
+n
    -->
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="hearts" class="heart2" onclick="likedit()">
+      <div class="heart2footer"><p>&#x2661; like &#x2661;</p></div>
+    </div>
+
     <div id="app" style="visibility: hidden;">
       <div
         v-if="showbox"
@@ -2390,7 +2491,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, sourcetree (git), octopus, jenkins
             this.showplaySayori = true;
             let that = this;
             that.playSound("Phoenix.mp3");
-            that.dispatch(4*60*1000, function() {
+            that.dispatch(4 * 60 * 1000, function() {
               that.showplaySayori = false;
               that.showFullscreen = false;
             });
