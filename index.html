@@ -1662,6 +1662,12 @@
         left: -23px;
         width: 80px;
       }
+      .embedYoutube{
+        position: fixed;
+        bottom: 136px;
+        right: 4px;
+        z-index: 99;
+      }
     </style>
     <!--<H4>David Wong</H4>
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWNWWWWNNWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
@@ -1739,11 +1745,18 @@ n
    -->
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/v-video-embed/dist/video-embed.min.js" type="text/javascript"></script>
+
     <div id="hearts" class="heart2" onclick="likedit()">
       <div class="heart2footer"><p>&#x2661; like &#x2661;</p></div>
     </div>
 
     <div id="app" style="visibility: hidden;">
+
+    <div v-if="showYoutube" class="embedYoutube">
+     <video-embed :params="{autoplay: 1}" src="https://www.youtube.com/watch?v=EtwOicd0z5Y"></video-embed>
+    </div>
+  
       <div
         v-if="showbox"
         class="box box-1"
@@ -1863,6 +1876,7 @@ n
 
           <span @click.stop="startgame">Play </span>
           <span @click.stop="startsafe">Safe </span>
+          <span title="baby" @click.stop="closeYoutube"> Babymetal</span>
           <span title="physical" @click.stop="dobatman"> Contact</span>
         </span>
       </div>
@@ -1945,6 +1959,8 @@ n
       </transition>
 
       <santa :show="showsanta" @close="tweenMaxBox" />
+
+
     </div>
     <script type="x/template" id="modal-template">
       <transition name="modal">
@@ -2565,6 +2581,10 @@ n
             }
           },
 
+          closeYoutube: function(){
+            this.showYoutube=!this.showYoutube;
+          },
+
           tweenBox: function() {
             this.boxdiameter = Math.max(this.boxdiameter - 33, 300 - 1);
             let that = this;
@@ -2690,6 +2710,7 @@ n
           }
         },
         data: {
+          showYoutube: false,
           current: 0,
           showdino: false,
           showdoki: true,
