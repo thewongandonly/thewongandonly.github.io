@@ -2452,7 +2452,14 @@ n
           },
           dokiclick: function(doki) {
             if (doki === "monika") this.onMonikaClick();
-            if (doki === "natsuki") this.showPhotos = true;
+            if (doki === "natsuki") {this.showPhotos = true;    
+
+ 
+                 this.dispatch(444, function() {
+                  //non-vue way:
+                   document.getElementById('bottom-left').style.backgroundImage="url(http://thewongandonly.com/wong.png)"; 
+                    });
+             } 
             this.animateJump(doki);
           },
           animateJump: function(doki) {
