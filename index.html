@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="http://thewongandonly.com/" target="_blank" />
+    <base href="https://thewongandonly.com/" target="_blank" />
     <meta charset="utf-8" />
     <title>David Wong</title>
 
@@ -19,7 +19,7 @@
         projectId: "impact-69761",
         storageBucket: "impact-69761.appspot.com",
         messagingSenderId: "122688887467",
-        appId: "1:122688887467:web:28dc9379c754affa94f5ee"
+        appId: "1:122688887467:web:28dc9379c754affa94f5ee",
       };
 
       firebase.initializeApp(firebaseConfig);
@@ -30,23 +30,23 @@
           "lulabadosl@wemel.site",
           "aaIYy54Y3hYWk4fLuNqDCuHqeax2"
         )
-        .catch(function(error) {
+        .catch(function (error) {
           alert(error);
         });
 
-      firebase.auth().onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged(function (user) {
         if (!!user) {
           firebase
             .database()
             .ref("likescounter")
             .once("value")
-            .then(function(snapshot) {
+            .then(function (snapshot) {
               window.Wong["likescounter"] = snapshot.val();
               console.log(window.Wong);
             });
         }
       });
-      var likedit = function() {
+      var likedit = function () {
         console.log("thank you!");
         firebase
           .database()
@@ -60,13 +60,12 @@
         const element = document.querySelector(".heart2");
         element.classList.add("animated", "rollOut");
       };
- 
     </script>
 
     <link
       rel="icon"
       type="image/png"
-      href="http://thewongandonly.com/myicon.png"
+      href="https://thewongandonly.com/myicon.png"
     />
     <link
       href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1"
@@ -132,20 +131,18 @@
         opacity: 1;
       }
 
-  
-
       .card-wrap:hover .card-info:after {
-         opacity: 1;
+        opacity: 1;
         -webkit-transform: translateY(0);
         transform: translateY(0);
       }
 
       .card-wrap:hover .card-bg {
-         opacity: 0.8;
+        opacity: 0.8;
       }
 
       .card-wrap:hover .card {
-         box-shadow: rgba(255, 255, 255, 0.2) 0 0 40px 5px, white 0 0 0 1px,
+        box-shadow: rgba(255, 255, 255, 0.2) 0 0 40px 5px, white 0 0 0 1px,
           rgba(0, 0, 0, 0.66) 0 30px 60px 0, inset #333 0 0 0 5px,
           inset white 0 0 0 6px;
       }
@@ -162,7 +159,7 @@
         border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.66) 0 30px 60px 0, inset #333 0 0 0 5px,
           inset rgba(255, 255, 255, 0.5) 0 0 0 6px;
-       }
+      }
 
       .card-bg {
         opacity: 0.5;
@@ -175,7 +172,7 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
-         pointer-events: none;
+        pointer-events: none;
       }
 
       .card-info {
@@ -190,7 +187,7 @@
       .card-info p {
         opacity: 0;
         text-shadow: black 0 2px 3px;
-        }
+      }
 
       .card-info * {
         position: relative;
@@ -219,7 +216,7 @@
         opacity: 0;
         -webkit-transform: translateY(100%);
         transform: translateY(100%);
-         }
+      }
 
       .card-info h1 {
         font-family: "Courier New", Courier, monospace, Helvetica, Arial,
@@ -236,7 +233,7 @@
         left: 0;
         bottom: 0;
         position: fixed;
-        background: url("http://thewongandonly.com/wongpixel.png") left bottom
+        background: url("https://thewongandonly.com/wongpixel.png") left bottom
           no-repeat border-box;
       }
 
@@ -415,7 +412,7 @@
         bottom: 3px;
         height: 70px;
         width: 550px;
-        background-image: url("http://thewongandonly.com/tilebg.png");
+        background-image: url("https://thewongandonly.com/tilebg.png");
         background-size: 19px;
         background-repeat: repeat;
         border-top-left-radius: 18px;
@@ -435,9 +432,9 @@
         font-weight: 900;
       }
       .footer-content > span {
-          cursor: pointer;
-          margin-right: 60px;
-      }                   
+        cursor: pointer;
+        margin-right: 60px;
+      }
       .bottom-right {
         height: 2px;
         position: fixed;
@@ -539,9 +536,9 @@
       }
 
       .footer-content > span {
-       cursor: pointer;
+        cursor: pointer;
       }
-      
+
       .dinobox {
         z-index: 999;
       }
@@ -1644,7 +1641,7 @@
         left: -23px;
         width: 80px;
       }
-      .embedYoutube{
+      .embedYoutube {
         position: fixed;
         bottom: 136px;
         right: 4px;
@@ -1665,37 +1662,34 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, gitkraken, octopus, jenkins
   </head>
 
   <body onload="js_Load()">
-    <div class="preloader" id="spinner" style="visibility: visible;">
+    <div class="preloader" id="spinner" style="visibility: visible">
       <div class="lds-ripple">
         <div></div>
         <div></div>
       </div>
     </div>
-    <!--
-       <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-n
-   -->
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/v-video-embed/dist/video-embed.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 
     <div id="hearts" class="heart2" onclick="likedit()">
       <div class="heart2footer"><p>&#x2661; like &#x2661;</p></div>
     </div>
 
-    <div id="app" style="visibility: hidden;">
+    <div id="app" style="visibility: hidden">
+      <div v-if="showYoutube" class="embedYoutube">
+        <video-embed
+          :params="{autoplay: 1}"
+          src="https://www.youtube.com/watch?v=cirhQ8iLdbw"
+        ></video-embed>
+      </div>
 
-    <div v-if="showYoutube" class="embedYoutube">
-     <video-embed :params="{autoplay: 1}" src="https://www.youtube.com/watch?v=cirhQ8iLdbw"></video-embed>
-    </div>
-  
       <div
         v-if="showbox"
         class="box box-1"
         :style="{  top: boxbeforetop + 'px', width:  boxdiameter+'px', height:  boxdiameter+'px' }"
       >
         <div
-          style="background-color: transparent;height:300px"
+          style="background-color: transparent; height: 300px"
           @click="tweenMaxBox"
         ></div>
       </div>
@@ -1761,19 +1755,7 @@ n
               :src="presidentsrc"
               :style="{ width: windowwidth+'px', height: windowheight+'px' }"
             />
-            <div
-              class="soundcloud"
-              v-if="showpresident && !showStatic && !showbatman  && !showplaySayori"
-            >
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameborder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/347750226&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-            </div>
+
             <img
               v-if="!showStatic && !showbatman && !this.showpresident && !!dokislides  && !showplaySayori"
               :src="dokislides"
@@ -1807,7 +1789,7 @@ n
           <span @click.stop="showdoki=false;dodoki=false">Skip </span>
 
           <span @click.stop="startgame">Play </span>
-   
+
           <span title="baby" @click.stop="closeYoutube"> Babymetal</span>
           <span title="physical" @click.stop="dobatman"> Contact</span>
         </span>
@@ -1876,7 +1858,7 @@ n
             enter-active-class="animated fadeIn"
             leave-active-class="animated fadeOut"
           >
-            <span v-if="quotes" style="display: block;padding-top:28px"
+            <span v-if="quotes" style="display: block; padding-top: 28px"
               ><span class="site__title">{{quote}}</span></span
             >
           </transition>
@@ -1891,8 +1873,6 @@ n
       </transition>
 
       <santa :show="showsanta" @close="tweenMaxBox" />
-
-
     </div>
     <script type="x/template" id="modal-template">
       <transition name="modal">
@@ -1942,7 +1922,7 @@ n
             height: 0,
             mouseX: 0,
             mouseY: 0,
-            mouseLeaveDelay: null
+            mouseLeaveDelay: null,
           };
         },
         computed: {
@@ -1956,24 +1936,24 @@ n
             var rX = this.mousePX * 30;
             var rY = this.mousePY * -30;
             return {
-              transform: "rotateY(" + rX + "deg) rotateX(" + rY + "deg)"
+              transform: "rotateY(" + rX + "deg) rotateX(" + rY + "deg)",
             };
           },
           cardBgTransform: function cardBgTransform() {
             var tX = this.mousePX * -40;
             var tY = this.mousePY * -40;
             return {
-              transform: "translateX(" + tX + "px) translateY(" + tY + "px)"
+              transform: "translateX(" + tX + "px) translateY(" + tY + "px)",
             };
           },
           cardBgImage: function cardBgImage() {
             return {
-              backgroundImage: "url(" + this.dataImage + ")"
+              backgroundImage: "url(" + this.dataImage + ")",
             };
-          }
+          },
         },
         methods: {
-          onView: function(event) {
+          onView: function (event) {
             this.$emit("change-page", this.dataImage);
           },
           handleMouseMove: function handleMouseMove(e) {
@@ -1986,29 +1966,29 @@ n
           handleMouseLeave: function handleMouseLeave() {
             var _this = this;
 
-            this.mouseLeaveDelay = setTimeout(function() {
+            this.mouseLeaveDelay = setTimeout(function () {
               _this.mouseX = 0;
               _this.mouseY = 0;
             }, 1000);
-          }
-        }
+          },
+        },
       });
 
       Vue.component("Modal", {
         template: "#modal-template",
         props: ["show"],
         methods: {
-          close: function() {
+          close: function () {
             this.$emit("close");
-          }
+          },
         },
-        mounted: function() {
-          document.addEventListener("keydown", e => {
+        mounted: function () {
+          document.addEventListener("keydown", (e) => {
             if (this.show && e.keyCode == 27) {
               this.close();
             }
           });
-        }
+        },
       });
 
       Vue.component("santa", {
@@ -2016,17 +1996,17 @@ n
           '<transition name="fade"><div v-if="show" @click="close" class="windowsanta"><div class="santa"><div class="head"><div class="face"><div class="redhat"><div class="whitepart"></div><div class="redpart"></div><div class="hatball"></div></div><div class="eyes"></div><div class="beard"><div class="nouse"></div><div class="mouth"></div></div></div><div class="ears"></div></div><div class="body"></div></div></div></transition>',
         props: ["show"],
         methods: {
-          close: function() {
+          close: function () {
             if (this.show) this.$emit("close");
-          }
+          },
         },
-        mounted: function() {
-          document.addEventListener("keydown", e => {
+        mounted: function () {
+          document.addEventListener("keydown", (e) => {
             if (this.show && e.keyCode == 27) {
               this.close();
             }
           });
-        }
+        },
       });
 
       Vue.component("game", {
@@ -2045,7 +2025,7 @@ n
           "</div>" +
           "</div>",
         props: ["show"],
-        data: function() {
+        data: function () {
           return {
             ballRadius: 10,
             x: 123,
@@ -2068,16 +2048,16 @@ n
             lives: 3,
             gameover: false,
             maxscore: 0,
-            bricks: []
+            bricks: [],
           };
         },
         computed: {
-          canvas: function() {
+          canvas: function () {
             return this.$refs.canvas;
           },
-          ctx: function() {
+          ctx: function () {
             return this.canvas.getContext("2d");
-          }
+          },
         },
 
         methods: {
@@ -2085,14 +2065,14 @@ n
           //   this.$emit("close");
           // },
 
-          mouseMoveHandler: function(e) {
+          mouseMoveHandler: function (e) {
             let relativeX = e.clientX - this.canvas.offsetLeft;
             if (relativeX > 0 && relativeX < this.canvas.width) {
               this.paddleX = relativeX - this.paddleWidth / 2;
             }
           },
 
-          collisionDetection: function() {
+          collisionDetection: function () {
             for (var c = 0; c < this.brickColumnCount; c++) {
               for (var r = 0; r < this.brickRowCount; r++) {
                 let b = this.bricks[c][r];
@@ -2118,11 +2098,11 @@ n
             return true;
           },
 
-          drawBall: function() {
+          drawBall: function () {
             this.ctx.drawImage(this.$refs.ball, this.x - 15, this.y - 15);
           },
 
-          drawPaddle: function() {
+          drawPaddle: function () {
             this.ctx.drawImage(
               this.$refs.paddle,
               this.paddleX - 2,
@@ -2130,7 +2110,7 @@ n
             );
           },
 
-          drawBricks: function() {
+          drawBricks: function () {
             for (var c = 0; c < this.brickColumnCount; c++) {
               for (var r = 0; r < this.brickRowCount; r++) {
                 if (this.bricks[c][r].status === 1) {
@@ -2148,7 +2128,7 @@ n
             }
           },
 
-          drawLives: function() {
+          drawLives: function () {
             if (this.lives >= 1)
               this.ctx.drawImage(this.$refs.heart, this.canvas.width - 65, 10);
             if (this.lives >= 2)
@@ -2157,7 +2137,7 @@ n
               this.ctx.drawImage(this.$refs.heart, this.canvas.width - 25, 10);
           },
 
-          draw: function() {
+          draw: function () {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.drawBricks();
             this.drawBall();
@@ -2217,7 +2197,7 @@ n
               } catch (error) {}
             }
           },
-          init: function() {
+          init: function () {
             this.x = this.canvas.width / 2;
             this.y = this.canvas.height - 40;
             this.paddleX = (this.canvas.width - this.paddleWidth) / 2;
@@ -2362,81 +2342,82 @@ n
               }
             }
             this.draw();
-          }
+          },
         },
 
-        mounted: function() {
+        mounted: function () {
           document.addEventListener("mousemove", this.mouseMoveHandler, false);
           this.init();
         },
-        beforeDestroy: function() {
+        beforeDestroy: function () {
           document.removeEventListener(
             "mousemove",
             this.mouseMoveHandler,
             false
           );
-        }
+        },
       });
 
       Vue.component("NewCommentModal", {
         template: "#new-comment-modal-template",
         props: ["show", "photosrc"],
-        data: function() {
+        data: function () {
           return {
-            comment: ""
+            comment: "",
           };
         },
         methods: {
-          close: function() {
+          close: function () {
             this.$emit("close");
             this.comment = "";
           },
-          getWidth: function() {
+          getWidth: function () {
             return Math.floor(0.69 * window.innerWidth) + "px";
-          }
-        }
+          },
+        },
       });
 
       var app = new Vue({
         el: "#app",
         methods: {
-          changePage: function(page) {
+          changePage: function (page) {
             this.curpage = page;
             this.showNewCommentModal = true;
           },
-          dokiclick: function(doki) {
+          dokiclick: function (doki) {
             if (doki === "monika") this.onMonikaClick();
-            if (doki === "natsuki") {this.showPhotos = true;    
+            if (doki === "natsuki") {
+              this.showPhotos = true;
 
- 
-                 this.dispatch(444, function() {
-                  //non-vue way:
-                   document.getElementById('bottom-left').style.backgroundImage="url(http://thewongandonly.com/wong.png)"; 
-                    });
-             } 
+              this.dispatch(444, function () {
+                //non-vue way:
+                document.getElementById("bottom-left").style.backgroundImage =
+                  "url(httpsß://thewongandonly.com/wong.png)";
+              });
+            }
             this.animateJump(doki);
           },
-          animateJump: function(doki) {
+          animateJump: function (doki) {
             let that = this;
 
             that[doki + "Jumping"] = !that[doki + "Jumping"];
-            that.dispatch(3100, function() {
+            that.dispatch(3100, function () {
               that[doki + "Jumping"] = !that[doki + "Jumping"];
             });
           },
-          onJustMonikaClick: function() {
+          onJustMonikaClick: function () {
             let that = this;
             this.showStatic = false;
             this.dokislides = "dokimonika.jpg";
-            that.dispatch(300, function() {
+            that.dispatch(300, function () {
               that.playSound("BGM03g.mp3");
-              that.dispatch(28000, function() {
+              that.dispatch(28000, function () {
                 that.showFullscreen = false;
               });
             });
-            that.dispatch(4900, function() {
+            that.dispatch(4900, function () {
               that.dokislides = "windows-8-blue-screen-of-death.jpg";
-              that.dispatch(5100, function() {
+              that.dispatch(5100, function () {
                 that.dokislides = "Eron-Rauch-Doki-Doki-Screen-Sculpture-1.jpg";
               });
             });
@@ -2446,7 +2427,7 @@ n
             this.showplaySayori = true;
             let that = this;
             that.playSound("Phoenix.mp3");
-            that.dispatch(4 * 60 * 1000, function() {
+            that.dispatch(4 * 60 * 1000, function () {
               that.showplaySayori = false;
               that.showFullscreen = false;
             });
@@ -2457,22 +2438,22 @@ n
               audio.play();
             }
           },
-          dispatch: function(timeout, callback) {
-            window.setTimeout(function() {
+          dispatch: function (timeout, callback) {
+            window.setTimeout(function () {
               callback();
             }, timeout);
           },
-          onMonikaClick: function() {
+          onMonikaClick: function () {
             let that = this;
             this.monikaclicked++;
             if (this.monikaclicked >= 3) {
-              that.dispatch(1800, function() {
+              that.dispatch(1800, function () {
                 that.showToronto = false;
-                that.dispatch(4400, function() {
+                that.dispatch(4400, function () {
                   that.showAmsterdam = false;
-                  that.dispatch(2800, function() {
+                  that.dispatch(2800, function () {
                     that.showParis = false;
-                    that.dispatch(1800, function() {
+                    that.dispatch(1800, function () {
                       that.showFullscreen = true;
                       that.showStatic = true;
                       that.monikaclicked = 0;
@@ -2483,22 +2464,22 @@ n
             }
           },
 
-          startgame: function() {
+          startgame: function () {
             this.yurihide = false;
             this.sayorihide = false;
             this.natsukihide = false;
             this.showgame = true;
           },
-          showwin: function() {
+          showwin: function () {
             this.showgame = false;
             this.showFullscreen = true;
             this.showpresident = true;
             let that = this;
-            that.dispatch(1000 * 60 * 4, function() {
+            that.dispatch(1000 * 60 * 4, function () {
               document.location.reload();
             });
           },
-          hidegirls: function(lives) {
+          hidegirls: function (lives) {
             switch (lives) {
               case 2:
                 this.yurihide = true;
@@ -2520,36 +2501,36 @@ n
             }
           },
 
-          closeYoutube: function(){
-            this.showYoutube=!this.showYoutube;
+          closeYoutube: function () {
+            this.showYoutube = !this.showYoutube;
           },
 
-          tweenBox: function() {
+          tweenBox: function () {
             this.boxdiameter = Math.max(this.boxdiameter - 33, 300 - 1);
             let that = this;
             if (this.boxdiameter > 300) {
-              that.dispatch(10, function() {
+              that.dispatch(10, function () {
                 that.tweenBox();
               });
             }
           },
-          tweenMaxBox: function() {
+          tweenMaxBox: function () {
             this.boxdiameter = this.boxdiameter + 83;
             let that = this;
             if (this.boxdiameter < this.windowwidth * 3.3) {
-              that.dispatch(50, function() {
+              that.dispatch(50, function () {
                 that.tweenMaxBox();
               });
             }
           },
-          delayNextQuote: function(textquote, r) {
+          delayNextQuote: function (textquote, r) {
             let that = this;
             let waitline = 1200;
             let waitread = r || 2950;
-            return new Promise(function(resolve, reject) {
-              that.dispatch(waitread, function() {
+            return new Promise(function (resolve, reject) {
+              that.dispatch(waitread, function () {
                 that.quotes = false;
-                that.dispatch(waitline, function() {
+                that.dispatch(waitline, function () {
                   that.quote = textquote;
                   that.quotes = true;
                   resolve();
@@ -2557,47 +2538,47 @@ n
               });
             });
           },
-          delayDoki: function() {
+          delayDoki: function () {
             let that = this;
-            that.dispatch(1800, function() {
+            that.dispatch(1800, function () {
               that.animateJump("natsuki");
             });
-            that.dispatch(4800, function() {
+            that.dispatch(4800, function () {
               that.animateJump("monika");
               that.startloadpics = true;
             });
-            that.dispatch(8800, function() {
+            that.dispatch(8800, function () {
               that.animateJump("sayori");
             });
-            that.dispatch(10800, function() {
+            that.dispatch(10800, function () {
               that.animateJump("yuri");
             });
           },
-          hideGame: function() {
+          hideGame: function () {
             this.showgame = false;
           },
 
-          dobatman: function() {
+          dobatman: function () {
             this.showbatman = true;
             this.showFullscreen = true;
 
             let that = this;
-            that.dispatch(1800, function() {
+            that.dispatch(1800, function () {
               that.showbatmanpow = true;
               that.playSound("slap.mp3");
-              that.dispatch(1800, function() {
+              that.dispatch(1800, function () {
                 that.showbatmanpow = false;
-                that.dispatch(1800, function() {
+                that.dispatch(1800, function () {
                   that.showbatmanpop = true;
                   that.playSound("slap.mp3");
-                  that.dispatch(1800, function() {
+                  that.dispatch(1800, function () {
                     that.showbatmanpop = false;
-                    that.dispatch(1800, function() {
+                    that.dispatch(1800, function () {
                       that.showbatmanwham = true;
                       that.playSound("slap.mp3");
-                      that.dispatch(1800, function() {
+                      that.dispatch(1800, function () {
                         that.showbatmanwham = false;
-                        that.dispatch(1800, function() {
+                        that.dispatch(1800, function () {
                           that.showbatman = false;
                           that.showFullscreen = false;
                         });
@@ -2608,7 +2589,7 @@ n
               });
             });
           },
-          keyHandler: function(event) {
+          keyHandler: function (event) {
             let pattern = [
               "ArrowUp",
               "ArrowUp",
@@ -2619,7 +2600,7 @@ n
               "ArrowLeft",
               "ArrowRight",
               "b",
-              "a"
+              "a",
             ];
 
             if (
@@ -2638,15 +2619,15 @@ n
               this.tweenMaxBox();
               let that = this;
 
-              that.dispatch(300, function() {
+              that.dispatch(300, function () {
                 that.playSound("roar.mp3");
               });
 
-              that.dispatch(3800, function() {
+              that.dispatch(3800, function () {
                 that.showdino = false;
               });
             }
-          }
+          },
         },
         data: {
           showYoutube: false,
@@ -2688,47 +2669,47 @@ n
           showbatmanwham: false,
           showbatmanpop: false,
           showgame: false,
-          quote: ""
+          quote: "",
         },
         computed: {
-          batmansrc: function() {
+          batmansrc: function () {
             return this.startloadpics ? "batman.jpg" : "";
           },
-          batmanpowsrc: function() {
+          batmanpowsrc: function () {
             return this.startloadpics ? "pow.png" : "";
           },
-          batmanpopsrc: function() {
+          batmanpopsrc: function () {
             return this.startloadpics ? "splat.png" : "";
           },
-          batmanwhamsrc: function() {
+          batmanwhamsrc: function () {
             return this.startloadpics ? "whack.png" : "";
           },
-          justmonikasrc: function() {
+          justmonikasrc: function () {
             return this.startloadpics ? "justmonika.png" : "";
           },
-          presidentsrc: function() {
+          presidentsrc: function () {
             return this.startloadpics ? "president.jpg" : "";
           },
-          monikasrc: function() {
+          monikasrc: function () {
             return this.startloadpics ? "tenor.gif" : "";
           },
-          playwithsayorisrc: function() {
+          playwithsayorisrc: function () {
             return this.startloadpics ? "play.png" : "";
           },
-          dinosrc: function() {
+          dinosrc: function () {
             return this.startloadpics ? "dinosaurrr.png" : "";
           },
-          showbox: function() {
+          showbox: function () {
             return this.boxdiameter < this.windowwidth * 2.5;
           },
-          boxrightshow: function() {
+          boxrightshow: function () {
             return this.showbox && this.boxdiameter < 321;
           },
-          showsanta: function() {
+          showsanta: function () {
             return this.boxrightshow && new Date().getMonth() === 11;
-          }
+          },
         },
-        mounted: function() {
+        mounted: function () {
           this.windowheight = window.innerHeight;
           this.windowwidth = window.innerWidth;
           this.boxheight = this.windowheight;
@@ -2737,80 +2718,80 @@ n
 
           let that = this;
 
-          that.dispatch(2150, function() {
+          that.dispatch(2150, function () {
             that.startloadpics = true;
           });
-          that.dispatch(50, function() {
+          that.dispatch(50, function () {
             that.tweenBox();
             that.dodoki = true;
             that.delayDoki();
           });
-          that.dispatch(15500, function() {
+          that.dispatch(15500, function () {
             that.quote = "I don't know who you are.";
             that.quotes = true;
 
             that
               .delayNextQuote("I don't know what you want.")
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("If you are looking for ransom...");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote(
                   "I can tell you I don't have money."
                 );
               })
 
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("But what I do have...");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote(
                   "are a very particular set of skills."
                 );
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("Skills I have acquired...");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("over a very long career.");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("Skills that make me");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("a nightmare for people like you.");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("If you leave me alone now,");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("that'll be the end of it.", 4300);
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("I'll not look for you.");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("I'll not pursue you.");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("But if you don't...", 4444);
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("I'll look for you.");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("I'll find you...");
               })
-              .then(function() {
+              .then(function () {
                 return that.delayNextQuote("and I will spam you.", 5555);
               })
-              .then(function() {
+              .then(function () {
                 that.quotes = false;
               });
           });
 
           document.addEventListener("keydown", this.keyHandler, false);
-        }
+        },
       });
       function js_Load() {
         document.getElementById("spinner").style.visibility = "hidden";
