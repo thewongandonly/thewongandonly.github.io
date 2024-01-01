@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,6 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
 
     <script>
+
       window.Wong = {};
       var firebaseConfig = {
         apiKey: "AIzaSyDM2AeE01HtRZZWoAocMFIwTQzYpmFRzj0",
@@ -1648,7 +1650,7 @@
         z-index: 99;
       }
     </style>
-    <!--<H4>David Wong</H4> 
+    <!--<H4>David Wong</H4>
 
 <h4>Profile</h4>
 
@@ -1676,13 +1678,6 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, gitkraken, octopus, jenkins
     </div>
 
     <div id="app" style="visibility: hidden">
-      <div v-if="showYoutube" class="embedYoutube">
-        <video-embed
-          :params="{autoplay: 1}"
-          src="https://www.youtube.com/watch?v=hb2mMVdx1KU"
-        ></video-embed>
-      </div>
-
       <div
         v-if="showbox"
         class="box box-1"
@@ -1790,7 +1785,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, gitkraken, octopus, jenkins
 
           <span @click.stop="startgame">Play </span>
 
-          <span title="baby" @click.stop="closeYoutube"> Babymetal</span>
+          <span title="baby" > _</span>
           <span title="physical" @click.stop="dobatman"> Contact</span>
         </span>
       </div>
@@ -1895,6 +1890,7 @@ C#, Typescript, Vue, Microsoft SQL, nodejs, gitkraken, octopus, jenkins
       </modal>
     </script>
     <script>
+    Vue.config.devtools = true;
       Vue.component("card", {
         template:
           '<div class="card-wrap"\n v-on:click.prevent="onView" ' +
