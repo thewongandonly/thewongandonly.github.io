@@ -8,17 +8,16 @@
               src="https://thewongandonly.com/Wongcircle.png"
               height="200"
               alt="David Wong"
-
-              style="margin-bottom: 10px;"
+              style="margin-bottom: 10px"
             />
 
             <h1>David Wong</h1>
             <h1>thewongandonly.com</h1>
 
             <p style="font-size: 0.9rem">
-              fullstack C# developer<br />
-              I use vue.js &amp; C# to create dockerized microservices for
-              remarkable digital experiences. <br />
+              fullstack developer<br />
+              {{ msg }} <br />
+              {{ likes }}
             </p>
           </div>
         </div>
@@ -31,8 +30,9 @@
 export default {
   data() {
     return {
-      msg: "world!",
-      color: "blue",
+      msg: "I use vue.js and C# to create dockerized microservices for remarkable digital experiences.",
+      likes:
+        "Outside of programming, I enjoy video games, K-drama, Japanese food, anime, and melodic techno.",
     };
   },
 };
@@ -47,10 +47,11 @@ export default {
 }
 
 .full-height {
+  position: absolute;
   height: 100vh;
   width: 100%;
   color: #f3e1d1;
-  background: #212629;
+ 
   font-family: "Montserrat", sans-serif !important;
 
   display: -moz-flex;

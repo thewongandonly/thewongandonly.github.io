@@ -14,6 +14,9 @@
       rel="stylesheet"
     />
     <style>
+      * {
+        box-sizing: border-box;
+      }
       html,
       body {
         height: 100%;
@@ -59,8 +62,11 @@
           "my-component": Vue.defineAsyncComponent(() =>
             loadModule("./myComponent.vue", options)
           ),
+          "my-background": Vue.defineAsyncComponent(() =>
+            loadModule("./myBackground.vue", options)
+          ),
         },
-        template: `<my-component></my-component>`,
+        template: `<my-background></my-background><my-component></my-component>`,
       });
 
       app.mount("#app");
