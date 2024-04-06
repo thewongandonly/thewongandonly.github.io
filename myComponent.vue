@@ -11,8 +11,8 @@
               style="margin-bottom: 10px"
             />
 
-            <h1>David Wong</h1>
-            <h1>thewongandonly.com</h1>
+            <h1>David</h1>
+            <h1>thewongandonly</h1>
 
             <p style="font-size: 0.9rem">
               fullstack developer<br />
@@ -51,7 +51,7 @@ export default {
   height: 100vh;
   width: 100%;
   color: #f3e1d1;
- 
+
   font-family: "Montserrat", sans-serif !important;
 
   display: -moz-flex;
@@ -66,30 +66,6 @@ export default {
   -webkit-align-items: center;
   -ms-align-items: center;
   align-items: center;
-  -moz-transition: -moz-transform 0.325s ease-in-out,
-    -moz-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
-  -webkit-transition: -webkit-transform 0.325s ease-in-out,
-    -webkit-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
-  -ms-transition: -ms-transform 0.325s ease-in-out,
-    -ms-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
-  transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out,
-    opacity 0.325s ease-in-out;
-  background-image: -moz-radial-gradient(
-    rgba(0, 0, 0, 0.25) 25%,
-    rgba(0, 0, 0, 0) 55%
-  );
-  background-image: -webkit-radial-gradient(
-    rgba(0, 0, 0, 0.25) 25%,
-    rgba(0, 0, 0, 0) 55%
-  );
-  background-image: -ms-radial-gradient(
-    rgba(0, 0, 0, 0.25) 25%,
-    rgba(0, 0, 0, 0) 55%
-  );
-  background-image: radial-gradient(
-    rgba(0, 0, 0, 0.25) 25%,
-    rgba(0, 0, 0, 0) 55%
-  );
   max-width: 100%;
   text-align: center;
 }
