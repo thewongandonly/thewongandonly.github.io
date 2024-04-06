@@ -8,13 +8,13 @@
               src="https://thewongandonly.com/Wongcircle.png"
               height="200"
               alt="David Wong"
-              style="margin-bottom: 10px"
+              style="margin-bottom: 14px"
             />
 
             <h1>David</h1>
             <h1>thewongandonly</h1>
 
-            <p style="font-size: 0.9rem">
+            <p class="iam">
               fullstack developer<br />
               {{ msg }} <br />
               {{ likes }}
@@ -45,7 +45,10 @@ export default {
   height: 600px;
   border: 0px solid #006100;
 }
-
+.iam {
+  font-size: 0.9rem;
+  line-height: 1.5em;
+}
 .full-height {
   position: absolute;
   height: 100vh;
