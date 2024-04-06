@@ -5,7 +5,7 @@
         <div class="content">
           <div class="inner">
             <img
-              src="https://thewongandonly.com/Wongcircle.png"
+              :src="pic"
               height="200"
               alt="David Wong"
               style="margin-bottom: 14px"
@@ -30,6 +30,7 @@
 export default {
   data() {
     return {
+      pic: "wongbw.png",
       msg: "I use vue.js and C# to create dockerized microservices for remarkable digital experiences.",
       likes:
         "Outside of programming, I enjoy video games, K-drama, Japanese food, anime, and melodic techno.",
