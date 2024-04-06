@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-  <html>
-
+<html>
   <head>
-	<title>David Wong | thewongandonly.com</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>David Wong | thewongandonly.com</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
     <script src="https://unpkg.com/vue@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader"></script>
-	<style>
-		html, body {
-		  height: 100%;
-		  margin: 0;
-		}
-		
-		</style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: #212629;
+      }
+    </style>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://thewongandonly.com/myicon.png"
+    />
   </head>
 
   <body>
@@ -25,7 +37,7 @@
           vue: Vue,
         },
         getFile(url) {
-          return fetch(url).then(resp =>
+          return fetch(url).then((resp) =>
             resp.ok ? resp.text() : Promise.reject(resp)
           );
         },
@@ -52,8 +64,6 @@
       });
 
       app.mount("#app");
-
     </script>
-
   </body>
-  </html>
+</html>

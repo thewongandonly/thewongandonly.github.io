@@ -8,6 +8,8 @@
               src="https://thewongandonly.com/Wongcircle.png"
               height="200"
               alt="David Wong"
+
+              style="margin-bottom: 10px;"
             />
 
             <h1>David Wong</h1>
@@ -17,7 +19,6 @@
               fullstack C# developer<br />
               I use vue.js &amp; C# to create dockerized microservices for
               remarkable digital experiences. <br />
-
             </p>
           </div>
         </div>
@@ -90,5 +91,19 @@ export default {
   );
   max-width: 100%;
   text-align: center;
+}
+
+h1 {
+  font-weight: 13 !important;
+
+  color: #ffffff;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 2rem;
+
+  font-size: 1.1rem;
+  line-height: 1;
+  letter-spacing: 0.42rem;
 }
 </style>
