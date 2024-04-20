@@ -36,7 +36,10 @@
           <h1>thewongandonly</h1>
         </div>
       </div>
-      <h1>WANTED BY ORDER OF THE SHERIFF</h1>
+      <div class="wanted">
+        <h1>reward $1,975,000</h1>
+        <p>In gold coin for the capture</p>
+      </div>
     </div>
   </div>
 </template>
@@ -157,5 +160,9 @@ h1 {
   font-size: 1.1rem;
   line-height: 1;
   letter-spacing: 0.42rem;
+}
+.wanted {
+  position: relative;
+  top: -520px;
 }
 </style>
