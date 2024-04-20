@@ -88,7 +88,7 @@ export default {
   width: calc(100%);
   height: 580px;
   margin: 0 auto;
-  top: -580px;
+  top: -581px;
   overflow: hidden;
 }
 .overlay:after {
@@ -163,6 +163,6 @@ h1 {
 }
 .wanted {
   position: relative;
-  top: -520px;
+  top: -555px;
 }
 </style>
