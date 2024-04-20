@@ -4,13 +4,7 @@
       <div class="centered-element">
         <div class="content">
           <div class="inner">
-            <img
-              @click="showvid"
-              :src="pic"
-              height="200"
-              alt="David Wong"
-              class="manhole"
-            />
+            <img @click="showvid" :src="pic" alt="David Wong" class="manhole" />
             <h1>David</h1>
             <h1>thewongandonly</h1>
             <p class="iam">
@@ -125,6 +119,7 @@ export default {
 }
 .manhole {
   margin-bottom: 14px;
+  width: 200px;
   cursor: pointer;
 }
 .full-height {
