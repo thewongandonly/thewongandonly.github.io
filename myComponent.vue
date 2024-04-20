@@ -1,19 +1,18 @@
 <template>
   <div class="full-height">
-    <div class="container">
+    <div class="container" v-if="!showOverlay">
       <div class="centered-element">
         <div class="content">
           <div class="inner">
             <img
+              @click="showvid"
               :src="pic"
               height="200"
               alt="David Wong"
-              style="margin-bottom: 14px"
+              class="manhole"
             />
-
             <h1>David</h1>
             <h1>thewongandonly</h1>
-
             <p class="iam">
               fullstack developer<br />
               {{ msg }} <br />
@@ -23,23 +22,91 @@
         </div>
       </div>
     </div>
+
+    <div class="fullheightinner" v-if="showOverlay">
+      <div class="myvid">
+        <video autoplay muted loop id="myVideo2">
+          <source :src="vid" type="video/mp4" />
+        </video>
+      </div>
+
+      <div class="overlay">
+        <div class="inneroverlay">
+          <h1>David</h1>
+          <h1>thewongandonly</h1>
+        </div>
+      </div>
+      <h1>WANTED BY ORDER OF THE SHERIFF</h1>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  mounted() {
+    this.audio = new Audio("https://thewongandonly.com/gunshot.mp3");
+  },
   data() {
     return {
+      audio: null,
+      vid: "wongmoving.mp4",
+      showOverlay: false,
       pic: "wongbw.png",
       msg: "I use vue.js and C# to create dockerized microservices for remarkable digital experiences.",
       likes:
         "Outside of programming, I enjoy video games, K-drama, Japanese food, anime, and melodic techno.",
     };
   },
+  methods: {
+    playgun() {
+      this.audio.volume = 0.35;
+      this.audio.play();
+    },
+    showvid() {
+      this.showOverlay = !this.showOverlay;
+      setTimeout(() => {
+        this.playgun();
+      }, 600);
+
+      setTimeout(() => {
+        this.playgun();
+      }, 4100);
+    },
+  },
 };
 </script>
 
 <style scoped>
+.myvid {
+  margin-top: 110px;
+}
+.overlay {
+  position: relative;
+  width: calc(100%);
+  height: 580px;
+  margin: 0 auto;
+  top: -580px;
+  overflow: hidden;
+}
+.overlay:after {
+  content: "";
+  position: absolute;
+  left: 239px;
+  top: 25px;
+  border-radius: 100%;
+  width: 525px;
+  height: 525px;
+  box-shadow: 0px 0px 0px 2000px #17181b;
+}
+.inneroverlay {
+  margin-top: 445px;
+}
+
+.fullheightinner {
+  height: 100%;
+  background-color: #17181b;
+}
+
 .container {
   display: grid;
   align-items: center;
@@ -49,6 +116,10 @@ export default {
 .iam {
   font-size: 0.9rem;
   line-height: 1.5em;
+}
+.manhole {
+  margin-bottom: 14px;
+  cursor: pointer;
 }
 .full-height {
   position: absolute;
