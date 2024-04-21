@@ -17,7 +17,8 @@
               {{ msg }} <br />
               Outside of programming, I enjoy video
               <span class="clickable" @click="showDoki">games</span>, K-drama,
-              Japanese food, anime, and melodic techno.
+              Japanese food, anime, and melodic
+              <span class="clickable" @click="onTechno">techno</span>.
             </p>
           </div>
         </div>
@@ -49,15 +50,19 @@
 
 <script>
 export default {
+  emits: ["customChange"],
   mounted() {
     this.audio = new Audio("https://thewongandonly.com/gunshot.mp3");
     this.audiodokidoki = new Audio("https://thewongandonly.com/BGM03g.mp3");
+    this.audiotechno = new Audio(
+      "https://thewongandonly.com/melodic-techno.mp3"
+    );
   },
   data() {
     return {
       audio: null,
       audiodokidoki: null,
-      color: "red",
+      audiotechno: null,
       animateBlue: false,
       curAnimeIndex: 0,
       listUrls: [
@@ -68,13 +73,22 @@ export default {
       ],
       vid: "wongmoving.mp4",
       showOverlay: false,
+      technoed: false,
       pic: "wongbw.png",
       msg: "I use vue.js and C# to create dockerized microservices for remarkable digital experiences.",
-      likes:
-        "Outside of programming, I enjoy video games, K-drama, Japanese food, anime, and melodic techno.",
     };
   },
   methods: {
+    onTechno() {
+      if (this.technoed) return;
+      this.technoed = true;
+      this.setBackground("sea.mp4");
+      this.audiotechno.volume = 0.3;
+      this.audiotechno.play();
+    },
+    setBackground(name) {
+      this.$emit("customChange", name);
+    },
     playgun() {
       this.audio.volume = 0.35;
       this.audio.play();

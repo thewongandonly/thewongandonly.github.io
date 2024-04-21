@@ -61,9 +61,19 @@
           ),
           "my-background": Vue.defineAsyncComponent(() =>
             loadModule("./myBackground.vue", options)
-          ),
+          )
         },
-        template: `<my-background></my-background><my-component></my-component>`,
+        data() {
+          return {
+            myvid: "darkcode.mp4",
+          };
+        },
+        methods: {
+          setVid(newVid) {
+            this.myvid = newVid;
+          },
+        },
+        template: `<my-background :vid="myvid"></my-background><my-component @custom-change="setVid"></my-component>`,
       });
 
       app.mount("#app");
