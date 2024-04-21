@@ -17,7 +17,10 @@
               {{ msg }} <br />
               Outside of programming, I enjoy video
               <span class="clickable" @click="showDoki">games</span>, K-drama,
-              Japanese food, anime, and melodic
+              <span class="clickable" @click="setBackground('bowlramen.mp4')"
+                >Japanese food</span
+              >
+              , anime, and melodic
               <span class="clickable" @click="onTechno">techno</span>.
             </p>
           </div>
