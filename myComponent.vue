@@ -9,7 +9,7 @@
               :src="pic"
               alt="David Wong"
               class="manhole clickable"
-              :class="{ ball: technoball }"
+              :class="{ ball: technoball, shake: technoshake }"
             />
             <h1>David</h1>
             <h1>thewongandonly</h1>
@@ -79,6 +79,7 @@ export default {
       showOverlay: false,
       technoed: false,
       technoball: false,
+      technoshake: false,
       pic: "wongbw.png",
       msg: "I use vue.js and C# to create dockerized microservices for remarkable digital experiences.",
     };
@@ -92,10 +93,16 @@ export default {
       this.audiotechno.play();
       this.delayedAction(() => {
         this.technoball = true;
-      }, 7000);
+      }, 18000);
       this.delayedAction(() => {
         this.technoball = false;
       }, 35000);
+      this.delayedAction(() => {
+        this.technoshake = true;
+      }, 3000);
+      this.delayedAction(() => {
+        this.technoshake = false;
+      }, 17500);
     },
     setBackground(name) {
       this.$emit("customChange", name);
@@ -263,13 +270,39 @@ h1 {
   animation-timing-function: cubic-bezier(0.5, 0.05, 1, 0.5);
   animation-iteration-count: infinite;
 }
-
+.shake {
+  animation: jumpshaking 1.83s infinite;
+}
 @keyframes bounce {
   from {
     transform: translate3d(0, 0, 0);
   }
   to {
     transform: translate3d(0, 90px, 0);
+  }
+}
+
+@keyframes jumpshaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateY(-9px);
+  }
+  35% {
+    transform: translateY(-9px) rotate(7deg);
+  }
+  55% {
+    transform: translateY(-9px) rotate(-7deg);
+  }
+  65% {
+    transform: translateY(-9px) rotate(7deg);
+  }
+  75% {
+    transform: translateY(-9px) rotate(-7deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0);
   }
 }
 </style>
