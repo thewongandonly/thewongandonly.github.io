@@ -87,9 +87,9 @@ export default {
   methods: {
     onTechno() {
       this.setBackground("sea.mp4");
+
       if (this.technoed) return;
       this.technoed = true;
-      
       this.audiotechno.volume = 0.3;
       this.audiotechno.play();
       this.delayedAction(() => {
@@ -148,7 +148,7 @@ export default {
       if (play) {
         this.delayedAction(this.playgun, 400);
         this.delayedAction(this.playgun, 3900);
-      }
+      } else this.setBackground("darkcode.mp4");
     },
   },
   computed: {
