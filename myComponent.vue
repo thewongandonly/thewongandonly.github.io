@@ -86,9 +86,10 @@ export default {
   },
   methods: {
     onTechno() {
+      this.setBackground("sea.mp4");
       if (this.technoed) return;
       this.technoed = true;
-      this.setBackground("sea.mp4");
+      
       this.audiotechno.volume = 0.3;
       this.audiotechno.play();
       this.delayedAction(() => {
