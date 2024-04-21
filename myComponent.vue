@@ -9,6 +9,7 @@
               :src="pic"
               alt="David Wong"
               class="manhole clickable"
+              :class="{ ball: technoball }"
             />
             <h1>David</h1>
             <h1>thewongandonly</h1>
@@ -77,6 +78,7 @@ export default {
       vid: "wongmoving.mp4",
       showOverlay: false,
       technoed: false,
+      technoball: false,
       pic: "wongbw.png",
       msg: "I use vue.js and C# to create dockerized microservices for remarkable digital experiences.",
     };
@@ -88,6 +90,12 @@ export default {
       this.setBackground("sea.mp4");
       this.audiotechno.volume = 0.3;
       this.audiotechno.play();
+      this.delayedAction(() => {
+        this.technoball = true;
+      }, 7000);
+      this.delayedAction(() => {
+        this.technoball = false;
+      }, 35000);
     },
     setBackground(name) {
       this.$emit("customChange", name);
@@ -247,5 +255,21 @@ h1 {
 .wanted {
   position: relative;
   top: -555px;
+}
+
+.ball {
+  animation: bounce 0.42s;
+  animation-direction: alternate;
+  animation-timing-function: cubic-bezier(0.5, 0.05, 1, 0.5);
+  animation-iteration-count: infinite;
+}
+
+@keyframes bounce {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 90px, 0);
+  }
 }
 </style>
