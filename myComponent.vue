@@ -36,16 +36,29 @@
       </div>
     </div>
   </div>
+
+  <div v-if="animateBlue" class="hero-slider curscreen"></div>
 </template>
 
 <script>
 export default {
   mounted() {
     this.audio = new Audio("https://thewongandonly.com/gunshot.mp3");
+    this.audiodokidoki = new Audio("https://thewongandonly.com/BGM03g.mp3");
   },
   data() {
     return {
       audio: null,
+      audiodokidoki: null,
+      color: "red",
+      animateBlue: false,
+      curAnimeIndex: 0,
+      listUrls: [
+        "url('https://thewongandonly.com/tenor.gif')",
+        'url("https://thewongandonly.com/windows-8-blue-screen-of-death.jpg")',
+        'url("https://thewongandonly.com/Eron-Rauch-Doki-Doki-Screen-Sculpture-1.jpg")',
+        'url("https://thewongandonly.com/dokimonika.jpg")',
+      ],
       vid: "wongmoving.mp4",
       showOverlay: false,
       pic: "wongbw.png",
@@ -59,24 +72,65 @@ export default {
       this.audio.volume = 0.35;
       this.audio.play();
     },
+    playdoki() {
+      this.audiodokidoki.volume = 0.35;
+      this.audiodokidoki.play();
+    },
+    delayedAction(fn, wait) {
+      setTimeout(() => {
+        fn();
+      }, wait);
+    },
+    nextIndex() {
+      const cur = this.curAnimeIndex + 1;
+      this.curAnimeIndex = cur % this.listUrls.length;
+    },
     showvid() {
       const play = !this.showOverlay;
       this.showOverlay = !this.showOverlay;
       if (play) {
-        setTimeout(() => {
-          this.playgun();
-        }, 600);
+        let base = 10000;
+        this.delayedAction(this.playgun, 400);
+        this.delayedAction(this.playgun, 3900);
+        this.delayedAction(() => {
+          this.animateBlue = true;
+        }, base);
+        for (let index = 1; index < this.listUrls.length; index++) {
+          this.delayedAction(this.nextIndex, base + 4900 * (index + 1));
+        }
 
-        setTimeout(() => {
-          this.playgun();
-        }, 4100);
+        this.delayedAction(this.playdoki, base + 15000);
+
+        this.delayedAction(() => {
+          this.animateBlue = false;
+          this.curAnimeIndex = 0;
+        }, base + 48000);
       }
+    },
+  },
+  computed: {
+    backgroundurl() {
+      return this.listUrls[this.curAnimeIndex];
     },
   },
 };
 </script>
 
 <style scoped>
+.hero-slider {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  background: #030303;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.curscreen {
+  background-image: v-bind(backgroundurl);
+}
+
 .myvid {
   margin-top: 110px;
 }
