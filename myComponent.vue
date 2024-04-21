@@ -4,13 +4,20 @@
       <div class="centered-element">
         <div class="content">
           <div class="inner">
-            <img @click="showvid" :src="pic" alt="David Wong" class="manhole" />
+            <img
+              @click="showvid"
+              :src="pic"
+              alt="David Wong"
+              class="manhole clickable"
+            />
             <h1>David</h1>
             <h1>thewongandonly</h1>
             <p class="iam">
               fullstack developer<br />
               {{ msg }} <br />
-              {{ likes }}
+              Outside of programming, I enjoy video
+              <span class="clickable" @click="showDoki">games</span>, K-drama,
+              Japanese food, anime, and melodic techno.
             </p>
           </div>
         </div>
@@ -85,26 +92,29 @@ export default {
       const cur = this.curAnimeIndex + 1;
       this.curAnimeIndex = cur % this.listUrls.length;
     },
+    showDoki() {
+      let base = 3000;
+
+      this.delayedAction(() => {
+        this.animateBlue = true;
+      }, 10);
+      for (let index = 1; index < this.listUrls.length; index++) {
+        this.delayedAction(this.nextIndex, base + 5400 * (index + 1));
+      }
+
+      this.delayedAction(this.playdoki, base + 15000);
+
+      this.delayedAction(() => {
+        this.animateBlue = false;
+        this.curAnimeIndex = 0;
+      }, base + 48000);
+    },
     showvid() {
       const play = !this.showOverlay;
       this.showOverlay = !this.showOverlay;
       if (play) {
-        let base = 10000;
         this.delayedAction(this.playgun, 400);
         this.delayedAction(this.playgun, 3900);
-        this.delayedAction(() => {
-          this.animateBlue = true;
-        }, base);
-        for (let index = 1; index < this.listUrls.length; index++) {
-          this.delayedAction(this.nextIndex, base + 4900 * (index + 1));
-        }
-
-        this.delayedAction(this.playdoki, base + 15000);
-
-        this.delayedAction(() => {
-          this.animateBlue = false;
-          this.curAnimeIndex = 0;
-        }, base + 48000);
       }
     },
   },
@@ -175,6 +185,10 @@ export default {
   margin-bottom: 14px;
   width: 200px;
   cursor: pointer;
+}
+.clickable {
+  cursor: pointer;
+  text-decoration: underline;
 }
 .full-height {
   position: absolute;
