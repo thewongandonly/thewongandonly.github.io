@@ -23,9 +23,12 @@
               >,
               <span class="clickable" @click="setBackground('bowlramen.mp4')"
                 >Japanese food</span
+              >,
+              <span class="clickable" @click="setBackground('YourName.mp4')"
+                >anime</span
               >
-              , anime, and melodic
-              <span class="clickable" @click="onTechno">techno</span>.
+              , and 
+              <span class="clickable" @click="onTechno">melodic techno</span>.
             </p>
           </div>
         </div>
