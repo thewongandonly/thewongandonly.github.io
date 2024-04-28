@@ -62,21 +62,32 @@
           "my-background": Vue.defineAsyncComponent(() =>
             loadModule("./myBackground.vue", options)
           ),
-          "sidebar": Vue.defineAsyncComponent(() =>
+          sidebar: Vue.defineAsyncComponent(() =>
             loadModule("./Sidebar.vue", options)
-          )
+          ),
         },
         data() {
           return {
             myvid: "darkcode.mp4",
           };
         },
+        computed: {
+          showchat() {
+            return (
+              this.myvid === "darkcode.mp4" ||
+              this.myvid === "Sorry.mp4" ||
+              this.myvid === "bowlramen.mp4"
+            );
+          },
+        },
         methods: {
           setVid(newVid) {
             this.myvid = newVid;
           },
         },
-        template: `<my-background :vid="myvid"></my-background><my-component @custom-change="setVid"></my-component><sidebar />`,
+        template: `<my-background :vid="myvid" />
+        <my-component @custom-change="setVid" />
+        <sidebar v-if="showchat" />`,
       });
 
       app.mount("#app");

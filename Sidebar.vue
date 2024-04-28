@@ -268,6 +268,7 @@
               />
               <button
                 class="chat__conversation-panel__button panel-item btn-icon send-message-button"
+                @keyup.enter="onquestion"
                 @click="onquestion"
               >
                 <svg
@@ -396,7 +397,7 @@ export default {
   }),
   methods: {
     closeSidebarPanel() {
-      console.log("closeSidebarPanel");
+      //console.log("closeSidebarPanel");
       this.isPanelOpen = false;
     },
     delayedAction(fn, wait) {
