@@ -147,6 +147,7 @@ export default {
       this.delayedAction(() => {
         this.animateBlue = false;
         this.curAnimeIndex = 0;
+        this.setBackground("darkcode.mp4")
       }, base + 48000);
     },
     showvid() {
