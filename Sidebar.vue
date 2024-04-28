@@ -440,13 +440,15 @@ export default {
 }
 
 .sidebar {
-  position: relative;
-  right: -439px;
+  top: 0;
+  position: fixed;
+  right: 0px;
+  width: 400px;
 }
 .sidebar-backdrop {
   background-color: #0b0715;
   opacity: 69%;
-  width: 100vw;
+  width: 400px;
   height: 68px;
   position: fixed;
   z-index: 9999999;
@@ -473,7 +475,7 @@ export default {
 
 .chat {
   background: var(--chat-background);
-  max-width: 600px;
+  max-width: 400px;
   margin: 25px auto;
   box-sizing: border-box;
   padding: 1em;
@@ -722,7 +724,7 @@ export default {
   cursor: pointer;
 }
 .close {
-  left: 388px;
+  left: 360px;
   top: 8px;
   cursor: pointer;
   position: relative;
