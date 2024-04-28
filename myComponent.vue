@@ -136,6 +136,7 @@ export default {
 
       this.delayedAction(() => {
         this.animateBlue = true;
+        this.setBackground("Sorry.mp4")
       }, 10);
       for (let index = 1; index < this.listUrls.length; index++) {
         this.delayedAction(this.nextIndex, base + 5400 * (index + 1));
