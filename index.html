@@ -61,6 +61,9 @@
           ),
           "my-background": Vue.defineAsyncComponent(() =>
             loadModule("./myBackground.vue", options)
+          ),
+          "sidebar": Vue.defineAsyncComponent(() =>
+            loadModule("./Sidebar.vue", options)
           )
         },
         data() {
@@ -73,7 +76,7 @@
             this.myvid = newVid;
           },
         },
-        template: `<my-background :vid="myvid"></my-background><my-component @custom-change="setVid"></my-component>`,
+        template: `<my-background :vid="myvid"></my-background><my-component @custom-change="setVid"></my-component><sidebar />`,
       });
 
       app.mount("#app");
