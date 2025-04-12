@@ -16,7 +16,11 @@
             <p class="iam">
               fullstack developer<br />
               {{ msg }} <br />
-              Outside of programming, I enjoy video
+              Outside of programming, I like
+              <span class="clickable" @click="setBackground('YourName.mp4')"
+                >anime</span
+              >,
+              video
               <span class="clickable" @click="showDoki">games</span>, 
               <span class="clickable" @click="setBackground('Sorry.mp4')"
                 >K-drama</span
@@ -24,10 +28,7 @@
               <span class="clickable" @click="setBackground('bowlramen.mp4')"
                 >Japanese food</span
               >,
-              <span class="clickable" @click="setBackground('YourName.mp4')"
-                >anime</span
-              >
-              , and 
+              and 
               <span class="clickable" @click="onTechno">melodic techno</span>.
             </p>
           </div>
