@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="wanted">
-        <h1>reward $06,50,848,009</h1>
+        <h1>reward $31,650,848,009</h1>
         <p>In gold coin for the capture</p>
       </div>
     </div>
