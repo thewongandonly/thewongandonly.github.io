@@ -194,6 +194,15 @@ export default {
 </script>
 
 <style scoped>
+  
+.st0 {
+stroke: #ffffff;
+stroke-miterlimit: 10;
+}
+.st1 {
+fill: #ffffff;
+}
+          
 .hero-slider {
   position: relative;
   height: 100vh;
