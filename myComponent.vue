@@ -39,7 +39,7 @@
               
 
               <br />
-              fullstack developer<br />
+              fullstack developer since 2000<br />
               {{ msg }} <br />
               Outside of programming, I like
               <span class="clickable" @click="setBackground('YourName.mp4')"
