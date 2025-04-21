@@ -64,7 +64,10 @@
           ),
           sidebar: Vue.defineAsyncComponent(() =>
             loadModule("./Sidebar.vue", options)
-          )
+          ),
+          marqueetext: Vue.defineAsyncComponent(() =>
+            loadModule("./MarqueeText.vue", options)
+          ),
         },
         data() {
           return {
@@ -83,7 +86,7 @@
             this.myvid = newVid;
           },
         },
-        template: `<my-background :vid="myvid" />
+        template: `<marqueetext /><my-background :vid="myvid" />
         <my-component @custom-change="setVid" />
         <sidebar v-if="showchat" />`,
       });
