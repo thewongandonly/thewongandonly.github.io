@@ -1,80 +1,40 @@
-<script>
-import { h } from 'vue'
+<template>
+  <div class="marquee">
+  <div>
+    <span>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span> 
+  </div>
+</div>
+</template>
 
-export default {
-  name: 'MarqueeText',
-  props: {
-    duration: {
-      type: Number,
-      default: 15
-    },
-    repeat: {
-      type: Number,
-      default: 2,
-      validator(val) {
-        return val > 0
-      }
-    },
-    paused: {
-      type: Boolean,
-      default: false
-    },
-    reverse: {
-      type: Boolean,
-      default: false
-    }
-  },
-  render({
-    $slots, $style, $props: {
-      duration, repeat, paused, reverse
-    }
-  }) {
-    return h('div', { class: [$style.wrap] }, [
-      h('div', {
-        class: [
-          paused
-            ? $style.paused
-            : undefined,
-          $style.content
-        ]
-      }, Array(repeat).fill(
-        h('div', {
-          class: $style.text,
-          style: {
-            animationDuration: `${duration}s`,
-            animationDirection: reverse
-              ? 'reverse'
-              : undefined
-          }
-        }, $slots.default())
-      ))
-    ])
-  }
-}
-</script>
 
-<style module>
-.wrap {
+<style>
+  
+.marquee {
+  height: 25px;
+  width: 420px;
+
   overflow: hidden;
+  position: relative;
 }
 
-.content {
-  width: 100000px;
+.marquee div {
+  display: block;
+  width: 200%;
+  height: 30px;
+
+  position: absolute;
+  overflow: hidden;
+
+  animation: marquee 5s linear infinite;
 }
 
-.text {
-  animation-name: animation;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+.marquee span {
   float: left;
+  width: 50%;
 }
 
-.paused .text {
-  animation-play-state: paused
-}
-
-@keyframes animation {
-  0% { transform:translateX(0); }
-  100% { transform:translateX(-100%); }
+@keyframes marquee {
+  0% { left: 0; }
+  100% { left: -100%; }
 }
 </style>
