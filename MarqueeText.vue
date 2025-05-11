@@ -1,7 +1,7 @@
 <template>
   <div class="marquee">
   <div>
-    <span>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span> 
+    <span>David Wong is a full-stack software developer skilled in C#, Vue.js and SQL, crafting robust solutions for the web.</span> 
   </div>
 </div>
 </template>
@@ -12,7 +12,9 @@
 .marquee {
   height: 25px;
   width: 100%;
-
+    z-index: 999999;
+    color: #999999;
+    font-family: "Montserrat", sans-serif;
   overflow: hidden;
   position: relative;
 }
