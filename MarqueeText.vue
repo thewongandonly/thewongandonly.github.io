@@ -1,14 +1,16 @@
 <template>
   <div class="marquee">
   <div>
-    <span>David Wong is a full-stack software developer skilled in C#, Vue.js and SQL, crafting robust solutions for the web.</span> 
+    <span class="wider">David Wong is a full-stack software developer skilled in C#, Vue.js and SQL, crafting robust solutions for the web.</span> 
   </div>
 </div>
 </template>
 
 
 <style>
-  
+.wider{
+  padding-left: 550px;
+}
 .marquee {
   height: 25px;
   width: 100%;
