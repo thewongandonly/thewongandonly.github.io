@@ -15,11 +15,12 @@
 .marquee {
   height: 25px;
   width: 100%;
-    z-index: 999999;
-    color: #999999;
-    font-family: "Montserrat", sans-serif;
+  z-index: 999999;
+  color: #999999;
+  font-family: "Montserrat", sans-serif;
   overflow: hidden;
-  position: relative;
+  position: fixed;
+  bottom: 0;
 }
 
 .marquee div {
