@@ -1,18 +1,151 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-    <meta charset=utf-8>
-    <meta http-equiv=X-UA-Compatible content="IE=edge">
-    <meta name=viewport content="width=device-width,initial-scale=1">
-    <title>QR</title>
-<style type="text/css">
-	#app{text-align:center;color:#2c3e50;margin-top:60px}input,label,span,textarea{font-family:Ubuntu,sans-serif;display:block;margin:10px;padding:5px;border:none;font-size:22px}input:focus,textarea:focus{outline:0}input.question,textarea.question{font-size:48px;font-weight:300;border-radius:2px;margin:0;border:none;width:80%;background:transparent;-webkit-transition:padding-top .2s ease,margin-top .2s ease;transition:padding-top .2s ease,margin-top .2s ease;overflow-x:hidden}input.question+label,textarea.question+label{display:block;position:relative;white-space:nowrap;padding:0;margin:0;width:10%;border-top:1px solid red;-webkit-transition:width .4s ease;transition:width .4s ease;height:0}input.question:focus+label,textarea.question:focus+label{width:80%}input.question:focus,input.question:valid{padding-top:35px}textarea.question:focus,textarea.question:valid{margin-top:35px}input.question:focus+label>span,input.question:valid+label>span{top:-100px;font-size:22px;color:#333}textarea.question:focus+label>span,textarea.question:valid+label>span{top:-150px;font-size:22px;color:#333}input.question:valid+label,textarea.question:valid+label{border-color:green}input.question:invalid,textarea.question:invalid{-webkit-box-shadow:none;box-shadow:none}input.question+label>span,textarea.question+label>span{font-weight:300;margin:0;position:absolute;color:#8f8f8f;font-size:48px;top:-66px;left:0;z-index:-1;-webkit-transition:top .2s ease,font-size .2s ease,color .2s ease;transition:top .2s ease,font-size .2s ease,color .2s ease}input[type=submit]{-webkit-transition:opacity .2s ease,background .2s ease;transition:opacity .2s ease,background .2s ease;display:block;opacity:0;margin:10px 0 0 0;padding:10px;cursor:pointer}input[type=submit]:hover{background:#eee}input[type=submit]:active{background:#999}input.question:valid~input[type=submit],textarea.question:valid~input[type=submit]{-webkit-animation:appear 1s forwards;animation:appear 1s forwards}input.question:invalid~input[type=submit],textarea.question:invalid~input[type=submit]{display:none}
-</style>
-</head>
+    <title>Blue Screen of Death</title>
 
-<body>
-    <div id=app></div>
+    <style>
+      body {
+        font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial,
+          sans-serif;
+        background: #3973aa;
+        color: #fefeff;
+        height: 100vh;
+        margin: 0;
+      }
+
+      #page {
+        display: table;
+        height: 100%;
+        margin: 0 auto;
+        margin-top: -10px;
+        width: 70%;
+        font-size: 1.9vw;
+      }
+
+      #container {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: normal;
+        padding: 0;
+        margin: 25px 0;
+        margin-top: 0;
+        font-weight: 300;
+      }
+
+      h1 {
+        font-size: 6.5em;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+
+      h4 {
+        font-size: 1.4em;
+        line-height: 1.5em;
+      }
+
+      h5 {
+        line-height: 1.1em;
+        font-size: 1.3em;
+      }
+
+      #details {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: nowrap;
+        padding-top: 10px;
+      }
+
+      #qr {
+        flex: 0 1 auto;
+      }
+
+      #image {
+        background: white;
+        padding: 5px;
+        line-height: 0;
+      }
+
+      #image img {
+        width: 9.8em;
+        height: 9.8em;
+      }
+
+      #stopcode {
+        padding-left: 10px;
+        flex: 1 1 auto;
+      }
+
+      @media (min-width: 840px) {
+        #page {
+          font-size: 140%;
+          width: 800px;
+        }
+      }
+
+textarea#text {
+    background-color: #3973aa;
+    width: 453px;
+    height: 99%;
+    color: white;
+  }
+
+    </style>
+
+    <script>
+      window.console = window.console || function (t) {};
+    </script>
+  </head>
+
+  <body translate="no">
+    <div id="page">
+      <div id="container">
+        <h1>:(</h1>
+        <h2>
+          Your PC ran into a problem and needs to restart. We're just collecting
+          some error info, and then we'll restart for you.
+        </h2>
+        <h2><span id="percentage">0</span>% complete</h2>
+        <div id="details">
+
+
+ <div id=app></div>
+
+        </div>
+      </div>
+    </div>
+
+    <script id="rendered-js">
+      var percentageElement = document.getElementById("percentage");
+      var percentage = 0;
+
+      function process() {
+        percentage += parseInt(Math.random() * 10);
+        if (percentage > 100) {
+          percentage = 100;
+        }
+        percentageElement.innerText = percentage;
+        processInterval();
+      }
+
+      function processInterval() {
+        setTimeout(process, Math.random() * (1000 - 500) + 500);
+      }
+      processInterval();
+    </script>
+
+
  
 <script type="text/javascript">
 	(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-vendors"],{"0196":function(t,e,n){var r=n("5a88"),o=n("bbf0");function i(t){this.mode=o.BYTE,this.data=new r(t)}i.getBitsLength=function(t){return 8*t},i.prototype.getLength=function(){return this.data.length},i.prototype.getBitsLength=function(){return i.getBitsLength(this.data.length)},i.prototype.write=function(t){for(var e=0,n=this.data.length;e<n;e++)t.put(this.data[e],8)},t.exports=i},"0244":function(t,e){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},"0425":function(t,e){var n="[0-9]+",r="[A-Z $%*+\\-./:]+",o="(?:[u3000-u303F]|[u3040-u309F]|[u30A0-u30FF]|[uFF00-uFFEF]|[u4E00-u9FAF]|[u2605-u2606]|[u2190-u2195]|u203B|[u2010u2015u2018u2019u2025u2026u201Cu201Du2225u2260]|[u0391-u0451]|[u00A7u00A8u00B1u00B4u00D7u00F7])+";o=o.replace(/u/g,"\\u");var i="(?:(?![A-Z0-9 $%*+\\-./:]|"+o+")(?:.|[\r\n]))+";e.KANJI=new RegExp(o,"g"),e.BYTE_KANJI=new RegExp("[^A-Z0-9 $%*+\\-./:]+","g"),e.BYTE=new RegExp(i,"g"),e.NUMERIC=new RegExp(n,"g"),e.ALPHANUMERIC=new RegExp(r,"g");var a=new RegExp("^"+o+"$"),s=new RegExp("^"+n+"$"),u=new RegExp("^[A-Z0-9 $%*+\\-./:]+$");e.testKanji=function(t){return a.test(t)},e.testNumeric=function(t){return s.test(t)},e.testAlphanumeric=function(t){return u.test(t)}},"04cf":function(t,e,n){var r=n("4a89"),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},"08c1":function(t,e,n){"use strict";var r,o,i,a,s=n("e6a1"),u=n("b808"),c=n("a9f2"),f=n("a274"),l=n("569f"),d=n("ab4c"),p=n("9184"),h=n("8115"),v=n("88b8"),g=n("1aa7"),y=n("1ad4").set,m=n("a24c")(),_=n("cc20"),b=n("73c3"),w=n("4b9e"),A=n("1c08"),x="Promise",C=u.TypeError,E=u.process,O=E&&E.versions,S=O&&O.v8||"",T=u[x],k="process"==f(E),$=function(){},P=o=_.f,I=!!function(){try{var t=T.resolve(1),e=(t.constructor={})[n("b67f")("species")]=function(t){t($,$)};return(k||"function"==typeof PromiseRejectionEvent)&&t.then($)instanceof e&&0!==S.indexOf("6.6")&&-1===w.indexOf("Chrome/66")}catch(r){}}(),N=function(t){var e;return!(!d(t)||"function"!=typeof(e=t.then))&&e},M=function(t,e){if(!t._n){t._n=!0;var n=t._c;m(function(){var r=t._v,o=1==t._s,i=0,a=function(e){var n,i,a,s=o?e.ok:e.fail,u=e.resolve,c=e.reject,f=e.domain;try{s?(o||(2==t._h&&B(t),t._h=1),!0===s?n=r:(f&&f.enter(),n=s(r),f&&(f.exit(),a=!0)),n===e.promise?c(C("Promise-chain cycle")):(i=N(n))?i.call(n,u,c):u(n)):c(r)}catch(l){f&&!a&&f.exit(),c(l)}};while(n.length>i)a(n[i++]);t._c=[],t._n=!1,e&&!t._h&&j(t)})}},j=function(t){y.call(u,function(){var e,n,r,o=t._v,i=R(t);if(i&&(e=b(function(){k?E.emit("unhandledRejection",o,t):(n=u.onunhandledrejection)?n({promise:t,reason:o}):(r=u.console)&&r.error&&r.error("Unhandled promise rejection",o)}),t._h=k||R(t)?2:1),t._a=void 0,i&&e.e)throw e.v})},R=function(t){return 1!==t._h&&0===(t._a||t._c).length},B=function(t){y.call(u,function(){var e;k?E.emit("rejectionHandled",t):(e=u.onrejectionhandled)&&e({promise:t,reason:t._v})})},L=function(t){var e=this;e._d||(e._d=!0,e=e._w||e,e._v=t,e._s=2,e._a||(e._a=e._c.slice()),M(e,!0))},D=function(t){var e,n=this;if(!n._d){n._d=!0,n=n._w||n;try{if(n===t)throw C("Promise can't be resolved itself");(e=N(t))?m(function(){var r={_w:n,_d:!1};try{e.call(t,c(D,r,1),c(L,r,1))}catch(o){L.call(r,o)}}):(n._v=t,n._s=1,M(n,!1))}catch(r){L.call({_w:n,_d:!1},r)}}};I||(T=function(t){h(this,T,x,"_h"),p(t),r.call(this);try{t(c(D,this,1),c(L,this,1))}catch(e){L.call(this,e)}},r=function(t){this._c=[],this._a=void 0,this._s=0,this._d=!1,this._v=void 0,this._h=0,this._n=!1},r.prototype=n("9faf")(T.prototype,{then:function(t,e){var n=P(g(this,T));return n.ok="function"!=typeof t||t,n.fail="function"==typeof e&&e,n.domain=k?E.domain:void 0,this._c.push(n),this._a&&this._a.push(n),this._s&&M(this,!1),n.promise},catch:function(t){return this.then(void 0,t)}}),i=function(){var t=new r;this.promise=t,this.resolve=c(D,t,1),this.reject=c(L,t,1)},_.f=P=function(t){return t===T||t===a?new i(t):o(t)}),l(l.G+l.W+l.F*!I,{Promise:T}),n("aab6")(T,x),n("0ec0")(x),a=n("ca38")[x],l(l.S+l.F*!I,x,{reject:function(t){var e=P(this),n=e.reject;return n(t),e.promise}}),l(l.S+l.F*(s||!I),x,{resolve:function(t){return A(s&&this===a?T:this,t)}}),l(l.S+l.F*!(I&&n("2299")(function(t){T.all(t)["catch"]($)})),x,{all:function(t){var e=this,n=P(e),r=n.resolve,o=n.reject,i=b(function(){var n=[],i=0,a=1;v(t,!1,function(t){var s=i++,u=!1;n.push(void 0),a++,e.resolve(t).then(function(t){u||(u=!0,n[s]=t,--a||r(n))},o)}),--a||r(n)});return i.e&&o(i.v),n.promise},race:function(t){var e=this,n=P(e),r=n.reject,o=b(function(){v(t,!1,function(t){e.resolve(t).then(n.resolve,r)})});return o.e&&r(o.v),n.promise}})},"0ec0":function(t,e,n){"use strict";var r=n("b808"),o=n("e4e1"),i=n("45e2"),a=n("b67f")("species");t.exports=function(t){var e=r[t];i&&e&&!e[a]&&o.f(e,a,{configurable:!0,get:function(){return this}})}},"0f4a":function(t,e){var n={}.hasOwnProperty;t.exports=function(t,e){return n.call(t,e)}},"10b0":function(t,e,n){"use strict";var r={single_source_shortest_paths:function(t,e,n){var o={},i={};i[e]=0;var a,s,u,c,f,l,d,p,h,v=r.PriorityQueue.make();v.push(e,0);while(!v.empty())for(u in a=v.pop(),s=a.value,c=a.cost,f=t[s]||{},f)f.hasOwnProperty(u)&&(l=f[u],d=c+l,p=i[u],h="undefined"===typeof i[u],(h||p>d)&&(i[u]=d,v.push(u,d),o[u]=s));if("undefined"!==typeof n&&"undefined"===typeof i[n]){var g=["Could not find a path from ",e," to ",n,"."].join("");throw new Error(g)}return o},extract_shortest_path_from_predecessor_list:function(t,e){var n=[],r=e;while(r)n.push(r),t[r],r=t[r];return n.reverse(),n},find_path:function(t,e,n){var o=r.single_source_shortest_paths(t,e,n);return r.extract_shortest_path_from_predecessor_list(o,n)},PriorityQueue:{make:function(t){var e,n=r.PriorityQueue,o={};for(e in t=t||{},n)n.hasOwnProperty(e)&&(o[e]=n[e]);return o.queue=[],o.sorter=t.sorter||n.default_sorter,o},default_sorter:function(t,e){return t.cost-e.cost},push:function(t,e){var n={value:t,cost:e};this.queue.push(n),this.queue.sort(this.sorter)},pop:function(){return this.queue.shift()},empty:function(){return 0===this.queue.length}}};t.exports=r},"14c6":function(t,e,n){"use strict";var r=n("3bb1"),o=n("b5cb"),i=n("a638"),a=n("58b9");t.exports=n("fa2d")(Array,"Array",function(t,e){this._t=a(t),this._i=0,this._k=e},function(){var t=this._t,e=this._k,n=this._i++;return!t||n>=t.length?(this._t=void 0,o(1)):o(0,"keys"==e?n:"values"==e?t[n]:[n,t[n]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},"1aa7":function(t,e,n){var r=n("27b2"),o=n("9184"),i=n("b67f")("species");t.exports=function(t,e){var n,a=r(t).constructor;return void 0===a||void 0==(n=r(a)[i])?e:o(n)}},"1ad4":function(t,e,n){var r,o,i,a=n("a9f2"),s=n("ef26"),u=n("d8db"),c=n("781f"),f=n("b808"),l=f.process,d=f.setImmediate,p=f.clearImmediate,h=f.MessageChannel,v=f.Dispatch,g=0,y={},m="onreadystatechange",_=function(){var t=+this;if(y.hasOwnProperty(t)){var e=y[t];delete y[t],e()}},b=function(t){_.call(t.data)};d&&p||(d=function(t){var e=[],n=1;while(arguments.length>n)e.push(arguments[n++]);return y[++g]=function(){s("function"==typeof t?t:Function(t),e)},r(g),g},p=function(t){delete y[t]},"process"==n("71fa")(l)?r=function(t){l.nextTick(a(_,t,1))}:v&&v.now?r=function(t){v.now(a(_,t,1))}:h?(o=new h,i=o.port2,o.port1.onmessage=b,r=a(i.postMessage,i,1)):f.addEventListener&&"function"==typeof postMessage&&!f.importScripts?(r=function(t){f.postMessage(t+"","*")},f.addEventListener("message",b,!1)):r=m in c("script")?function(t){u.appendChild(c("script"))[m]=function(){u.removeChild(this),_.call(t)}}:function(t){setTimeout(a(_,t,1),0)}),t.exports={set:d,clear:p}},"1c08":function(t,e,n){var r=n("27b2"),o=n("ab4c"),i=n("cc20");t.exports=function(t,e){if(r(t),o(e)&&e.constructor===t)return e;var n=i.f(t),a=n.resolve;return a(e),n.promise}},"1d27":function(t,e,n){var r=n("27b2");t.exports=function(t,e,n,o){try{return o?e(r(n)[0],n[1]):e(n)}catch(a){var i=t["return"];throw void 0!==i&&r(i.call(t)),a}}},"1d73":function(t,e,n){t.exports=n("312a")("native-function-to-string",Function.toString)},"1f51":function(t,e,n){var r=n("b808"),o=n("a0a8"),i=n("0f4a"),a=n("c0f4")("src"),s=n("1d73"),u="toString",c=(""+s).split(u);n("ca38").inspectSource=function(t){return s.call(t)},(t.exports=function(t,e,n,s){var u="function"==typeof n;u&&(i(n,"name")||o(n,"name",e)),t[e]!==n&&(u&&(i(n,a)||o(n,a,t[e]?""+t[e]:c.join(String(e)))),t===r?t[e]=n:s?t[e]?t[e]=n:o(t,e,n):(delete t[e],o(t,e,n)))})(Function.prototype,u,function(){return"function"==typeof this&&this[a]||s.call(this)})},2299:function(t,e,n){var r=n("b67f")("iterator"),o=!1;try{var i=[7][r]();i["return"]=function(){o=!0},Array.from(i,function(){throw 2})}catch(a){}t.exports=function(t,e){if(!e&&!o)return!1;var n=!1;try{var i=[7],s=i[r]();s.next=function(){return{done:n=!0}},i[r]=function(){return s},t(i)}catch(a){}return n}},2732:function(t,e,n){var r=n("5a88"),o=n("699e");e.mul=function(t,e){var n=new r(t.length+e.length-1);n.fill(0);for(var i=0;i<t.length;i++)for(var a=0;a<e.length;a++)n[i+a]^=o.mul(t[i],e[a]);return n},e.mod=function(t,e){var n=new r(t);while(n.length-e.length>=0){for(var i=n[0],a=0;a<e.length;a++)n[a]^=o.mul(e[a],i);var s=0;while(s<n.length&&0===n[s])s++;n=n.slice(s)}return n},e.generateECPolynomial=function(t){for(var n=new r([1]),i=0;i<t;i++)n=e.mul(n,[1,o.exp(i)]);return n}},"27a3":function(t,e){e.isValid=function(t){return!isNaN(t)&&t>=1&&t<=40}},"27b2":function(t,e,n){var r=n("ab4c");t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},2877:function(t,e,n){"use strict";function r(t,e,n,r,o,i,a,s){var u,c="function"===typeof t?t.options:t;if(e&&(c.render=e,c.staticRenderFns=n,c._compiled=!0),r&&(c.functional=!0),i&&(c._scopeId="data-v-"+i),a?(u=function(t){t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,t||"undefined"===typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),o&&o.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(a)},c._ssrRegister=u):o&&(u=s?function(){o.call(this,this.$root.$options.shadowRoot)}:o),u)if(c.functional){c._injectStyles=u;var f=c.render;c.render=function(t,e){return u.call(e),f(t,e)}}else{var l=c.beforeCreate;c.beforeCreate=l?[].concat(l,u):[u]}return{exports:t,options:c}}n.d(e,"a",function(){return r})},"2b0e":function(t,e,n){"use strict";(function(t){
@@ -28,5 +161,7 @@ var n=Object.freeze({});function r(t){return void 0===t||null===t}function o(t){
 	(function(e){function t(t){for(var r,u,s=t[0],i=t[1],c=t[2],f=0,p=[];f<s.length;f++)u=s[f],Object.prototype.hasOwnProperty.call(o,u)&&o[u]&&p.push(o[u][0]),o[u]=0;for(r in i)Object.prototype.hasOwnProperty.call(i,r)&&(e[r]=i[r]);l&&l(t);while(p.length)p.shift()();return a.push.apply(a,c||[]),n()}function n(){for(var e,t=0;t<a.length;t++){for(var n=a[t],r=!0,s=1;s<n.length;s++){var i=n[s];0!==o[i]&&(r=!1)}r&&(a.splice(t--,1),e=u(u.s=n[0]))}return e}var r={},o={app:0},a=[];function u(t){if(r[t])return r[t].exports;var n=r[t]={i:t,l:!1,exports:{}};return e[t].call(n.exports,n,n.exports,u),n.l=!0,n.exports}u.m=e,u.c=r,u.d=function(e,t,n){u.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},u.r=function(e){"undefined"!==typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},u.t=function(e,t){if(1&t&&(e=u(e)),8&t)return e;if(4&t&&"object"===typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(u.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)u.d(n,r,function(t){return e[t]}.bind(null,r));return n},u.n=function(e){var t=e&&e.__esModule?function(){return e["default"]}:function(){return e};return u.d(t,"a",t),t},u.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},u.p="/";var s=window["webpackJsonp"]=window["webpackJsonp"]||[],i=s.push.bind(s);s.push=t,s=s.slice();for(var c=0;c<s.length;c++)t(s[c]);var l=i;a.push([0,"chunk-vendors"]),n()})({0:function(e,t,n){e.exports=n("56d7")},"034f":function(e,t,n){"use strict";var r=n("64a9"),o=n.n(r);o.a},"56d7":function(e,t,n){"use strict";n.r(t);n("14c6"),n("08c1"),n("4842"),n("d9fc");var r=n("2b0e"),o=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",{attrs:{id:"app"}},[n("textarea",{directives:[{name:"model",rawName:"v-model",value:e.message,expression:"message"}],staticClass:"question",attrs:{type:"text",name:"name",id:"text",required:"",autocomplete:"off"},domProps:{value:e.message},on:{input:function(t){t.target.composing||(e.message=t.target.value)}}}),n("canvas",{ref:"my-canvas",attrs:{id:"canvas"}}),n("br")])},a=[],u=n("d055"),s=n.n(u),i=function(e,t){var n;return function(){var r=this,o=arguments;clearTimeout(n),n=setTimeout(function(){return e.apply(r,o)},t)}},c={name:"app",data:function(){return{message:"",debouncefn:null}},mounted:function(){var e=this;this.debouncefn=i(function(){e.onEnlargeText()},800)},watch:{message:function(e){this.onEnlargeText()}},methods:{onEnlargeText:function(){this.message&&s.a.toCanvas(this.$refs["my-canvas"],this.message,function(e){e&&console.error(e),console.log("success!")})}}},l=c,f=(n("034f"),n("2877")),p=Object(f["a"])(l,o,a,!1,null,null,null),d=p.exports;r["a"].config.productionTip=!1,new r["a"]({render:function(e){return e(d)}}).$mount("#app")},"64a9":function(e,t,n){}});
 //# sourceMappingURL=app.8e9dd46c.js.map
 </script>
-</body> 
+
+
+  </body>
 </html>
