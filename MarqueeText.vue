@@ -1,16 +1,25 @@
 <template>
   <div class="marquee">
   <div>
-    <span class="wider">David Wong is a skilled full-stack software developer proficient in C#, Vue.js, and SQL, building robust web solutions.</span> 
+    <span class="wider">{{msg}}</span> 
   </div>
 </div>
 </template>
 
+<script>
+export default {
+data: function () {
+  return {
+    msg: "Hi, Ik ben een full-stack software ontwikkelaar uit Utrecht, Nederland. Mijn ervaring is zo hoog as de Dom!"
+  }
+}
+};
+</script>
 
 <style>
 .wider{
-  padding-left: 850px;
-  padding-right: 250px;
+  padding-left: 1450px;
+  padding-right: 550px;
 }
 .marquee {
   height: 25px;
