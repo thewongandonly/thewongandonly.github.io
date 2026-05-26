@@ -86,7 +86,7 @@
             this.myvid = newVid;
           },
         },
-        template: `<marqueetext /><my-background :vid="myvid" />
+        template: `<my-background :vid="myvid" />
         <my-component @custom-change="setVid" />
         <sidebar v-if="showchat" />`,
       });
