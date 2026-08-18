@@ -20,7 +20,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 class="social-icon"
-                title="contact"
+                title="x"
               >
                 <svg
                   width="44px"
@@ -75,7 +75,7 @@
                 <svg
                   width="32px"
                   height="32px"
-                  viewBox="0 14 46 46"
+                  viewBox="0 0 46 46"
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
