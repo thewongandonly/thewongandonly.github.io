@@ -14,16 +14,17 @@
             <h1>David</h1>
             <h1>thewongandonly</h1>
             <p class="iam">
+              <span class="social-icons">
               <a
                 href="https://x.com/thewongandonly"
                 target="_blank"
                 rel="noopener noreferrer"
-                style="border: none; text-decoration: none"
+                class="social-icon"
                 title="contact"
               >
                 <svg
-                  width="50px"
-                  height="50px"
+                  width="44px"
+                  height="32px"
                   version="1.1"
                   id="svg5"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -68,11 +69,12 @@
                 href="http://linkedin.com/in/thewongandonlycom"
                 target="_blank"
                 rel="noopener noreferrer"
+                class="social-icon"
                 title="linkedin"
               >
                 <svg
-                  width="35px"
-                  height="35px"
+                  width="32px"
+                  height="32px"
                   viewBox="0 14 46 46"
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
@@ -98,6 +100,7 @@
                   </g>
                 </svg>
               </a>
+              </span>
 
               <br />
               fullstack developer<br />
@@ -315,6 +318,21 @@ fill: #ffffff;
 .iam {
   font-size: 0.9rem;
   line-height: 1.5em;
+}
+.social-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  vertical-align: middle;
+}
+.social-icon {
+  display: flex;
+  align-items: center;
+  border: none;
+  text-decoration: none;
+}
+.social-icon svg {
+  display: block;
 }
 .manhole {
   margin-bottom: 14px;
