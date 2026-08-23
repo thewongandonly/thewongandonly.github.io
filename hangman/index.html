@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Hangman Riddle</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            max-width: 520px;
+            width: 100%;
+            padding: 24px;
+            background: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #7ec8e3;
+            font-size: 1.5rem;
+            margin: 0 0 4px;
+        }
+        .game-desc {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin: 0 0 14px;
+            line-height: 1.5;
+        }
+        .holiday-banner {
+            display: none;
+            background: linear-gradient(90deg, #7ec8e3, #03dac6);
+            color: #121212;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+        .riddle-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 10px 0 16px;
+            min-height: 3em;
+        }
+
+        /* ---- Hangman-as-scorekeeper ---- */
+        .hangman-svg {
+            margin: 4px auto 6px;
+            display: block;
+        }
+        .hangman-svg line, .hangman-svg circle {
+            stroke: #e0e0e0;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+        }
+        .wrong-count {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 12px;
+        }
+        .word-display {
+            font-size: 1.7rem;
+            letter-spacing: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 8px 0 16px;
+            min-height: 2em;
+            word-break: break-word;
+        }
+        .keyboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .key-btn {
+            background: #2a2a2a;
+            color: #e0e0e0;
+            border: 1px solid #3a3a3a;
+            width: 34px;
+            height: 34px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .key-btn:hover:not(:disabled) {
+            background: #7ec8e3;
+            color: #121212;
+        }
+        .key-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+        .key-btn.correct-key { background: #1b3a2b; color: #4ade80; border-color: #1b3a2b; }
+        .key-btn.wrong-key { background: #3a1b1b; color: #f87171; border-color: #3a1b1b; }
+        .status-msg {
+            font-size: 1.05rem;
+            font-weight: bold;
+            min-height: 1.4em;
+            margin: 6px 0;
+        }
+        .status-msg.win { color: #4ade80; }
+        .status-msg.lose { color: #f87171; }
+        .give-up-btn {
+            background: transparent;
+            color: #aaa;
+            border: 1px solid #3a3a3a;
+            padding: 7px 16px;
+            font-size: 0.85rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+        .give-up-btn:hover { border-color: #7ec8e3; color: #7ec8e3; }
+        .give-up-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Daily Hangman Riddle</h1>
+        <p class="game-desc">All ages · Type the letters. For each wrong letter, another piece of the hangman is drawn. Get 6 wrong for the kill!</p>
+        <div class="holiday-banner" id="holidayBanner"></div>
+
+        <p class="riddle-text" id="riddle">Loading today's riddle...</p>
+
+        <svg class="hangman-svg" width="150" height="170" viewBox="0 0 160 180">
+            <line x1="10" y1="170" x2="110" y2="170"></line>
+            <line x1="30" y1="170" x2="30" y2="10"></line>
+            <line x1="30" y1="10" x2="90" y2="10"></line>
+            <line x1="90" y1="10" x2="90" y2="30"></line>
+            <circle id="hm-head" cx="90" cy="45" r="15" style="display:none;"></circle>
+            <line id="hm-torso" x1="90" y1="60" x2="90" y2="105" style="display:none;"></line>
+            <line id="hm-arm-l" x1="90" y1="70" x2="70" y2="90" style="display:none;"></line>
+            <line id="hm-arm-r" x1="90" y1="70" x2="110" y2="90" style="display:none;"></line>
+            <line id="hm-leg-l" x1="90" y1="105" x2="72" y2="140" style="display:none;"></line>
+            <line id="hm-leg-r" x1="90" y1="105" x2="108" y2="140" style="display:none;"></line>
+        </svg>
+        <div class="wrong-count" id="wrongCount">Wrong guesses: 0 / 6</div>
+
+        <div class="word-display" id="wordDisplay">_ _ _</div>
+        <div class="status-msg" id="statusMsg"></div>
+        <div class="keyboard" id="keyboard"></div>
+        <button class="give-up-btn" id="giveUpBtn" onclick="giveUp()">Give up / reveal answer</button>
+    </div>
+
+    <script>
+        // =========================================================
+        // Riddle bank — each has: q (riddle), a (full answer sentence,
+        // shown at the end), word (the guessable word for hangman), d (difficulty)
+        // =========================================================
+        const riddles = [
+            { q: "What has to be broken before you can use it?", a: "An egg!", word: "EGG" },
+            { q: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?", a: "An echo!", word: "ECHO" },
+            { q: "What goes up but never comes down?", a: "Your age!", word: "AGE" },
+            { q: "What has a head and a tail but no body?", a: "A coin!", word: "COIN" },
+            { q: "What gets wetter the more it dries?", a: "A towel!", word: "TOWEL" },
+            { q: "What has many keys but can't open a single lock?", a: "A piano!", word: "PIANO" },
+            { q: "What has a neck but no head?", a: "A bottle!", word: "BOTTLE" },
+            { q: "What has one eye but can't see?", a: "A needle!", word: "NEEDLE" },
+            { q: "What can travel around the world while staying in a corner?", a: "A stamp!", word: "STAMP" },
+            { q: "What has hands but can't clap?", a: "A clock!", word: "CLOCK" },
+            { q: "What comes down but never goes up?", a: "Rain!", word: "RAIN" },
+            { q: "What has a thumb and four fingers but is not alive?", a: "A glove!", word: "GLOVE" },
+            { q: "The more you take, the more you leave behind. What am I?", a: "Footsteps!", word: "FOOTSTEPS" },
+            { q: "What is full of holes but still holds water?", a: "A sponge!", word: "SPONGE" },
+            { q: "What can you catch but not throw?", a: "A cold!", word: "COLD" },
+            { q: "What has a bed but never sleeps, and a mouth but never eats?", a: "A river!", word: "RIVER" },
+            { q: "What runs but never walks, has a mouth but never talks?", a: "A river!", word: "RIVER" },
+            { q: "What has a face and two hands but no arms or legs?", a: "A clock!", word: "CLOCK" },
+            { q: "What building has the most stories?", a: "A library!", word: "LIBRARY" },
+            { q: "What is always in front of you but can't be seen?", a: "The future!", word: "FUTURE" },
+            { q: "What has legs but doesn't walk?", a: "A table!", word: "TABLE" },
+            { q: "What can fill a room but takes up no space?", a: "Light!", word: "LIGHT" },
+            { q: "What has a bottom at the top?", a: "Your legs!", word: "LEGS" },
+            { q: "What kind of room has no doors or windows?", a: "A mushroom!", word: "MUSHROOM" },
+            { q: "What begins with an E, ends with an E, but only has one letter?", a: "An envelope!", word: "ENVELOPE" },
+            { q: "What has words but never speaks?", a: "A book!", word: "BOOK" },
+            { q: "What gets bigger the more you take away from it?", a: "A hole!", word: "HOLE" },
+            { q: "What has a ring but no finger?", a: "A telephone!", word: "TELEPHONE" },
+            { q: "What is easy to get into but hard to get out of?", a: "Trouble!", word: "TROUBLE" },
+            { q: "What can you break without touching it?", a: "A promise!", word: "PROMISE" },
+            { q: "What has a spine but no bones?", a: "A book!", word: "BOOK" },
+            { q: "What flies without wings?", a: "Time!", word: "TIME" },
+            { q: "What has an eye but cannot see?", a: "A storm!", word: "STORM" },
+            { q: "What can you keep after giving it to someone?", a: "Your word!", word: "WORD" },
+            { q: "What goes through cities and fields but never moves?", a: "A road!", word: "ROAD" },
+            { q: "What has many teeth but cannot bite?", a: "A comb!", word: "COMB" },
+            { q: "What is so fragile that saying its name breaks it?", a: "Silence!", word: "SILENCE" },
+            { q: "What has branches but no fruit, trunk, or leaves?", a: "A bank!", word: "BANK" },
+            { q: "What kind of tree can you carry in your hand?", a: "A palm!", word: "PALM" },
+            { q: "What has a head, a tail, is brown, and has no legs?", a: "A penny!", word: "PENNY" },
+            { q: "What has a bark but no bite?", a: "A tree!", word: "TREE" },
+            { q: "What has one head, one foot, and four legs?", a: "A bed!", word: "BED" },
+            { q: "What has a foot but no legs?", a: "A ruler!", word: "RULER" },
+            { q: "What has teeth but cannot eat?", a: "A saw!", word: "SAW" },
+            { q: "What has a ring but makes no sound until you strike it?", a: "A bell!", word: "BELL" },
+            { q: "What has four wheels and flies?", a: "A garbage truck!", word: "GARBAGE" },
+            { q: "What has a heart that doesn't beat?", a: "An artichoke!", word: "ARTICHOKE" },
+            { q: "What goes up and down but always stays in the same place?", a: "Stairs!", word: "STAIRS" },
+            { q: "What starts out empty but always has room for more letters?", a: "A mailbox!", word: "MAILBOX" },
+            { q: "What has ears but cannot hear?", a: "A cornfield!", word: "CORNFIELD" },
+            { q: "What has eyes but cannot see?", a: "A potato!", word: "POTATO" },
+            { q: "What can fly without wings and cry without eyes?", a: "A cloud!", word: "CLOUD" },
+            { q: "What kind of coat can only be put on when it's wet?", a: "A coat of paint!", word: "PAINT" },
+            { q: "What is black when it's clean and white when it's dirty?", a: "A chalkboard!", word: "CHALKBOARD" },
+            { q: "What can you serve but never eat?", a: "A volleyball!", word: "VOLLEYBALL" },
+            { q: "What has an army but no weapons?", a: "A chess set!", word: "CHESS" },
+            { q: "What can you hold in your left hand but never in your right hand?", a: "Your right elbow!", word: "ELBOW" },
+            { q: "What has 13 hearts but no other organs?", a: "A deck of cards!", word: "CARDS" },
+            { q: "What has a neck but no head, and two arms but no hands?", a: "A sweater!", word: "SWEATER" },
+            { q: "What goes into the water black and comes out red?", a: "A lobster!", word: "LOBSTER" },
+            { q: "What has rings but no fingers, and grows a new one every year?", a: "A tree trunk!", word: "TRUNK" },
+            { q: "What invention lets you look right through a wall?", a: "A window!", word: "WINDOW" },
+            { q: "What rises to the top but has no bottom of its own?", a: "A bubble!", word: "BUBBLE" },
+            { q: "What five-letter word becomes shorter when you add two letters to it?", a: "\"Short\" + \"er\" = Shorter!", word: "SHORTER" },
+            { q: "The first two letters signify a male, the first three a female, the first four a great person, and the whole word a great woman. What is it?", a: "Heroine!", word: "HEROINE" },
+            { q: "What kind of band never plays music?", a: "A rubber band!", word: "RUBBER" },
+            { q: "What kind of 'cup' can't hold water?", a: "A hiccup!", word: "HICCUP" },
+            { q: "What is orange and sounds like a parrot?", a: "A carrot!", word: "CARROT" },
+            { q: "What has a tongue but cannot talk, and a sole but cannot walk?", a: "A shoe!", word: "SHOE" },
+            { q: "What kind of table has no legs?", a: "A timetable!", word: "TIMETABLE" },
+            { q: "What kind of dog never barks?", a: "A hot dog!", word: "HOTDOG" },
+            { q: "What can go up a chimney down but not down a chimney up?", a: "An umbrella!", word: "UMBRELLA" },
+            { q: "What has teeth but no mouth, and a lock but no key?", a: "A zipper!", word: "ZIPPER" },
+            { q: "What runs all the way around a yard but never moves an inch?", a: "A fence!", word: "FENCE" },
+            { q: "What cheese is made backwards?", a: "Edam!", word: "EDAM" },
+            { q: "What has one horn and gives milk?", a: "A milk truck!", word: "TRUCK" },
+            { q: "What kind of house melts in warm weather?", a: "An igloo!", word: "IGLOO" },
+            { q: "What has six sides, is smaller than a coin, and melts in your hand?", a: "A snowflake!", word: "SNOWFLAKE" },
+            { q: "What gets shorter as it grows older?", a: "A candle!", word: "CANDLE" },
+            { q: "What follows you all day, disappears in the dark, and is shortest at noon?", a: "Your shadow!", word: "SHADOW" },
+            { q: "What wakes you up but has no legs to walk to your bed?", a: "An alarm clock!", word: "ALARM" },
+            { q: "What shows you everything but never speaks, and can be 'broken' by bad luck?", a: "A mirror!", word: "MIRROR" },
+            { q: "What gets shorter every time it does its job?", a: "A pencil!", word: "PENCIL" },
+            { q: "What can be filled with air, gets bigger, and pops with a bang?", a: "A balloon!", word: "BALLOON" },
+            { q: "What flies high without an engine and needs the wind and a string to stay up?", a: "A kite!", word: "KITE" },
+            { q: "What rises every morning in the east without an alarm clock?", a: "The sun!", word: "SUN" },
+            { q: "What changes shape every night but is always round underneath?", a: "The moon!", word: "MOON" },
+            { q: "What appears after rain, has many colors, but you can never touch it?", a: "A rainbow!", word: "RAINBOW" },
+            { q: "What is unique to you, stays with you your whole life, but you rarely look at it?", a: "Your fingerprint!", word: "FINGERPRINT" },
+            { q: "What can spread from person to person without touching, and often happens when you're tired?", a: "A yawn!", word: "YAWN" },
+            { q: "What is easier to keep than to share, and once told, can never be taken back?", a: "A secret!", word: "SECRET" },
+            { q: "What only happens when your eyes are closed, and disappears the moment you wake?", a: "A dream!", word: "DREAM" },
+            { q: "What has 26 letters but no words?", a: "The alphabet!", word: "ALPHABET" },
+            { q: "What has 12 members, changes every year, and hangs on a wall?", a: "A calendar!", word: "CALENDAR" },
+            { q: "What has cities but no people, roads but no cars, and rivers but no fish?", a: "A map!", word: "MAP" },
+            { q: "What tells you exactly what to do but has never done it itself?", a: "A recipe!", word: "RECIPE" },
+            { q: "What contains every word you'll ever say, but has never spoken a single one?", a: "A dictionary!", word: "DICTIONARY" },
+            { q: "What has steps but isn't a staircase, and helps you reach high shelves?", a: "A ladder!", word: "LADDER" },
+            { q: "What has two wheels, pedals, but no motor, and takes you where you steer it?", a: "A bicycle!", word: "BICYCLE" },
+            { q: "What has layers, no eyes, but can bring tears to yours?", a: "An onion!", word: "ONION" },
+            { q: "What has a head but no body, and helps start a fire?", a: "A match!", word: "MATCH" },
+            { q: "What always points north no matter which way you turn it?", a: "A compass!", word: "COMPASS" },
+            { q: "What has flukes but is not a fish, and keeps a ship from drifting?", a: "An anchor!", word: "ANCHOR" },
+            { q: "What can tell time without batteries or gears, using only sunlight and shadow?", a: "A sundial!", word: "SUNDIAL" },
+            { q: "What's the one thing you can always count on, made entirely of bones?", a: "A skeleton!", word: "SKELETON" },
+            { q: "What is soft, holds your head at night, but never sleeps itself?", a: "A pillow!", word: "PILLOW" },
+            { q: "What has springs but no water, and holds you up all night?", a: "A mattress!", word: "MATTRESS" },
+            { q: "What heats up your bread every morning but never eats a single bite?", a: "A toaster!", word: "TOASTER" },
+            { q: "What keeps your food cold but is not the weather?", a: "A refrigerator!", word: "REFRIGERATOR" },
+            { q: "What eats dust and dirt all day but is never full?", a: "A vacuum cleaner!", word: "VACUUM" },
+            { q: "What spins around and around, cleans your clothes, but never gets dizzy?", a: "A washing machine!", word: "WASHER" },
+            { q: "What rings when someone visits but has no phone inside it?", a: "A doorbell!", word: "DOORBELL" },
+            { q: "What opens locks but is not a password, and fits in your pocket?", a: "A key!", word: "KEY" },
+            { q: "What keeps things safe but has no brain to think with?", a: "A lock!", word: "LOCK" },
+            { q: "What rises when it's hot and falls when it's cold, but has no legs to move?", a: "A thermometer!", word: "THERMOMETER" },
+            { q: "What tells you how heavy you are but never judges you?", a: "A scale!", word: "SCALE" },
+            { q: "What can pull metal toward it without ever touching it first?", a: "A magnet!", word: "MAGNET" },
+            { q: "What has energy stored inside but no muscles, and dies quietly when it's empty?", a: "A battery!", word: "BATTERY" },
+            { q: "What lights up the dark but has no fire inside it?", a: "A flashlight!", word: "FLASHLIGHT" },
+            { q: "What do you call it when a teacher marks a student's answer with a big red X?", a: "Wong!", word: "WONG" },
+            { q: "I sound exactly like a mistake, but I'm actually a common family surname. Say me out loud and people might think you made an error — but I'm just a name. Who am I?", a: "Wong!", word: "WONG" },
+            { q: "What surname do you get if you take the word \"wrong\" and swap the R for a W?", a: "Wong!", word: "WONG" },
+            { q: "This common surname is just one letter-swap away from admitting you made a mistake. What is it?", a: "Wong!", word: "WONG" },
+            { q: "A cashier gives you the incorrect change. What last name, said out loud, perfectly describes what just happened?", a: "Wong!", word: "WONG" },
+            { q: "I'm a real family name, but mishear me on the phone and you'll think someone just told you \"that's incorrect.\" Who am I?", a: "Wong!", word: "WONG" },
+            { q: "On a game show, the buzzer sounds and the host says you didn't get the point. What surname captures that exact feeling?", a: "Wong!", word: "WONG" },
+            { q: "Your GPS recalculates because you took a turn it didn't want. What last name best describes that turn?", a: "Wong!", word: "WONG" },
+            { q: "What common last name would perfectly caption a computer's error screen?", a: "Wong!", word: "WONG" },
+            { q: "A detective confidently points at the wrong suspect. What last name matches his mistake?", a: "Wong!", word: "WONG" },
+            { q: "What common surname sounds exactly like the correction a teacher writes in red ink on your homework?", a: "Wong!", word: "WONG" },
+            { q: "On a quiz show, the buzzer blares and a big red X flashes on screen. What surname fits the moment?", a: "Wong!", word: "WONG" },
+            { q: "A weather forecaster predicts sunshine, but it rains all day instead. What last name best sums up that forecast?", a: "Wong!", word: "WONG" }
+        ];
+
+        // ---- Holiday-special riddles (override the day's pick on that date) ----
+        function pad(n) { return n < 10 ? "0" + n : "" + n; }
+        function dateKey(d) { return pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+
+        function nthWeekdayOfMonth(year, month, weekday, n) {
+            const d = new Date(year, month, 1);
+            let count = 0;
+            while (true) {
+                if (d.getDay() === weekday) {
+                    count++;
+                    if (count === n) return new Date(d);
+                }
+                d.setDate(d.getDate() + 1);
+            }
+        }
+
+        function getEasterDate(year) {
+            const a = year % 19;
+            const b = Math.floor(year / 100);
+            const c = year % 100;
+            const d = Math.floor(b / 4);
+            const e = b % 4;
+            const f = Math.floor((b + 8) / 25);
+            const g = Math.floor((b - f + 1) / 3);
+            const h = (19 * a + b - d - g + 15) % 30;
+            const i = Math.floor(c / 4);
+            const k = c % 4;
+            const l = (32 + 2 * e + 2 * i - h - k) % 7;
+            const m = Math.floor((a + 11 * h + 22 * l) / 451);
+            const month = Math.floor((h + l - 7 * m + 114) / 31);
+            const day = ((h + l - 7 * m + 114) % 31) + 1;
+            return new Date(year, month - 1, day);
+        }
+
+        function getHolidaySpecials(year) {
+            const easter = getEasterDate(year);
+            const mothersDay = nthWeekdayOfMonth(year, 4, 0, 2);
+            const fathersDay = nthWeekdayOfMonth(year, 5, 0, 3);
+            const thanksgiving = nthWeekdayOfMonth(year, 10, 4, 4);
+
+            const specials = {};
+            specials["01-01"] = { name: "New Year's Day", emoji: "🎉", q: "What can you make today that lasts all year, but that most people forget by February?", a: "A New Year's resolution!", word: "RESOLUTION" };
+            specials["02-14"] = { name: "Valentine's Day", emoji: "💘", q: "What has four chambers, beats for the ones you love, and is often drawn with two curves and a point?", a: "A heart!", word: "HEART" };
+            specials["03-17"] = { name: "St. Patrick's Day", emoji: "🍀", q: "What has four leaves, is hard to find, and is said to bring good luck?", a: "A four-leaf clover!", word: "CLOVER" };
+            specials[dateKey(easter)] = { name: "Easter", emoji: "🐣", q: "What hops around and hides colorful eggs, but isn't a chicken?", a: "The Easter Bunny!", word: "BUNNY" };
+            specials["04-01"] = { name: "April Fools' Day", emoji: "🤡", q: "What day of the year is it socially acceptable to prank your friends and family?", a: "April Fools' Day!", word: "PRANK" };
+            specials[dateKey(mothersDay)] = { name: "Mother's Day", emoji: "💐", q: "Who gave you life, probably told you to wear a coat, and is celebrated on the 2nd Sunday of May?", a: "Your mother!", word: "MOTHER" };
+            specials[dateKey(fathersDay)] = { name: "Father's Day", emoji: "👔", q: "Who tells the corniest jokes, probably taught you to ride a bike, and is celebrated on the 3rd Sunday of June?", a: "Your father!", word: "FATHER" };
+            specials["07-04"] = { name: "Independence Day", emoji: "🎆", q: "What lights up the sky, bangs loudly, and celebrates freedom every July 4th?", a: "Fireworks!", word: "FIREWORKS" };
+            specials["10-31"] = { name: "Halloween", emoji: "🎃", q: "What glows orange, has a carved face, and sits on porches every October 31st?", a: "A jack-o'-lantern!", word: "PUMPKIN" };
+            specials[dateKey(thanksgiving)] = { name: "Thanksgiving", emoji: "🦃", q: "What bird gets eaten more on one Thursday in November than any other day of the year?", a: "A turkey!", word: "TURKEY" };
+            specials["12-24"] = { name: "Christmas Eve", emoji: "🎄", q: "What comes down the chimney once a year, dressed in red, carrying a bag of gifts?", a: "Santa Claus!", word: "SANTA" };
+            specials["12-25"] = { name: "Christmas", emoji: "🎅", q: "What tree do people decorate with lights and ornaments but never plant in the ground?", a: "A Christmas tree!", word: "CHRISTMAS" };
+            specials["12-31"] = { name: "New Year's Eve", emoji: "🥂", q: "What ball drops in Times Square exactly at midnight to mark the start of a new year?", a: "The Times Square Ball!", word: "TIMESSQUARE" };
+            return specials;
+        }
+
+        // =========================================================
+        // Game state
+        // =========================================================
+        const hmParts = ["hm-head", "hm-torso", "hm-arm-l", "hm-arm-r", "hm-leg-l", "hm-leg-r"];
+        let currentRiddle = null;
+        let guessedLetters = [];
+        let wrongCount = 0;
+        let gameOver = false;
+
+        function loadDailyRiddle() {
+            const now = new Date();
+            const key = dateKey(now);
+            const holidaySpecials = getHolidaySpecials(now.getFullYear());
+            const banner = document.getElementById("holidayBanner");
+
+            if (holidaySpecials[key]) {
+                const special = holidaySpecials[key];
+                banner.style.display = "block";
+                banner.textContent = special.emoji + " " + special.name + " Special Riddle! " + special.emoji;
+                currentRiddle = special;
+            } else {
+                banner.style.display = "none";
+                // Changes every hour (based on absolute time, not local clock)
+                const hoursSinceEpoch = Math.floor(now.getTime() / (1000 * 60 * 60));
+                const index = hoursSinceEpoch % riddles.length;
+                currentRiddle = riddles[index];
+            }
+
+            document.getElementById("riddle").innerText = currentRiddle.q;
+            startRound();
+        }
+
+        function startRound() {
+            guessedLetters = [];
+            wrongCount = 0;
+            gameOver = false;
+
+            hmParts.forEach(id => document.getElementById(id).style.display = "none");
+            document.getElementById("wrongCount").textContent = "Wrong guesses: 0 / 6";
+            document.getElementById("statusMsg").textContent = "";
+            document.getElementById("statusMsg").className = "status-msg";
+            document.getElementById("giveUpBtn").disabled = false;
+
+            renderWordDisplay();
+            renderKeyboard();
+        }
+
+        function renderWordDisplay() {
+            const display = currentRiddle.word.split("").map(ch => {
+                if (ch === " ") return " ";
+                return guessedLetters.includes(ch) ? ch : "_";
+            }).join(" ");
+            document.getElementById("wordDisplay").textContent = display;
+        }
+
+        function renderKeyboard() {
+            const kb = document.getElementById("keyboard");
+            kb.innerHTML = "";
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(letter => {
+                const btn = document.createElement("button");
+                btn.className = "key-btn";
+                btn.textContent = letter;
+                btn.onclick = () => guessLetter(letter);
+                kb.appendChild(btn);
+            });
+        }
+
+        function guessLetter(letter) {
+            if (gameOver || guessedLetters.includes(letter)) return;
+            guessedLetters.push(letter);
+
+            const btn = Array.from(document.getElementById("keyboard").children)
+                .find(b => b.textContent === letter);
+
+            if (currentRiddle.word.includes(letter)) {
+                btn.classList.add("correct-key");
+            } else {
+                btn.classList.add("wrong-key");
+                wrongCount++;
+                document.getElementById(hmParts[wrongCount - 1]).style.display = "block";
+                document.getElementById("wrongCount").textContent = "Wrong guesses: " + wrongCount + " / 6";
+            }
+            btn.disabled = true;
+
+            renderWordDisplay();
+            checkGameEnd();
+        }
+
+        function checkGameEnd() {
+            const wordLetters = currentRiddle.word.replace(/ /g, "").split("");
+            const won = wordLetters.every(ch => guessedLetters.includes(ch));
+            const lost = wrongCount >= 6;
+
+            if (won || lost) {
+                gameOver = true;
+                document.querySelectorAll("#keyboard .key-btn").forEach(b => b.disabled = true);
+                document.getElementById("giveUpBtn").disabled = true;
+                const statusEl = document.getElementById("statusMsg");
+                if (won) {
+                    statusEl.textContent = "🎉 Correct! The answer is: " + currentRiddle.a;
+                    statusEl.className = "status-msg win";
+                } else {
+                    statusEl.textContent = "💀 Out of guesses! The answer was: " + currentRiddle.a;
+                    statusEl.className = "status-msg lose";
+                    hmParts.forEach(id => document.getElementById(id).style.display = "block");
+                }
+            }
+        }
+
+        function giveUp() {
+            if (gameOver) return;
+            gameOver = true;
+            wrongCount = 6;
+            hmParts.forEach(id => document.getElementById(id).style.display = "block");
+            document.getElementById("wrongCount").textContent = "Wrong guesses: 6 / 6";
+            document.querySelectorAll("#keyboard .key-btn").forEach(b => b.disabled = true);
+            document.getElementById("giveUpBtn").disabled = true;
+            document.getElementById("wordDisplay").textContent = currentRiddle.word.split("").join(" ");
+            const statusEl = document.getElementById("statusMsg");
+            statusEl.textContent = "The answer was: " + currentRiddle.a;
+            statusEl.className = "status-msg lose";
+        }
+
+        // Run on page load
+        loadDailyRiddle();
+    </script>
+
+</body>
+</html>
