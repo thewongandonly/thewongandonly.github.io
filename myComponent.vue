@@ -450,6 +450,7 @@ h1 {
     color: #ffffff;
     padding: 80px 20px;
     text-align: center;
+	border-radius: 24px; 
     font-family: system-ui, -apple-system, sans-serif;
   }
   .jumbotron-content {
