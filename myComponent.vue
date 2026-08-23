@@ -104,7 +104,23 @@
 
               <br />
               fullstack developer<br />
-              {{ msg }} <br />
+            <br />
+
+<div class="jumbotron">
+  <div class="jumbotron-content">
+    <span class="badge">Are you a Wong too?</span>
+    <h1>Would love a personalised landing page here at <span class="gradient-text">thewongandonly.com/yourlandingpage</span></h1>
+    <p>For a small fee we 'll work something out.</p>
+    
+    <div class="cta-wrapper">
+      <a href="mailto:send.to.wong@gmail.com?subject=Landing%20Page%20Request&body=Hi%2C%20I%20would%20like%20to%20reserve%20a%20landing%20page%20for%20my%20business." class="cta-button">
+               <span class="email-hint">Drop me a line at send.to.wong@gmail.com</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+				
 			  <div hidden="hidden">	
               Outside of programming, I like
               <span class="clickable" @click="setBackground('YourName.mp4')"
@@ -428,4 +444,75 @@ h1 {
     transform: translateY(0) rotate(0);
   }
 }
+
+ .jumbotron {
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 80px 20px;
+    text-align: center;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .jumbotron-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .badge {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .jumbotron h1 {
+    font-size: 42px;
+    font-weight: 800;
+    margin: 24px 0 16px;
+    line-height: 1.2;
+  }
+  .gradient-text {
+    background: linear-gradient(90deg, #60a5fa, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .jumbotron p {
+    color: #94a3b8;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .cta-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .cta-button {
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    transition: background 0.2s ease;
+  }
+  .cta-button:hover {
+    background: #1d4ed8;
+  }
+  .email-hint {
+    font-size: 13px;
+    color: #94a3b8;
+  }
+  .subtext {
+    display: block;
+    margin-top: 18px;
+    font-size: 12px;
+    color: #64748b;
+  }
+
+	
 </style>
