@@ -192,7 +192,7 @@ export default {
       technoed: false,
       technoball: false,
       technoshake: false,
-      pic: "wongbw.png",
+      pic: "wongghibli-circle.png",
       msg: "Is your name Wong too? Would you like a landing page here at thewongandonly.com/yourlandingpage? Contact me at send.to.wong@gmail.com and we start from there...",
     };
   },
