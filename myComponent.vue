@@ -105,6 +105,7 @@
               <br />
               fullstack developer<br />
               {{ msg }} <br />
+			  <div hidden="hidden">	
               Outside of programming, I like
               <span class="clickable" @click="setBackground('YourName.mp4')"
                 >anime</span
@@ -116,6 +117,7 @@
                 >Japanese food</span
               >, and
               <span class="clickable" @click="onTechno">melodic techno</span>.
+				  </div>
             </p>
           </div>
         </div>
