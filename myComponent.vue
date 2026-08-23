@@ -109,12 +109,12 @@
 <div class="jumbotron">
   <div class="jumbotron-content">
     <span class="badge">Are you a Wong too?</span>
-    <h1>Would love a personalised landing page here at <span class="gradient-text">thewongandonly.com/yourlandingpage</span></h1>
+    <h2>Would love a personalised landing page here at <span class="gradient-text">thewongandonly.com/yourlandingpage?</span></h2>
     <p>For a small fee we 'll work something out.</p>
     
     <div class="cta-wrapper">
       <a href="mailto:send.to.wong@gmail.com?subject=Landing%20Page%20Request&body=Hi%2C%20I%20would%20like%20to%20reserve%20a%20landing%20page%20for%20my%20business." class="cta-button">
-               <span class="email-hint">Drop me a line at send.to.wong@gmail.com</span>
+        <span class="email-hint">Drop me a line at send.to.wong@gmail.com</span>
       </a>
     </div>
   </div>
