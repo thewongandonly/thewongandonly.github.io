@@ -177,7 +177,7 @@ export default {
       technoball: false,
       technoshake: false,
       pic: "wongbw.png",
-      msg: "I use vue.js and C# to create dockerized microservices for remarkable digital experiences.",
+      msg: "Is your name Wong too? Would you like a landing page here at thewongandonly.com/yourlandingpage? Contact me at send.to.wong@gmail.com and we start from there...",
     };
   },
   methods: {
