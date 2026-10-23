@@ -10,6 +10,7 @@
             :style="imgStyle"
             @click="toggleMovement" 
           />
+          <audio src="children.mp3" autoplay loop></audio>
         </div>
       </div>
     </div>
