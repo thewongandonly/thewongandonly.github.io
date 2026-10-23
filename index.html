@@ -1,97 +1,79 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>David Wong</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=no"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap"
-      rel="stylesheet"
-    />
+	  <link rel="icon" type="image/png" href="https://thewongandonly.com/favicon.ico">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        background: #212629;
-      }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom subtle scale-in animation */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
-    <link
-      rel="icon"
-      type="image/png"
-      href="https://thewongandonly.com/favicon.ico"
-    />
-  </head>
+</head>
+<body class="relative min-h-screen w-full overflow-hidden bg-slate-900 text-white antialiased">
 
-  <body>
-    <div id="app"></div>
+    <!-- Full-screen Background Image with Dark Gradient Overlay -->
+    <div class="absolute inset-0 z-0">
+        <img 
+            src="https://thewongandonly.com/sebastien-gabriel-unsplash.jpg" 
+            alt="Sun is setting..." 
+            class="h-full w-full object-cover object-center"
+        />
+        <!-- Vignette & Tint Overlay for contrast -->
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-slate-950/40 backdrop-blur-[1px]"></div>
+    </div>
 
-    <script>
-      const options = {
-        moduleCache: {
-          vue: Vue,
-        },
-        getFile(url) {
-          return fetch(url).then((resp) =>
-            resp.ok ? resp.text() : Promise.reject(resp)
-          );
-        },
-        addStyle(styleStr) {
-          const style = document.createElement("style");
-          style.textContent = styleStr;
-          const ref = document.head.getElementsByTagName("style")[0] || null;
-          document.head.insertBefore(style, ref);
-        },
-        log(type, ...args) {
-          console.log(type, ...args);
-        },
-      };
+    <!-- Main Content Container -->
+    <main class="relative z-10 flex min-h-screen w-full flex-col justify-between p-6 sm:p-10">
+        
+        <!-- Top Bar Navigation (Minimal Header) -->
+        <header class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+				<img src="https://thewongandonly.com/davidwong.png" alt="David Wong" class="object-cover object-center rounded-full h-32 w-32" />
+			</div>
+            <nav class="hidden sm:flex items-center space-x-6 text-sm text-slate-300">
+                <a href="https://thewongandonly.com/hangman/" class="transition-colors hover:text-white">Game</a>
+            </nav>
+        </header>
 
-      const { loadModule, version } = window["vue3-sfc-loader"];
-
-      const app = Vue.createApp({
-        components: {
-          "my-component": Vue.defineAsyncComponent(() =>
-            loadModule("./myComponent.vue", options)
-          ),
-          "my-background": Vue.defineAsyncComponent(() =>
-            loadModule("./myBackground.vue", options)
-          ),
-          sidebar: Vue.defineAsyncComponent(() =>
-            loadModule("./Sidebar.vue", options)
-          ),
-          marqueetext: Vue.defineAsyncComponent(() =>
-            loadModule("./MarqueeText.vue", options)
-          ),
-        },
-        data() {
-          return {
-            myvid: "darkcode.mp4",
-          };
-        },
-        computed: {
-          showchat() {
-            return (
-              this.myvid === "darkcode.mp4"
-            );
-          },
-        },
-        methods: {
-          setVid(newVid) {
-            this.myvid = newVid;
-          },
-        },
-        template: `<my-background :vid="myvid" />
-        <my-component @custom-change="setVid" />
-        <sidebar v-if="showchat" />`,
-      });
-
-      app.mount("#app");
-    </script>
-  </body>
+        <!-- Bottom Right Corner Container Box -->
+        <div class="flex w-full justify-end items-end">
+            <div class="animate-fade-up group relative w-full sm:w-auto max-w-xs overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur-md transition-all duration-300 hover:border-white/25 hover:bg-white/15">
+                <!-- Subtle Gradient Accent Glow -->
+                <div class="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-indigo-500/20 blur-2xl transition-all duration-500 group-hover:bg-indigo-500/30"></div>
+                
+                <div class="flex items-center gap-3">
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-emerald-400 border border-white/10">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V11a2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-semibold tracking-tight text-white">David Wong</h1>
+                        <p class="text-xs text-slate-300">c# developer (until AI takes over...)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
 </html>
