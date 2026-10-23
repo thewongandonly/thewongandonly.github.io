@@ -22,53 +22,51 @@ export default {
   data() {
     return {
       isMoving: false,
-      x: 0,
       y: 0,
-      vx: 2.5, // Horizontal speed
-      vy: 1.8, // Vertical speed
+      vy: 1.5, // Upward speed (lower number = slower movement)
       animationId: null
     };
   },
   computed: {
     imgStyle() {
       return {
-        transform: `translate(${this.x}px, ${this.y}px)`,
+        transform: `translate(0px, ${this.y}px)`,
         cursor: "pointer"
       };
     }
   },
   methods: {
     toggleMovement() {
-      this.isMoving = !this.isMoving;
-      if (this.isMoving) {
+      if (!this.isMoving) {
+        this.isMoving = true;
         this.animate();
       } else {
+        // Stop and reset immediately if clicked while moving
+        this.isMoving = false;
         cancelAnimationFrame(this.animationId);
+        this.y = 0;
       }
     },
     animate() {
       if (!this.isMoving) return;
 
-      // Update position coordinates
-      this.x += this.vx;
-      this.y += this.vy;
+      // Move upwards by decreasing the y coordinate
+      this.y -= this.vy;
 
-      // Calculate dynamic boundaries based on viewport size
-      const limitX = window.innerWidth / 2 - 100;
-      const limitY = window.innerHeight / 2 - 100;
+      // Calculate when the image has moved completely past the top of the screen
+      const topLimit = (window.innerHeight / 2) + 100;
 
-      // Reverse direction on hitting screen boundaries (bounce effect)
-      if (this.x > limitX || this.x < -limitX) {
-        this.vx *= -1;
-      }
-      if (this.y > limitY || this.y < -limitY) {
-        this.vy *= -1;
+      if (this.y < -topLimit) {
+        // Stop animation and reset position back to center
+        this.isMoving = false;
+        cancelAnimationFrame(this.animationId);
+        this.y = 0;
+        return;
       }
 
       this.animationId = requestAnimationFrame(this.animate);
     }
   },
-  // Clean up animation frame when component is destroyed
   beforeUnmount() {
     cancelAnimationFrame(this.animationId);
   },
@@ -86,7 +84,6 @@ export default {
   width: 8rem;
   height: 8rem;
   cursor: pointer;
-  transition: transform 0.05s linear;
   user-select: none;
 }
 
