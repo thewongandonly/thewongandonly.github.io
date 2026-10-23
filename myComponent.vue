@@ -151,13 +151,8 @@
 
       <div class="overlay">
         <div class="inneroverlay">
-          <h1>David</h1>
-          <h1>thewongandonly</h1>
+ 
         </div>
-      </div>
-      <div class="wanted">
-        <h1>reward $31,650,848,009</h1>
-        <p>In gold coin for the capture</p>
       </div>
     </div>
   </div>
@@ -302,7 +297,7 @@ fill: #ffffff;
 .myvid {
   margin-top: 110px;
 }
-.overlay {
+.overlay2 {
   position: relative;
   width: calc(100%);
   height: 580px;
@@ -310,7 +305,7 @@ fill: #ffffff;
   top: -581px;
   overflow: hidden;
 }
-.overlay:after {
+.overlay2:after {
   content: "";
   position: absolute;
   left: 239px;
