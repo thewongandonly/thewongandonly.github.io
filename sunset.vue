@@ -56,12 +56,12 @@ export default {
     animate() {
       if (!this.isMoving) return;
 
-      // Increment angle (controls speed of the arc)
-      this.theta += 0.025;
+      // Decreased step size for significantly slower motion
+      this.theta += 0.008;
 
       const maxTheta = Math.PI / 2; // 90 degrees in radians
 
-      // Stop and reset once it hits or exceeds 90 degrees
+      // Stop and reset once it reaches 90 degrees (outside window)
       if (this.theta >= maxTheta) {
         this.isMoving = false;
         cancelAnimationFrame(this.animationId);
@@ -71,12 +71,12 @@ export default {
         return;
       }
 
-      // 1. Horizontal sweep across the arc span
-      const horizontalRange = 400; 
-      this.x = (this.theta / maxTheta) * horizontalRange - (horizontalRange / 2);
+      // 1. Horizontal arc sweep: Starts at 0 when theta = 0, avoiding any initial jump
+      const horizontalRange = 250; 
+      this.x = (this.theta / maxTheta) * horizontalRange;
 
-      // 2. Vertical arc: strict sine function from 0 to 90 degrees
-      // Distance from center to top edge + image height + extra buffer ensures it's completely outside
+      // 2. Vertical arc: Strict sine trajectory starting at 0 and moving up
+      // Calculates distance required to completely clear the top of the window
       const verticalHeight = (window.innerHeight / 2) + 150;
       this.y = -Math.sin(this.theta) * verticalHeight;
 
