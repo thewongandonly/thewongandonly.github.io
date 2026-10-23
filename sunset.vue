@@ -22,9 +22,9 @@ export default {
   data() {
     return {
       isMoving: false,
+      theta: 0, // Angle tracking from 0 to PI/2 (0 to 90 degrees)
       x: 0,
       y: 0,
-      t: 0, // Time / progress factor for the arc
       animationId: null
     };
   },
@@ -40,14 +40,15 @@ export default {
     toggleMovement() {
       if (!this.isMoving) {
         this.isMoving = true;
+        this.theta = 0;
         this.x = 0;
         this.y = 0;
-        this.t = 0;
         this.animate();
       } else {
         // Stop and reset immediately if clicked mid-flight
         this.isMoving = false;
         cancelAnimationFrame(this.animationId);
+        this.theta = 0;
         this.x = 0;
         this.y = 0;
       }
@@ -55,29 +56,29 @@ export default {
     animate() {
       if (!this.isMoving) return;
 
-      // Increment progress over time
-      this.t += 0.025;
+      // Increment angle (controls speed of the arc)
+      this.theta += 0.025;
 
-      // 1. Horizontal sweep: smooth back-and-forth arc motion using sine
-      this.x = Math.sin(this.t * 1.2) * 180;
+      const maxTheta = Math.PI / 2; // 90 degrees in radians
 
-      // 2. Vertical arc trajectory: combines a parabolic curve (dome shape) with steady upward drift
-      const arcCurve = - (Math.pow(this.x, 2) / 350); // Creates the natural arc curve
-      const upwardDrift = this.t * 30;                 // Pulls the arc progressively higher
-
-      this.y = arcCurve - upwardDrift;
-
-      // Check if the image has cleared the top of the screen
-      const topLimit = (window.innerHeight / 2) + 120;
-
-      if (this.y < -topLimit) {
-        // Stop animation and reset back to center
+      // Stop and reset once it hits or exceeds 90 degrees
+      if (this.theta >= maxTheta) {
         this.isMoving = false;
         cancelAnimationFrame(this.animationId);
+        this.theta = 0;
         this.x = 0;
         this.y = 0;
         return;
       }
+
+      // 1. Horizontal sweep across the arc span
+      const horizontalRange = 400; 
+      this.x = (this.theta / maxTheta) * horizontalRange - (horizontalRange / 2);
+
+      // 2. Vertical arc: strict sine function from 0 to 90 degrees
+      // Distance from center to top edge + image height + extra buffer ensures it's completely outside
+      const verticalHeight = (window.innerHeight / 2) + 150;
+      this.y = -Math.sin(this.theta) * verticalHeight;
 
       this.animationId = requestAnimationFrame(this.animate);
     }
