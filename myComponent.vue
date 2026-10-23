@@ -142,9 +142,11 @@
 
     <div class="fullheightinner" v-if="showOverlay" @click="showvid">
       <div class="myvid">
-        <video autoplay muted loop id="myVideo2">
-          <source :src="vid" type="video/mp4" />
-        </video>
+            <img
+              src="wanted.jpg"
+              alt="David Wong"
+              class="wanted"
+            />
       </div>
 
       <div class="overlay">
