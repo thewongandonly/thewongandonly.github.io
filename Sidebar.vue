@@ -73,7 +73,7 @@
               <div class="chat__conversation-board__message__person">
                 <div class="chat__conversation-board__message__person__avatar">
                   <img
-                    :src="msg.you ? 'https://thewongandonly.com/couldbeyou.jpeg' : 'https://thewongandonly.com/wongbw.png'"
+                    :src="msg.you ? 'https://thewongandonly.com/man.png' : 'https://thewongandonly.com/davidwong.png'"
                     height="44"
                     :alt="msg.you ? 'You' : 'David Wong'"
                   />
