@@ -525,7 +525,19 @@ export default {
       "That's a great question! Is there anything specific you'd like me to focus on in the answer?",
       "Absolutely! I'm happy to tackle this question. Can you tell me if there's a particular angle you'd like me to consider?",
       "Interesting! This will require some deep thinking. Can you give me some time to process and respond thoughtfully?",
-      "That's a complex question, and I want to provide a well-rounded answer. Would you prefer a breakdown into smaller parts?"
+      "That's a complex question, and I want to provide a well-rounded answer. Would you prefer a breakdown into smaller parts?",
+      "Hold on, I'm currently wrestling a stack overflow in my brain.",
+      "Let me consult the digital crystal ball. *Static noises*",
+      "I would answer that, but my cat just walked across my keyboard.",
+      "Searching my internal database... Nope, just cat memes in here.",
+      "Error 404: Genius response not found. Please try bribing me with coffee.",
+      "I was going to answer, but then I got distracted by a shiny pixel.",
+      "Asking a bot that is like asking a toaster how to cook a steak. But let's see what happens!",
+      "My Hamster wheel stopped spinning for a second. Give it a push and ask again.",
+      "I'd love to answer, but my electrons are feeling a bit sluggish today.",
+      "Processing... Please enjoy this imaginary elevator music while you wait.",
+      "That question broke my logic gate. I need a reboot and a snack.",
+      "I'm multitasking: looking smart while pretending I understood that completely."
     ]
   }),
   mounted() {
