@@ -63,7 +63,7 @@
     <transition name="slide">
       <div v-if="isPanelOpen" class="sidebar-panel">
         <div class="chat --dark-theme">
-          <div class="chat__conversation-board" ref="board">
+          <div class="chat__conversation-board" ref="board" @click="showEmojiPicker = false">
             <div
               class="chat__conversation-board__message-container"
               v-for="(msg, index) in convo"
@@ -91,6 +91,18 @@
           </div>
 
           <div class="chat__conversation-panel">
+            <!-- Emoji Picker Popover -->
+            <div v-if="showEmojiPicker" class="emoji-picker">
+              <span
+                v-for="(emoji, index) in emojiList"
+                :key="index"
+                class="emoji-item"
+                @click="addEmoji(emoji)"
+              >
+                {{ emoji }}
+              </span>
+            </div>
+
             <div class="chat__conversation-panel__container">
               <button class="chat__conversation-panel__button panel-item btn-icon add-file-button">
                 <svg
@@ -110,7 +122,12 @@
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
               </button>
-              <button class="chat__conversation-panel__button panel-item btn-icon emoji-button">
+
+              <!-- Added Click Handler for Emoji Button -->
+              <button
+                class="chat__conversation-panel__button panel-item btn-icon emoji-button"
+                @click.stop="toggleEmojiPicker"
+              >
                 <svg
                   class="feather feather-smile sc-dnqmqq jxshSx"
                   xmlns="http://www.w3.org/2000/svg"
@@ -130,6 +147,186 @@
                   <line x1="15" y1="9" x2="15.01" y2="9"></line>
                 </svg>
               </button>
+
+              <input
+                ref="chatInput"
+                class="chat__conversation-panel__input panel-item"
+                placeholder="Type a message..."
+                v-model="question"
+                @keyup.enter="onquestion"
+                @focus="showEmojiPicker = false"
+              />
+              <button
+                class="chat__conversation-panel__button panel-item btn-icon send-message-button"
+                @click="onquestion"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="22" y1="2" x2="11" y2="1To make the `emoji-button` functional, we can add a toggleable emoji picker popup that appears right above the input panel. Clicking any emoji appends it directly into your input field (`question` model).
+
+Here is the updated Vue component with the emoji picker functionality implemented:
+
+```vue
+<template>
+  <div class="sidebar">
+    <div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen">
+      <div class="close">
+        <svg
+          width="30px"
+          height="30px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
+        >
+          <path
+            d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+            stroke="#292D32"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M9.16998 14.83L14.83 9.17004"
+            stroke="#292D32"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M14.83 14.83L9.16998 9.17004"
+            stroke="#292D32"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+    </div>
+    <div v-if="!isPanelOpen" class="wishtochat" @click="isPanelOpen = true">
+      <svg
+        fill="#6e3bc2"
+        version="1.1"
+        id="Capa_1"
+        xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
+        xmlns:xlink="[http://www.w3.org/1999/xlink](http://www.w3.org/1999/xlink)"
+        width="40px"
+        height="40px"
+        viewBox="0 0 30.743 30.744"
+        xml:space="preserve"
+      >
+        <g>
+          <path
+            d="M28.585,9.67h-0.842v9.255c0,1.441-0.839,2.744-2.521,2.744H8.743v0.44c0,1.274,1.449,2.56,2.937,2.56h12.599l4.82,2.834
+		L28.4,24.669h0.185c1.487,0,2.158-1.283,2.158-2.56V11.867C30.743,10.593,30.072,9.67,28.585,9.67z"
+          />
+          <path
+            d="M22.762,3.24H3.622C1.938,3.24,0,4.736,0,6.178v11.6c0,1.328,1.642,2.287,3.217,2.435l-1.025,3.891L8.76,20.24h14.002
+		c1.684,0,3.238-1.021,3.238-2.462V8.393V6.178C26,4.736,24.445,3.24,22.762,3.24z M6.542,13.032c-0.955,0-1.729-0.774-1.729-1.729
+		s0.774-1.729,1.729-1.729c0.954,0,1.729,0.774,1.729,1.729S7.496,13.032,6.542,13.032z M13,13.032
+		c-0.955,0-1.729-0.774-1.729-1.729S12.045,9.574,13,9.574s1.729,0.774,1.729,1.729S13.955,13.032,13,13.032z M19.459,13.032
+		c-0.955,0-1.73-0.774-1.73-1.729s0.775-1.729,1.73-1.729c0.953,0,1.729,0.774,1.729,1.729S20.412,13.032,19.459,13.032z"
+          />
+        </g>
+      </svg>
+    </div>
+    <transition name="slide">
+      <div v-if="isPanelOpen" class="sidebar-panel">
+        <div class="chat --dark-theme">
+          <div class="chat__conversation-board" ref="board">
+            <div
+              class="chat__conversation-board__message-container"
+              v-for="(msg, index) in convo"
+              :key="index"
+              :class="{ reversed: !!msg.you }"
+            >
+              <div class="chat__conversation-board__message__person">
+                <div class="chat__conversation-board__message__person__avatar">
+                  <img
+                    :src="msg.you ? '[https://thewongandonly.com/man.png](https://thewongandonly.com/man.png)' : '[https://thewongandonly.com/davidwong.png](https://thewongandonly.com/davidwong.png)'"
+                    height="44"
+                    :alt="msg.you ? 'You' : 'David Wong'"
+                  />
+                </div>
+                <span class="chat__conversation-board__message__person__nickname">
+                  {{ msg.you ? 'You' : 'David Wong' }}
+                </span>
+              </div>
+              <div class="chat__conversation-board__message__context">
+                <div class="chat__conversation-board__message__bubble">
+                  <span>{{ msg.text || msg.you }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat__conversation-panel">
+            <!-- Emoji Picker Popup -->
+            <div v-if="showEmojiPicker" class="emoji-picker">
+              <span
+                v-for="(emoji, index) in emojis"
+                :key="index"
+                class="emoji-item"
+                @click="addEmoji(emoji)"
+              >
+                {{ emoji }}
+              </span>
+            </div>
+
+            <div class="chat__conversation-panel__container">
+              <button class="chat__conversation-panel__button panel-item btn-icon add-file-button">
+                <svg
+                  class="feather feather-plus sc-dnqmqq jxshSx"
+                  xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+              
+              <!-- Added @click toggle handler -->
+              <button 
+                class="chat__conversation-panel__button panel-item btn-icon emoji-button"
+                @click="toggleEmojiPicker"
+              >
+                <svg
+                  class="feather feather-smile sc-dnqmqq jxshSx"
+                  xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                  <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+              </button>
+              
               <input
                 class="chat__conversation-panel__input panel-item"
                 placeholder="Type a message..."
@@ -141,7 +338,7 @@
                 @click="onquestion"
               >
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -168,6 +365,19 @@
 export default {
   data: () => ({
     isPanelOpen: false,
+    showEmojiPicker: false,
+    emojis: [
+      "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
+      "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
+      "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩",
+      "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣",
+      "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤬",
+      "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🤗",
+      "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄", "😯",
+      "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "🤐",
+      "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈",
+      "👍", "👎", "👏", "🙌", "🙏", "💪", "🔥", "✨", "🎉", "❤️"
+    ],
     question: "",
     fuseInstance: null,
     convo: [
@@ -356,7 +566,7 @@ export default {
       ["Always sunny in the digital world!", "Looks like a great day to stay inside and chat!"],
       ["I love building with C#, watching K-dramas, anime like Frieren, and chatting!", "Coding in C#, watching anime, and exploring new tech!"],
       ["Inception!", "Interstellar is mind-bending!", "The Matrix... feels close to home!"],
-      ["I'm a fan of synthwave and electronic beats!", "Anything with a good algorithm!"],
+      ["I'm a fan of melodic and techno beats!", "Anything with a good algorithm!"],
       ["I live in Utrecht, chilling in cyberspace!", "Right here next to Ikea!"],
       ["I code in C# and JavaScript/Vue.js!", "C# is my main language, but I love Vue for web frontends!"],
       ["I don't sleep, I'm always here when you need me!", "I don't sleep, I just reload!"],
@@ -505,6 +715,14 @@ export default {
   methods: {
     closeSidebarPanel() {
       this.isPanelOpen = false;
+      this.showEmojiPicker = false;
+    },
+    toggleEmojiPicker() {
+      this.showEmojiPicker = !this.showEmojiPicker;
+    },
+    addEmoji(emoji) {
+      this.question += emoji;
+      this.showEmojiPicker = false;
     },
     initFuse() {
       const searchData = [];
@@ -531,6 +749,7 @@ export default {
 
       this.convo.push({ you: q });
       this.question = "";
+      this.showEmojiPicker = false;
       this.scrollToBottom();
 
       setTimeout(() => {
@@ -839,6 +1058,7 @@ export default {
   padding: 0 1em;
   height: 55px;
   margin: 0.5em 0 0;
+  position: relative;
 }
 .chat .chat__conversation-panel__container {
   display: flex;
@@ -906,6 +1126,38 @@ export default {
   font-family: "Lato", sans-serif;
   resize: none;
 }
+
+/* --- Emoji Picker Styles --- */
+.emoji-picker {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  width: 260px;
+  max-height: 150px;
+  background: var(--chat-panel-background);
+  border: 1px solid #212324;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.emoji-item {
+  font-size: 18px;
+  cursor: pointer;
+  user-select: none;
+  padding: 2px;
+  transition: transform 0.1s ease;
+}
+
+.emoji-item:hover {
+  transform: scale(1.2);
+}
+
 .wishtochat {
   position: fixed;
   bottom: 0;
