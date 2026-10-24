@@ -54,8 +54,9 @@
       };
 
       const { loadModule, version } = window["vue3-sfc-loader"];
+      const { createApp, ref, computed } = Vue;
 
-      const app = Vue.createApp({
+      const app = createApp({
         components: {
           "sunset": Vue.defineAsyncComponent(() =>
             loadModule("./sunset.vue", options)
@@ -65,33 +66,27 @@
           ),
           "my-background": Vue.defineAsyncComponent(() =>
             loadModule("./myBackground.vue", options)
-          ),           
-          "count": Vue.defineAsyncComponent(() =>
-            loadModule("./Count.vue", options)
           )
         },
-        data() {
+        setup() {
+
+          const myvid = ref("sunset.mp4");
+          const showchat = computed(() => myvid.value === "sunset.mp4");
+          const setVid = (newVid) => {
+            myvid.value = newVid;
+          };
+
+          // Expose variables and functions to the template
           return {
-            myvid: "sunset.mp4",
+            myvid,
+            showchat,
+            setVid,
           };
         },
-        computed: {
-          showchat() {
-            return (
-              this.myvid === "sunset.mp4"
-            );
-          },
-        },
-        methods: {
-          setVid(newVid) {
-            this.myvid = newVid;
-          },
-        },
-        template: `<my-background :vid="myvid" /><sunset /> <count /> <sidebar v-if="showchat" />
-        `,
+        template: `<my-background :vid="myvid" /><sunset /> <sidebar v-if="showchat" />`,
       });
 
       app.mount("#app");
     </script>
   </body>
-</html>
+</html> 
