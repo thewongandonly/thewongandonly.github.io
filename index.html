@@ -59,6 +59,9 @@
           "sunset": Vue.defineAsyncComponent(() =>
             loadModule("./sunset.vue", options)
           ),
+          sidebar: Vue.defineAsyncComponent(() =>
+            loadModule("./Sidebar.vue", options)
+          ),
           "my-background": Vue.defineAsyncComponent(() =>
             loadModule("./myBackground.vue", options)
           )
@@ -81,7 +84,7 @@
           },
         },
         template: `<my-background :vid="myvid" />
-        <sunset />
+        <sunset />  <sidebar v-if="showchat" />
         `,
       });
 
