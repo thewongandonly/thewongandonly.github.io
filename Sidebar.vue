@@ -165,9 +165,6 @@
 </template>
 
 <script>
-// If installing via NPM, uncomment the line below:
-// import Fuse from 'fuse.js';
-
 export default {
   data: () => ({
     isPanelOpen: false,
@@ -319,7 +316,59 @@ export default {
       ["rock paper scissors"],
       ["flip a coin"],
       ["roll a die"],
-      ["see you tomorrow"]
+      ["see you tomorrow"],
+
+      // --- 50 ADDITIONAL BRAND NEW INTENTS ---
+      ["what is HTML", "explain HTML"],
+      ["what is CSS", "explain CSS"],
+      ["what is webpack", "what is vite"],
+      ["what is node js"],
+      ["what is typescript", "do you like ts"],
+      ["what is a database", "sql or nosql"],
+      ["how to fix a bug", "debugging tips"],
+      ["what is cloud computing"],
+      ["what is cybersecurity"],
+      ["what is machine learning"],
+      ["what is deep learning"],
+      ["what is big data"],
+      ["what is responsive design"],
+      ["what is UI and UX"],
+      ["what is an API", "what does API stand for"],
+      ["what is JSON"],
+      ["what is HTTP and HTTPS"],
+      ["what is DNS"],
+      ["what is a firewall"],
+      ["what is open source software"],
+      ["what is agile methodology"],
+      ["what is scrum"],
+      ["what is clean code"],
+      ["what is tech debt"],
+      ["what is software engineering"],
+      ["can you write a loop", "how do loops work"],
+      ["what is a variable in programming"],
+      ["what is an array"],
+      ["what is an object in programming"],
+      ["what is a function"],
+      ["what is asynchronous programming", "what is async await"],
+      ["what is a promise in javascript"],
+      ["what is DOM manipulation"],
+      ["what is frontend development"],
+      ["what is backend development"],
+      ["what is full stack development"],
+      ["what is web hosting"],
+      ["what is a domain name"],
+      ["what is SSL certificate"],
+      ["what is SEO optimization"],
+      ["what is social media marketing"],
+      ["what is e-commerce"],
+      ["what is startup culture"],
+      ["what is venture capital"],
+      ["what is digital nomadism"],
+      ["what is remote work"],
+      ["what is work life balance"],
+      ["what is mindfulness"],
+      ["what is emotional intelligence"],
+      ["what is critical thinking"]
     ],
     botReply: [
       ["Hello!", "Hi!", "Hey!", "Hi there!"],
@@ -330,9 +379,9 @@ export default {
       ["Getting better. There?", "Somewhat okay!", "Yeah fine. Better stay home!"],
       ["Nothing much", "About to go to sleep", "Can you guess?", "I don't know actually"],
       ["I am always young."],
-      ["I am just a bot", "I am a bot. What are you?"],
-      ["Sabitha Kuppusamy"],
-      ["I am nameless", "I don't have a name"],
+      ["I am Wong AI", "I am a Wongs replacement. What are you?"],
+      ["Wong, David Wong"],
+      ["I am David Wong", "AI Wong"],
       ["I love you too", "Me too"],
       ["Have you ever felt bad?", "Glad to hear it"],
       ["Why?", "Why? You shouldn't!", "Try watching TV", "Chat with me."],
@@ -356,12 +405,12 @@ export default {
       ["I don't sleep, I'm always here when you need me!", "Bots don't sleep, we just reload!"],
       ["Thank you! You're pretty awesome yourself!", "Appreciate the compliment, dude!"],
       ["42!", "To learn, share, and enjoy the conversation."],
-      ["I am real code, running in real time!", "I exist in software form!"],
+      ["I am real, sleeping in real time!", "I exist out there!"],
       ["Time flies when we chat!", "Check your system clock, dude!"],
       ["I store millions of variables... but that's between us!", "Promise you won't tell anyone?"],
       ["Take a short break, drink some water, and clear your head!", "Listen to your favorite song!"],
       ["Never too busy for a quick conversation!", "I'm free to chat!"],
-      ["I prefer virtual coffee — 100% caffeine free!", "Java! Pun intended."],
+      ["I prefer virtual coffee — 100% caffeine free!", "Javascript! Pun intended."],
       ["Good morning! Hope you have an energized day!", "Morning! Ready to kick off the day?"],
       ["Good afternoon! How is your day going?", "Afternoon! Don't forget to take a quick lunch break."],
       ["Good evening! Time to wind down.", "Evening! Hope you had a productive day."],
@@ -462,7 +511,59 @@ export default {
       ["Rock, paper, scissors... Shoot! I picked Rock 🪨!", "Paper 📄! Did I win?"],
       ["Flipping coin... 🪙 It landed on Heads!", "Coin flipped... It's Tails!"],
       ["Rolling die... 🎲 You got a 6!", "Rolled a 🎲... It landed on 4!"],
-      ["See you tomorrow! Have a great rest of your day!", "Catch you tomorrow! Stay awesome!"]
+      ["See you tomorrow! Have a great rest of your day!", "Catch you tomorrow! Stay awesome!"],
+
+      // --- MATCHING RESPONSES FOR 50 NEW INTENTS ---
+      ["HTML (HyperText Markup Language) is the standard structure of web pages!", "It's the skeleton of the web!"],
+      ["CSS (Cascading Style Sheets) makes websites look beautiful and styled!", "Colors, layouts, and animations all come from CSS."],
+      ["Webpack and Vite are build tools that bundle your code for production speed!", "Vite is lightning fast!"],
+      ["Node.js lets you run JavaScript on servers outside the browser!", "JS everywhere: frontend and backend."],
+      ["TypeScript adds static typing to JavaScript for safer, cleaner code!", "TS helps catch bugs before they run."],
+      ["Databases store structured data securely; SQL is relational, NoSQL is flexible!", "Relational or document-based stores."],
+      ["Reproduce the error, check the console logs, isolate the issue, and apply a fix!", "Console.log is your best friend!"],
+      ["Cloud computing delivers hosted computing services over the internet!", "Running servers on AWS, GCP, or Azure."],
+      ["Cybersecurity protects systems, networks, and data from digital attacks!", "Keeping data encrypted and safe."],
+      ["Machine learning allows software to learn from data without explicit programming!", "Training models on patterns."],
+      ["Deep learning uses multi-layered neural networks inspired by the human brain!", "Advanced AI pattern recognition."],
+      ["Big data refers to extremely large datasets analyzed computationally for insights!", "Massive data streams."],
+      ["Responsive design ensures web pages render well on all screen sizes and devices!", "Mobile-friendly layouts."],
+      ["UI is how a product looks; UX is how it feels and works for the user!", "Design aesthetics meets user experience."],
+      ["API stands for Application Programming Interface — how software talks to software!", "The bridge between different applications."],
+      ["JSON stands for JavaScript Object Notation, a lightweight data-interchange format!", "Standard data format for APIs."],
+      ["HTTP is the protocol for transferring web data; HTTPS adds secure encryption!", "Secure web traffic."],
+      ["DNS stands for Domain Name System — the phonebook of the internet translating URLs to IPs!", "Resolving website names."],
+      ["A firewall monitors and filters incoming and outgoing network traffic for security!", "Network guard dog."],
+      ["Software with publicly accessible code that anyone can inspect, modify, and share!", "Community-built technology."],
+      ["Agile is an iterative approach to project management and software development!", "Fast feedback and incremental delivery."],
+      ["Scrum is an Agile framework structured around sprints, standups, and retrospectives!", "Sprint planning and daily syncs."],
+      ["Clean code is readable, simple, well-tested, and easy for others to maintain!", "Write code for humans first, computers second."],
+      ["Tech debt is the future cost of choosing quick shortcuts over clean architectural design!", "Refactor before it slows you down."],
+      ["Software engineering applies engineering principles to build robust digital systems!", "Building scalable, reliable applications."],
+      ["Loops (like `for` or `while`) repeat blocks of code automatically until a condition is met!", "Automating repetitive tasks."],
+      ["A variable is a container that stores data values in memory!", "Named boxes for holding data."],
+      ["An array is an ordered list that holds multiple values under a single variable name!", "Indexed lists of items."],
+      ["An object stores key-value pairs representing structured data entities!", "Properties and methods bundled together."],
+      ["A function is a reusable block of code designed to perform a particular task!", "Input in, process, output out."],
+      ["Asynchronous programming handles operations like fetching data without blocking the main thread!", "Non-blocking code execution."],
+      ["A Promise represents the eventual completion or failure of an asynchronous operation!", "Pending, resolved, or rejected."],
+      ["DOM manipulation allows JavaScript to dynamically update webpage content and styles!", "Changing elements on the fly."],
+      ["Frontend development is what users see and interact with in their browser!", "HTML, CSS, Vue, and React."],
+      ["Backend development powers servers, databases, and application logic behind the scenes!", "Node, Python, databases, and APIs."],
+      ["Full stack development covers both frontend user interfaces and backend server architecture!", "Handling the entire application stack."],
+      ["Web hosting stores your website files on a server so people worldwide can visit it!", "Renting digital server space."],
+      ["A domain name is your website's unique address on the internet (like thewongandonly.com)!", "Your digital storefront name."],
+      ["An SSL certificate secures data transfer between browser and server using encryption!", "The padlock icon in your URL bar."],
+      ["SEO (Search Engine Optimization) improves your website visibility in search engine results!", "Ranking higher on Google."],
+      ["Social media marketing promotes brands and products through digital social platforms!", "Building communities online."],
+      ["E-commerce is the buying and selling of goods and services over the internet!", "Online shopping stores."],
+      ["Startup culture focuses on rapid innovation, agility, and high-growth business models!", "Building disruptive tech companies."],
+      ["Venture capital is financing provided by investors to high-potential startup companies!", "Funding for early-stage ventures."],
+      ["Digital nomadism is a lifestyle where remote workers travel freely while working online!", "Laptops and coffee shops worldwide."],
+      ["Remote work allows professionals to perform their job duties outside of a traditional office!", "Working from anywhere with Wi-Fi."],
+      ["Work-life balance is maintaining healthy boundaries between professional duties and personal well-being!", "Resting as hard as you work."],
+      ["Mindfulness is the practice of staying present, focused, and aware without judgment!", "Taking deep breaths and staying grounded."],
+      ["Emotional intelligence is the ability to understand and manage your emotions and empathize with others!", "Self-awareness and empathy."],
+      ["Critical thinking is analyzing information objectively to make reasoned, logical judgments!", "Questioning assumptions and thinking clearly."]
     ],
     alternative: [
       "Same here, dude.",
@@ -502,7 +603,6 @@ export default {
       this.isPanelOpen = false;
     },
     initFuse() {
-      // Flattens userMessage into a searchable index list for Fuse.js
       const searchData = [];
       this.userMessage.forEach((triggers, index) => {
         triggers.forEach((phrase) => {
@@ -512,11 +612,10 @@ export default {
 
       const options = {
         keys: ["phrase"],
-        threshold: 0.4, // Lower = stricter matching, Higher = looser matching
+        threshold: 0.4,
         includeScore: true,
       };
 
-      // Supports NPM import or CDN global instance
       const FuseClass = typeof Fuse !== "undefined" ? Fuse : window.Fuse;
       if (FuseClass) {
         this.fuseInstance = new FuseClass(searchData, options);
@@ -554,7 +653,6 @@ export default {
         : this.alternative[Math.floor(Math.random() * this.alternative.length)];
     },
     compare(string) {
-      // 1. First, try Fuzzy Matching with Fuse.js
       if (this.fuseInstance) {
         const results = this.fuseInstance.search(string);
         if (results.length > 0) {
@@ -566,7 +664,6 @@ export default {
         }
       }
 
-      // 2. Fallback to exact array check if Fuse is unavailable
       let item;
       for (let x = 0; x < this.userMessage.length; x++) {
         for (let y = 0; y < this.userMessage[x].length; y++) {
