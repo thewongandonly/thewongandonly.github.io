@@ -16,80 +16,79 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "ProfileComponent",
-  data() {
-    return {
-      isMoving: false,
-      theta: 0, // Angle tracking from 0 to PI/2 (0 to 90 degrees)
-      x: 0,
-      y: 0,
-      animationId: null
-    };
-  },
-  computed: {
-    imgStyle() {
-      return {
-        transform: `translate(${this.x}px, ${this.y}px)`,
-        cursor: "pointer"
-      };
-    }
-  },
-  methods: {
-    toggleMovement() {
-      if (!this.isMoving) {
-        this.isMoving = true;
-        this.theta = 0;
-        this.x = 0;
-        this.y = 0;
-        this.animate();
-      } else {
-        // Stop and reset immediately if clicked mid-flight
-        this.isMoving = false;
-        cancelAnimationFrame(this.animationId);
-        this.theta = 0;
-        this.x = 0;
-        this.y = 0;
-      }
-    },
-    animate() {
-      if (!this.isMoving) return;
+<script setup>
+import { ref, computed, onBeforeUnmount } from 'vue';
 
-      // Decreased step size for significantly slower motion
-      this.theta += 0.008;
+// Define component name if needed (optional in Vue 3 with SFC filename inference, but good practice)
+defineOptions({
+  name: "ProfileComponent"
+});
 
-      const maxTheta = Math.PI / 2; // 90 degrees in radians
+// Reactive state
+const isMoving = ref(false);
+const theta = ref(0);
+const x = ref(0);
+const y = ref(0);
+let animationId = null;
 
-      // Stop and reset once it reaches 90 degrees (outside window)
-      if (this.theta >= maxTheta) {
-        this.isMoving = false;
-        cancelAnimationFrame(this.animationId);
-        this.theta = 0;
-        this.x = 0;
-        this.y = 0;
-        return;
-      }
+// Computed style for the image transform
+const imgStyle = computed(() => ({
+  transform: `translate(${x.value}px, ${y.value}px)`,
+  cursor: "pointer"
+}));
 
-      // 1. Horizontal arc sweep: Starts at 0 when theta = 0, avoiding any initial jump
-      const horizontalRange = 250; 
-      this.x = (this.theta / maxTheta) * horizontalRange;
+// Animation loop function
+const animate = () => {
+  if (!isMoving.value) return;
 
-      // 2. Vertical arc: Strict sine trajectory starting at 0 and moving up
-      // Calculates distance required to completely clear the top of the window
-      const verticalHeight = (window.innerHeight / 2) + 150;
-      this.y = -Math.sin(this.theta) * verticalHeight;
+  // Decreased step size for significantly slower motion
+  theta.value += 0.008;
 
-      this.animationId = requestAnimationFrame(this.animate);
-    }
-  },
-  beforeUnmount() {
-    cancelAnimationFrame(this.animationId);
-  },
-  beforeDestroy() {
-    cancelAnimationFrame(this.animationId);
+  const maxTheta = Math.PI / 2; // 90 degrees in radians
+
+  // Stop and reset once it reaches 90 degrees (outside window)
+  if (theta.value >= maxTheta) {
+    isMoving.value = false;
+    cancelAnimationFrame(animationId);
+    theta.value = 0;
+    x.value = 0;
+    y.value = 0;
+    return;
+  }
+
+  // 1. Horizontal arc sweep: Starts at 0 when theta = 0, avoiding any initial jump
+  const horizontalRange = 250; 
+  x.value = (theta.value / maxTheta) * horizontalRange;
+
+  // 2. Vertical arc: Strict sine trajectory starting at 0 and moving up
+  const verticalHeight = (window.innerHeight / 2) + 150;
+  y.value = -Math.sin(theta.value) * verticalHeight;
+
+  animationId = requestAnimationFrame(animate);
+};
+
+// Toggle movement handler
+const toggleMovement = () => {
+  if (!isMoving.value) {
+    isMoving.value = true;
+    theta.value = 0;
+    x.value = 0;
+    y.value = 0;
+    animate();
+  } else {
+    // Stop and reset immediately if clicked mid-flight
+    isMoving.value = false;
+    cancelAnimationFrame(animationId);
+    theta.value = 0;
+    x.value = 0;
+    y.value = 0;
   }
 };
+
+// Cleanup lifecycle hook (Vue 3 standard)
+onBeforeUnmount(() => {
+  cancelAnimationFrame(animationId);
+});
 </script>
 
 <style scoped>
