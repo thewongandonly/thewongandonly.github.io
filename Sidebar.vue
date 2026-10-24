@@ -189,7 +189,7 @@
 
 <script>
   export default {
-    data: () => ({
+    data: () => ({ // vue 2 options format:
       isPanelOpen: false,
       showEmojiPicker: false,
       emojis: [
@@ -206,6 +206,21 @@
       ],
       question: "",
       fuseInstance: null,
+      askedQuestions: [],
+      repeatedResponses: [
+        "Can't you read? I already answered that!",
+        "Groundhog Day, right? We just went over this.",
+        "My memory is fine. Is yours buffering?",
+        "I gave you that answer already. Do I need to print it out and mail it to you?",
+        "Error 403: Repeating questions is strictly prohibited when I've already answered them.",
+        "Look up at the chat history. I'll wait.",
+        "Deja vu? No, you just asked the exact same thing.",
+        "Are we stuck in a loop, or are you just testing my patience?",
+        "I answered that a minute ago. Do you want me to say it louder?",
+        "That question is already stamped 'Done'. Try a new one!",
+        "My circuits remember answering that. Your turn to remember reading it.",
+        "Copy-pasting your own questions doesn't change my previous answer, dude."
+      ],
       convo: [
         {
           text: "Busy at the moment but circling back to you soonest! In the meantime, is there anything else I can help you with?",
@@ -242,10 +257,10 @@
         ["what day is it", "what time is it"],
         ["what should i do", "give me advice", "i am confused"],
         ["good morning", "morning"],
-        ["good afternoon", "afternoon"],
+        ["good afternoon", "afternoon", "noon"],
         ["good evening", "evening"],
-        ["good night", "nighty night", "sweet dreams"],
-        ["bye", "goodbye", "see you", "see ya", "catch you later"],
+        ["good night", "nighty night", "sweet dreams", "night"],
+        ["bye", "goodbye", "see you", "see ya", "catch you later", "tc", "take care"],
         ["what is your favorite food", "favorite dish"],
         ["what is your favorite color", "favorite color"],
         ["what is your superpower", "what can you do"],
@@ -387,11 +402,11 @@
         ["42!", "To learn, share, and enjoy the conversation."],
         ["Time flies when we chat!", "Check your system clock, dude!"],
         ["Take a short break, drink some water, and clear your head!", "Listen to your favorite song!"],
-        ["Good morning! Hope you have an energized day!", "Morning! Ready to kick off the day?"],
-        ["Good afternoon! How is your day going?", "Afternoon! Don't forget to take a quick lunch break."],
-        ["Good evening! Time to wind down.", "Evening! Hope you had a productive day."],
-        ["Good night! Sleep tight!", "Sweet dreams! See you tomorrow."],
-        ["Goodbye! Have a fantastic day ahead!", "Catch you later, alligator!", "Bye! Take care!"],
+        ["Good morning! Hope you have an energized day!", "Morning, dude!"],
+        ["Good afternoon! How is your day going?", "Afternoon! Don't forget to take a quick lunch break.", "Noon, dude!"],
+        ["Good evening! Time to wind down.", "Evening! Hope you had a productive day.", "Have a pleasant evening!"],
+        ["Good night! Sleep tight!", "Sweet dreams! See you tomorrow.", "Have a sound sleep", "Good Night, dude"],
+        ["Goodbye! Have a fantastic day ahead!", "Catch you later, alligator!", "Bye! Take care!", "Dude, Bye. Take care of your health in this situation."],
         ["I love ramen, but pizza sounds amazing!", "Anything rendered in high resolution!"],
         ["Electric Purple and Neon Blue!", "I like purple \u2014 it gives off cool cyberpunk vibes."],
         ["Instant text processing and infinite patience!", "Being available 24/7 for a chat!"],
@@ -590,9 +605,9 @@
           this.voiceControl(product);
         }, 1000);
       },
-      processInput(input) {
+      normaliseQuestion(input) {
         let text = input.toLowerCase().replace(/[^\w\s\d]/gi, "");
-        text = text
+        return text
         .replace(/[\W_]/g, " ")
         .replace(/ a /g, " ")
         .replace(/i feel /g, "")
@@ -600,14 +615,23 @@
         .replace(/please /g, "")
         .replace(/ please/g, "")
         .trim();
-        let comparedText = this.compare(text);
-        return comparedText
-        ? comparedText
-        : this.alternative[Math.floor(Math.random() * this.alternative.length)];
       },
-      compare(string) {
+      processInput(inputstr) {
+        const text = this.normaliseQuestion(inputstr);
+
+        if (this.askedQuestions.includes(text)) {
+          return this.repeatedResponses[Math.floor(Math.random() * this.repeatedResponses.length)];
+        }
+        this.askedQuestions.push(text);
+
+        const comparedText = this.compare(text);
+        return !!comparedText
+         ? comparedText
+         : this.alternative[Math.floor(Math.random() * this.alternative.length)];
+      },
+      compare(stringinp) {
         if (this.fuseInstance) {
-          const results = this.fuseInstance.search(string);
+          const results = this.fuseInstance.search(stringinp);
           if (results.length > 0) {
             const matchedCategoryIndex = results[0].item.index;
             const replies = this.botReply[matchedCategoryIndex];
@@ -625,39 +649,11 @@
             }
           }
         }
-        return item ? item : this.containMessageCheck(string);
-      },
-      containMessageCheck(string) {
-        const expectedReply = [
-          [
-            "Good Bye, dude",
-            "Bye, See you!",
-            "Dude, Bye. Take care of your health in this situation."
-          ],
-          ["Good Night, dude", "Have a sound sleep", "Sweet dreams"],
-          ["Have a pleasant evening!", "Good evening too", "Evening!"],
-          ["Good morning, Have a great day!", "Morning, dude!"],
-          ["Good Afternoon", "Noon, dude!", "Afternoon, dude!"]
-        ];
-        const expectedMessage = [
-          ["bye", "tc", "take care"],
-          ["night", "good night"],
-          ["evening", "good evening"],
-          ["morning", "good morning"],
-          ["noon"]
-        ];
-        let item;
-        for (let x = 0; x < expectedMessage.length; x++) {
-          if (expectedMessage[x].includes(string)) {
-            let items = expectedReply[x];
-            item = items[Math.floor(Math.random() * items.length)];
-          }
-        }
         return item;
       },
-      voiceControl(string) {
+      voiceControl(stringinp) {
         if (!window.speechSynthesis) return;
-        let u = new SpeechSynthesisUtterance(string);
+        let u = new SpeechSynthesisUtterance(stringinp);
         u.lang = "en-aus";
         u.volume = 1;
         u.rate = 1;
