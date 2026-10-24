@@ -102,7 +102,11 @@
               </span>
             </div>
             <div class="chat__conversation-panel__container">
-              <button class="chat__conversation-panel__button panel-item btn-icon add-file-button">
+  
+              <button 
+                class="chat__conversation-panel__button panel-item btn-icon add-file-button"
+                @click="handleFileUpload"
+              >
                 <svg
                   class="feather feather-plus sc-dnqmqq jxshSx"
                   xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +124,7 @@
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
               </button>
-              <!-- Working Click Handler for Emoji Button -->
+ 
               <button
                 class="chat__conversation-panel__button panel-item btn-icon emoji-button"
                 @click.stop="toggleEmojiPicker"
@@ -571,6 +575,18 @@ const toggleEmojiPicker = () => {
 const addEmoji = (emoji) => {
   question.value += emoji;
   showEmojiPicker.value = false;
+};
+
+// Added handler for the file upload button
+const handleFileUpload = () => {
+  const wittyReply = "Whoa there, data hoarder! File attachments are currently disabled. My servers are on a strict diet—no bytes allowed!";
+  convo.value.push({ you: "📎 [Clicked add file]" });
+  scrollToBottom();
+  setTimeout(() => {
+    convo.value.push({ text: wittyReply });
+    scrollToBottom();
+    voiceControl(wittyReply);
+  }, 500);
 };
 
 const initFuse = () => {
