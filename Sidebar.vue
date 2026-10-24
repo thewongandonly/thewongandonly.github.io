@@ -73,7 +73,7 @@
               <div class="chat__conversation-board__message__person">
                 <div class="chat__conversation-board__message__person__avatar">
                   <img
-                    :src="msg.you ? 'https://thewongandonly.com/davidwong.png' : 'https://thewongandonly.com/man.png'"
+                    :src="msg.you ? 'https://thewongandonly.com/man.png' : 'https://thewongandonly.com/davidwong.png'"
                     height="44"
                     :alt="msg.you ? 'You' : 'David Wong'"
                   />
@@ -818,4 +818,106 @@ export default {
 .chat .chat__conversation-board__message__bubble span {
   width: fit-content;
   display: inline-table;
-  word-wrap: break
+  word-wrap: break-word;
+  background: var(--chat-bubble-background);
+  font-size: 13px;
+  color: var(--chat-text-color);
+  padding: 0.5em 0.8em;
+  line-height: 1.5;
+  border-radius: 6px;
+  font-family: "Lato", sans-serif;
+}
+.chat .chat__conversation-board__message__bubble:not(:last-child) {
+  margin: 0 0 0.3em;
+}
+.chat .chat__conversation-board__message__bubble:active {
+  background: var(--chat-bubble-active-background);
+}
+.chat .chat__conversation-panel {
+  background: var(--chat-panel-background);
+  border-radius: 12px;
+  padding: 0 1em;
+  height: 55px;
+  margin: 0.5em 0 0;
+}
+.chat .chat__conversation-panel__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+.chat .chat__conversation-panel__container .panel-item:not(:last-child) {
+  margin: 0 1em 0 0;
+}
+.chat .chat__conversation-panel__button {
+  background: grey;
+  height: 20px;
+  width: 30px;
+  border: 0;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+}
+.chat .chat__conversation-panel .add-file-button {
+  height: 23px;
+  min-width: 23px;
+  width: 23px;
+  background: var(--chat-add-button-background);
+  border-radius: 50%;
+}
+.chat .chat__conversation-panel .add-file-button svg {
+  width: 70%;
+  stroke: #54575c;
+}
+.chat .chat__conversation-panel .emoji-button {
+  min-width: 23px;
+  width: 23px;
+  height: 23px;
+  background: transparent;
+  border-radius: 50%;
+}
+.chat .chat__conversation-panel .emoji-button svg {
+  width: 100%;
+  fill: transparent;
+  stroke: #54575c;
+}
+.chat .chat__conversation-panel .send-message-button {
+  background: var(--chat-send-button-background);
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+.chat .chat__conversation-panel .send-message-button:active {
+  transform: scale(0.97);
+}
+.chat .chat__conversation-panel .send-message-button svg {
+  margin: 1px -1px;
+}
+.chat .chat__conversation-panel__input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  position: relative;
+  color: var(--chat-text-color);
+  font-size: 13px;
+  background: transparent;
+  border: 0;
+  font-family: "Lato", sans-serif;
+  resize: none;
+}
+.wishtochat {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 42px;
+  cursor: pointer;
+}
+.close {
+  left: 360px;
+  top: 8px;
+  cursor: pointer;
+  position: relative;
+}
+</style>
