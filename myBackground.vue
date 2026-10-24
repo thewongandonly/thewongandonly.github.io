@@ -4,25 +4,35 @@
   </video>
 </template>
 
-<script>
-export default {
-  props: ["vid"],
-  watch: {
-    vid: function (newVal, oldVal) {
-      this.changeVid(newVal)
-      //console.log("Prop changed: ", newVal, " | was: ", oldVal);
-    },
+<script setup>
+import { ref, watch } from 'vue';
+
+const props = defineProps({
+  vid: {
+    type: String,
+    required: true,
   },
-  methods: {
-    changeVid(name) {
-      setTimeout(() => {
-        this.$refs.videoPlayer.pause();
-        this.$refs.videoPlayer.load();
-        this.$refs.videoPlayer.play();
-      }, 250);
-    },
-  },
+});
+
+const videoPlayer = ref(null);
+
+const changeVid = (name) => {
+  setTimeout(() => {
+    if (videoPlayer.value) {
+      videoPlayer.value.pause();
+      videoPlayer.value.load();
+      videoPlayer.value.play();
+    }
+  }, 250);
 };
+
+watch(
+  () => props.vid,
+  (newVal, oldVal) => {
+    changeVid(newVal);
+    // console.log("Prop changed: ", newVal, " | was: ", oldVal);
+  }
+);
 </script>
 
 <style scoped>
