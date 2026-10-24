@@ -65,6 +65,9 @@
           ),
           "my-background": Vue.defineAsyncComponent(() =>
             loadModule("./myBackground.vue", options)
+          ),           
+          "count": Vue.defineAsyncComponent(() =>
+            loadModule("./Count.vue", options)
           )
         },
         data() {
@@ -84,8 +87,7 @@
             this.myvid = newVid;
           },
         },
-        template: `<my-background :vid="myvid" />
-        <sunset />  <sidebar v-if="showchat" />
+        template: `<my-background :vid="myvid" /><sunset /> <count /> <sidebar v-if="showchat" />
         `,
       });
 
