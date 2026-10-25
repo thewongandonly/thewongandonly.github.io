@@ -706,7 +706,7 @@ onMounted(() => {
 </script>
 
 
- 
+
 
 <style scoped>
 .slide-enter-active,
@@ -1018,4 +1018,32 @@ onMounted(() => {
   cursor: pointer;
   position: relative;
 }
+
+/* --- Mobile Responsive Media Query --- */
+@media (max-width: 768px) {
+  .sidebar,
+  .sidebar-backdrop,
+  .sidebar-panel {
+    width: 100%;
+    right: 0;
+    left: 0;
+  }
+  .sidebar-panel {
+    top: 0;
+    height: 100vh;
+  }
+  .chat {
+    max-width: 100%;
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+  }
+  .close {
+    position: absolute;
+    left: auto;
+    right: 16px;
+    top: 16px;
+  }
+}
 </style>
+
