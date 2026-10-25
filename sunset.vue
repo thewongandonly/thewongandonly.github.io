@@ -3,7 +3,7 @@
     <div class="container">
       <div class="centered-element">
         <div class="content">
-          <img v-if="y > -450"
+          <img v-if="!sunGone"
             src="https://thewongandonly.com/davidwong.png" 
             alt="David Wong" 
             class="profile-img" 
@@ -11,7 +11,7 @@
             @click="toggleMovement" 
           />
 
-<div class="wrapper" v-if="y < -450">
+<div class="wrapper" v-if="sunGone">
 		      <div class="fade"></div>
     			<div v-if="isPlaying" class="star-wars" :style="{ perspective: perspective + 'px', color: textColor }">
     				  <div :key="animKey" class="crawl" :style="crawlStyles">
@@ -124,7 +124,7 @@ const isPlaying = ref(false);
 const animKey = ref(0);
 
 const paragraphs = computed(() => {
-  return crawlText.split('\n\n');//.filter(p => p.trim() !== '');
+  return crawlText.split('\n\n');
 });
 
 const crawlStyles = computed(() => ({
@@ -144,6 +144,10 @@ const x = ref(0);
 const y = ref(0);
 let animationId = null;
 
+	
+const sunGone = computed(() => {
+  return y.value < 455;
+});
 // Computed style for the image transform
 const imgStyle = computed(() => ({
   transform: `translate(${x.value}px, ${y.value}px)`,
