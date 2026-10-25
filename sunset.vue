@@ -3,7 +3,7 @@
     <div class="container">
       <div class="centered-element">
         <div class="content">
-          <img 
+          <img v-if="y > -450"
             src="https://thewongandonly.com/davidwong.png" 
             alt="David Wong" 
             class="profile-img" 
@@ -206,7 +206,7 @@ onBeforeUnmount(() => {
   height: 8rem;
   cursor: pointer;
   user-select: none;
-	
+	  margin-top: 225px;
 }
 
 .container {
