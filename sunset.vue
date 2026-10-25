@@ -11,7 +11,7 @@
             @click="toggleMovement" 
           />
 
-<div class="wrapper">
+<div class="wrapper" v-if="y < -450">
 		      <div class="fade"></div>
     			<div v-if="isPlaying" class="star-wars" :style="{ perspective: perspective + 'px', color: textColor }">
     				  <div :key="animKey" class="crawl" :style="crawlStyles">
