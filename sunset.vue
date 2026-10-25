@@ -11,7 +11,7 @@
             @click="toggleMovement" 
           />
 
-
+<div class="wrapper">
 		      <div class="fade"></div>
     			<div v-if="isPlaying" class="star-wars" :style="{ perspective: perspective + 'px', color: textColor }">
     				  <div :key="animKey" class="crawl" :style="crawlStyles">
@@ -24,7 +24,7 @@
           					</p>
     				  </div>
     				</div>
-    			  
+ </div>   			  
           
         </div>
       </div>
@@ -188,7 +188,9 @@ onBeforeUnmount(() => {
     position: relative;
     width: 100%;
 }
-
+.wrapper{
+	overflow:hidden;
+}
 .full-height {
   position: absolute;
   height: 100vh;
@@ -209,7 +211,7 @@ onBeforeUnmount(() => {
   width: 100%;
   min-height: 60vh;
   top: -25px;
-  background-image: linear-gradient(0deg, transparent, black 5%);
+  background-image: linear-gradient(0deg, transparent, black 95%);
   z-index: 1;
 }
 
@@ -224,7 +226,7 @@ onBeforeUnmount(() => {
   font-weight: 600;
   letter-spacing: 6px;
   line-height: 150%;
-  perspective: 400px;
+  perspective: 800px;
   text-align: justify;
 }
 
