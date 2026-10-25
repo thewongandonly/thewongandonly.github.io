@@ -206,7 +206,7 @@ onBeforeUnmount(() => {
   height: 8rem;
   cursor: pointer;
   user-select: none;
-	margin-top: 275px;
+	
 }
 
 .container {
