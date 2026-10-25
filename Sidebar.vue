@@ -372,7 +372,9 @@ const userMessage = [
   ["rock paper scissors"],
   ["flip a coin"],
   ["roll a die"],
-  ["see you tomorrow"]
+  ["see you tomorrow"],
+  ["qr"],
+  ["anime"]
 ];
 
 const botReply = [
@@ -519,7 +521,9 @@ const botReply = [
   ["Rock, paper, scissors... Shoot! I picked Rock 🪨!", "Paper 📄! Did I win?"],
   ["Flipping coin... 🪙 It landed on Heads!", "Coin flipped... It's Tails!"],
   ["Rolling die... 🎲 You got a 6!", "Rolled a 🎲... It landed on 4!"],
-  ["See you tomorrow! Have a great rest of your day!", "Catch you tomorrow! Stay awesome!"]
+  ["See you tomorrow! Have a great rest of your day!", "Catch you tomorrow! Stay awesome!"],
+  ["https://thewongandonly.com/QR.html"],
+  ["https://thewongandonly.com/YourName.mp4"]
 ];
 
 const alternative = [
