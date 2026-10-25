@@ -13,7 +13,7 @@
 
 
 		      <div class="fade"></div>
-    			<div v-if="y!=0" class="star-wars" :style="{ perspective: perspective + 'px', color: textColor }">
+    			<div v-if="isPlaying" class="star-wars" :style="{ perspective: perspective + 'px', color: textColor }">
     				  <div :key="animKey" class="crawl" :style="crawlStyles">
               					<div class="title">
               					  <h2>{{ episodeNumber }}</h2>
@@ -146,7 +146,7 @@ const animate = () => {
 // Toggle movement handler
 const toggleMovement = () => {
   if (!isMoving.value) {
-    isMoving.value = true;
+    isMoving.value = true; isPlaying.value = true;
     theta.value = 0;
     x.value = 0;
     y.value = 0;
@@ -176,6 +176,7 @@ onBeforeUnmount(() => {
   height: 8rem;
   cursor: pointer;
   user-select: none;
+	margin-top: 75;
 }
 
 .container {
