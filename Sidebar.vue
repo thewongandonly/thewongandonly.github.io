@@ -84,7 +84,8 @@
               </div>
               <div class="chat__conversation-board__message__context">
                 <div class="chat__conversation-board__message__bubble">
-                  <span>{{ msg.text || msg.you }}</span>
+                  <!-- Render message text with formatted clickable links using v-html -->
+                  <span v-html="formatMessage(msg.text || msg.you)"></span>
                 </div>
               </div>
             </div>
@@ -182,10 +183,6 @@
     </transition>
   </div>
 </template>
-
-
-
-
 
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue';
@@ -506,7 +503,7 @@ const botReply = [
   ["Use the Pomodoro technique: 25 mins focus, 5 mins break!", "Eliminate distractions and take clean notes."],
   ["Start with HTML, CSS, and JS, then build small projects daily!", "Practice every day on platforms like FreeCodeCamp!"],
   ["Tabs for speed, spaces for consistency! A timeless debate.", "Spaces (2 or 4) keep formatting uniform."],
-  ["Cookies & Cream!", "Mint Chocolate Chip is refreshing!"],
+  ["Favorite ice cream flavor: Cookies & Cream!", "Mint Chocolate Chip is refreshing!"],
   ["Chocolate is rich and classic!", "Vanilla is timeless and versatile!"],
   ["Mountains for peaceful hiking, beach for ocean breeze!", "Both are beautiful natural escapes!"],
   ["Not yet, but I can guess what you type!", "I can only read the text you enter here."],
@@ -566,6 +563,15 @@ const alternative = [
   "That question broke my logic gate. I need a reboot and a snack.",
   "I'm multitasking: looking smart while pretending I understood that completely."
 ];
+
+// Helper method to turn URLs starting with http:// or https:// into clickable links
+const formatMessage = (text) => {
+  if (!text) return '';
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, (url) => {
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="chat-link">${url}</a>`;
+  });
+};
 
 const closeSidebarPanel = () => {
   isPanelOpen.value = false;
@@ -704,9 +710,6 @@ onMounted(() => {
   initFuse();
 });
 </script>
-
-
-
 
 <style scoped>
 .slide-enter-active,
@@ -896,6 +899,17 @@ onMounted(() => {
   border-radius: 6px;
   font-family: "Lato", sans-serif;
 }
+
+/* Hyperlink Styles inside chat bubbles */
+:deep(.chat-link) {
+  color: #a855f7;
+  text-decoration: underline;
+  word-break: break-all;
+}
+:deep(.chat-link:hover) {
+  color: #c084fc;
+}
+
 .chat .chat__conversation-board__message__bubble:not(:last-child) {
   margin: 0 0 0.3em;
 }
@@ -1019,7 +1033,7 @@ onMounted(() => {
   position: relative;
 }
 
-/* --- Mobile Responsive Media Query --- */
+/* --- Mobile --- */
 @media (max-width: 768px) {
   .sidebar,
   .sidebar-backdrop,
@@ -1046,4 +1060,3 @@ onMounted(() => {
   }
 }
 </style>
-
