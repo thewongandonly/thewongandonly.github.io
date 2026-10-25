@@ -117,7 +117,7 @@ const isPlaying = ref(false);
 const animKey = ref(0);
 
 const paragraphs = computed(() => {
-  return crawlText.split('\n\n').filter(p => p.trim() !== '');
+  return crawlText.split('\n\n');//.filter(p => p.trim() !== '');
 });
 
 const crawlStyles = computed(() => ({
