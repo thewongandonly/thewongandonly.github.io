@@ -139,7 +139,7 @@ const animate = () => {
 
   // 1. Horizontal arc sweep: Starts at 0 when theta = 0, avoiding any initial jump
   const horizontalRange = 250; 
-  x.value = (theta.value / maxTheta) * horizontalRange;
+  x.value = (theta.value / maxTheta) * horizontalRange * -1;
 
   // 2. Vertical arc: Strict sine trajectory starting at 0 and moving up
   const verticalHeight = (window.innerHeight / 2) + 150;
@@ -181,7 +181,7 @@ onBeforeUnmount(() => {
   height: 8rem;
   cursor: pointer;
   user-select: none;
-	margin-top: 75px;
+	margin-top: 275px;
 }
 
 .container {
