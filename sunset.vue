@@ -42,10 +42,15 @@ defineOptions({
  const episodeNumber='Sitting';
  const episodeTitle='Dock of the bay';
  const crawlText=`
+
 Sittin' in the mornin' sun
+
 I'll be sittin' when the evenin' come
+
 Watching the ships roll in
+
 And I watch 'em roll away again, yeah
+
 
 I'm sittin' on the dock of the bay
 Watching the tide roll away
@@ -211,7 +216,7 @@ onBeforeUnmount(() => {
   width: 100%;
   min-height: 60vh;
   top: -25px;
-  background-image: linear-gradient(0deg, transparent, black 95%);
+ 
   z-index: 1;
 }
 
