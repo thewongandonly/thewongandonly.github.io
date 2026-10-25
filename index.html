@@ -77,7 +77,9 @@
           const setVid = (newVid) => {
             myvid.value = newVid;
           };
-
+          const setGone = () => {
+            showppod.value = true;
+          };
           // Expose variables and functions to the template
           return {
             myvid,
@@ -85,7 +87,8 @@
             setVid,
           };
         },
-        template: `<my-background :vid="myvid" /><sunset />  <MiniPod v-if="showchat" />  <Sidebar v-if="showchat" />`,
+        template: `<my-background :vid="myvid" /> 
+        <sunset @is-gone="setGone" />  <MiniPod v-if="showppod" />  <Sidebar v-if="showchat" />`,
       });
 
       app.mount("#app");
