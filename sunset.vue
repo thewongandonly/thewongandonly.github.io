@@ -146,7 +146,7 @@ let animationId = null;
 
 	
 const sunGone = computed(() => {
-  return y.value < 455;
+  return y.value < -465;
 });
 // Computed style for the image transform
 const imgStyle = computed(() => ({
