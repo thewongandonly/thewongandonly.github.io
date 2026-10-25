@@ -34,7 +34,7 @@
 
 <script setup>
 import { ref, computed, onBeforeUnmount } from 'vue';
- 
+ const emit = defineEmits(['SunIsGone'])
 defineOptions({
   name: "Sunset"
 });
@@ -170,6 +170,7 @@ const animate = () => {
     //theta.value = 0;
     //x.value = 0;
     //y.value = 0;
+	    emit('SunIsGone');
     return;
   }
 
