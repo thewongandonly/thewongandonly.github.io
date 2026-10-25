@@ -43,6 +43,10 @@ defineOptions({
  const episodeTitle='Dock of the bay';
  const crawlText=`
 
+
+
+
+
 Sittin' in the mornin' sun
 
 I'll be sittin' when the evenin' come
@@ -103,7 +107,10 @@ Watching the tide roll away
 
 Ooh-wee, sittin' on the dock of the bay
 
-Wastin' time
+Wastin' time...
+
+
+
 
 
 `;
