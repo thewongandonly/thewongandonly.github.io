@@ -18,11 +18,71 @@
 
 <script setup>
 import { ref, computed, onBeforeUnmount } from 'vue';
-
-// Define component name if needed (optional in Vue 3 with SFC filename inference, but good practice)
+ 
 defineOptions({
-  name: "ProfileComponent"
+  name: "Sunset"
 });
+
+ const episodeNumber='Sitting';
+ const episodeTitle='Dock of the bay';
+ const crawlText=`
+Sittin' in the mornin' sun
+I'll be sittin' when the evenin' come
+Watching the ships roll in
+And I watch 'em roll away again, yeah
+
+I'm sittin' on the dock of the bay
+Watching the tide roll away
+Ooh, I'm just sittin' on the dock of the bay
+Wastin' time
+
+I left my home in Georgia
+Headed for the 'Frisco bay
+'Cause I've had nothing to live for
+And look like nothing's gonna come my way
+
+So I'm just gonna sit on the dock of the bay
+Watching the tide roll away
+Ooh, I'm sittin' on the dock of the bay
+Wastin' time
+
+Look like nothing's gonna change
+Everything still remains the same
+I can't do what ten people tell me to do
+So I guess I'll remain the same, yes
+
+Sittin' here resting my bones
+And this loneliness won't leave me alone
+It's two thousand miles I roamed
+Just to make this dock my home
+
+Now, I'm just gonna sit at the dock of the bay
+Watching the tide roll away
+Ooh-wee, sittin' on the dock of the bay
+Wastin' time
+`;
+ const duration= 60;
+ const perspective= 400;
+ const tiltStart=20 ;
+ const tiltEnd=25;
+ const textColor=  '#feda4a' 
+
+const isPlaying = ref(false);
+const animKey = ref(0);
+
+const paragraphs = computed(() => {
+  return props.crawlText.split('\n\n').filter(p => p.trim() !== '');
+});
+
+const crawlStyles = computed(() => ({
+  '--crawl-duration': `${props.duration}s`,
+  '--crawl-play-state': isPlaying.value ? 'running' : 'paused',
+  '--tilt-start': `${props.tiltStart}deg`,
+  '--tilt-end': `${props.tiltEnd}deg`
+}));
+
+
+
 
 // Reactive state
 const isMoving = ref(false);
@@ -50,9 +110,9 @@ const animate = () => {
   if (theta.value >= maxTheta) {
     isMoving.value = false;
     cancelAnimationFrame(animationId);
-    theta.value = 0;
-    x.value = 0;
-    y.value = 0;
+    //theta.value = 0;
+    //x.value = 0;
+    //y.value = 0;
     return;
   }
 
@@ -105,8 +165,11 @@ onBeforeUnmount(() => {
 .container {
   display: grid;
   align-items: center;
-  height: 600px;
+  height: 75vh;
   border: 0px solid #006100;
+  overflow: hidden;
+    position: relative;
+    width: 100%;
 }
 
 .full-height {
@@ -121,4 +184,60 @@ onBeforeUnmount(() => {
   max-width: 100%;
   text-align: center;
 }
+
+ 
+
+.fade {
+  position: relative;
+  width: 100%;
+  min-height: 60vh;
+  top: -25px;
+  background-image: linear-gradient(0deg, transparent, black 75%);
+  z-index: 1;
+}
+
+.star-wars {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 800px;
+  color: #feda4a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 500%;
+  font-weight: 600;
+  letter-spacing: 6px;
+  line-height: 150%;
+  perspective: 400px;
+  text-align: justify;
+}
+
+.crawl {
+  position: relative;
+  top: 9999px;
+  transform-origin: 50% 100%;
+  animation: crawl var(--crawl-duration, 60s) linear infinite;
+  animation-play-state: var(--crawl-play-state, running);
+}
+
+.crawl > .title {
+  font-size: 90%;
+  text-align: center;
+}
+
+.crawl > .title h1 {
+  margin: 0 0 100px;
+  text-transform: uppercase;
+}
+
+@keyframes crawl {
+  0% {
+    top: 0;
+    transform: rotateX(var(--tilt-start, 20deg)) translateZ(0);
+  }
+  100% { 
+    top: -6000px;
+    transform: rotateX(var(--tilt-end, 25deg)) translateZ(-2500px);
+  }
+}
+
 </style>
