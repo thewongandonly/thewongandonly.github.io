@@ -235,12 +235,15 @@ onBeforeUnmount(() => {
   height: 100vh;
   width: 100%;
   color: #f3e1d1;
-  font-family: "Montserrat", sans-serif !important;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 100%;
   text-align: center;
+	  font-family: "Special Elite", system-ui, sans-serif !important;
+  font-weight: 400;
+  font-style: normal;
 }
 
  .wrapper{
@@ -266,13 +269,16 @@ onBeforeUnmount(() => {
   position: relative;
   height: 800px;
   color: #feda4a;
-  font-family: 'Montserrat', sans-serif;
+ 
   font-size: 200%;
   font-weight: 600;
   letter-spacing: 6px;
   line-height: 150%;
   perspective: 800px;
   text-align: justify;
+		  font-family: "Special Elite", system-ui, sans-serif !important;
+  
+  font-style: normal;
 }
 
 .crawl {
