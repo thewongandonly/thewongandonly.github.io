@@ -218,9 +218,7 @@ onBeforeUnmount(() => {
     position: relative;
     width: 100%;
 }
-.wrapper{
-	overflow:hidden;
-}
+
 .full-height {
   position: absolute;
   height: 100vh;
@@ -234,13 +232,19 @@ onBeforeUnmount(() => {
   text-align: center;
 }
 
- 
+ .wrapper{
+	overflow:hidden;
+	 height: 50%;
+    position: fixed;
+    bottom: 0%;
+    width: 100%;
+}
 
 .fade {
   position: relative;
   width: 100%;
-  min-height: 60vh;
-  top: -25px;
+  min-height: 50%;
+  top: -2px;
  
   z-index: 1;
 }
