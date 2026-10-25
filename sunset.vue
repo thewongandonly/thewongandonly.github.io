@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
   height: 8rem;
   cursor: pointer;
   user-select: none;
-	margin-top: 75;
+	margin-top: 75px;
 }
 
 .container {
@@ -209,7 +209,7 @@ onBeforeUnmount(() => {
   width: 100%;
   min-height: 60vh;
   top: -25px;
-  background-image: linear-gradient(0deg, transparent, black 75%);
+  background-image: linear-gradient(0deg, transparent, black 5%);
   z-index: 1;
 }
 
@@ -220,7 +220,7 @@ onBeforeUnmount(() => {
   height: 800px;
   color: #feda4a;
   font-family: 'Montserrat', sans-serif;
-  font-size: 500%;
+  font-size: 200%;
   font-weight: 600;
   letter-spacing: 6px;
   line-height: 150%;
