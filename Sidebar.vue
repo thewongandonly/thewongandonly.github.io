@@ -183,6 +183,10 @@
   </div>
 </template>
 
+
+
+
+
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue';
 
@@ -436,7 +440,7 @@ const botReply = [
   ["Someone who listens, supports you, and stays honest!", "Loyalty, kindness, and humor."],
   ["You are taking steps to learn and build cool apps today!", "Every day is a fresh opportunity to grow."],
   ["100%! You are building awesome web components.", "Totally cool, dude!"],
-  ["👋 Virtual high free! Boom!", "🙌 High five, dude!"],
+  ["👋 Virtual high free! Boom!", "🙌 High fine, dude!"],
   ["I'm very blunt and direct — even more than the average Dutch person! As a typical Virtuoso, I value efficiency and honesty over beating around the bush.", "I tend to be straightforward and direct. I focus on raw efficiency, though I keep working on tailoring my communication for different audiences."],
   ["With 25+ years of software evolution under my belt, I bring deep architectural insight, pragmatic code quality, and proven modern cloud/CI-CD experience.", "I bring decades of engineering maturity paired with a modern C#, Vue, and Azure/DevOps skill set."],
   ["I prefer working 4 days a week, taking Fridays off!", "My ideal schedule is 4 days a week with Fridays off."],
@@ -577,7 +581,6 @@ const addEmoji = (emoji) => {
   showEmojiPicker.value = false;
 };
 
-// Added handler for the file upload button
 const handleFileUpload = () => {
   const wittyReply = "Whoa there, data hoarder! File attachments are currently disabled. My servers are on a strict diet—no bytes allowed!";
   convo.value.push({ you: "📎 [Clicked add file]" });
@@ -667,7 +670,12 @@ const processInput = (inputstr) => {
   if (askedQuestions.value.includes(text)) {
     return repeatedResponses[Math.floor(Math.random() * repeatedResponses.length)];
   }
+
+  // Keep only the last 5 entries in askedQuestions
   askedQuestions.value.push(text);
+  if (askedQuestions.value.length > 5) {
+    askedQuestions.value.shift();
+  }
 
   const comparedText = compare(text);
   return !!comparedText
@@ -696,6 +704,9 @@ onMounted(() => {
   initFuse();
 });
 </script>
+
+
+ 
 
 <style scoped>
 .slide-enter-active,
