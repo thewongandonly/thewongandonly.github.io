@@ -87,14 +87,14 @@ const isPlaying = ref(false);
 const animKey = ref(0);
 
 const paragraphs = computed(() => {
-  return props.crawlText.split('\n\n').filter(p => p.trim() !== '');
+  return crawlText.split('\n\n').filter(p => p.trim() !== '');
 });
 
 const crawlStyles = computed(() => ({
-  '--crawl-duration': `${props.duration}s`,
+  '--crawl-duration': `${duration}s`,
   '--crawl-play-state': isPlaying.value ? 'running' : 'paused',
-  '--tilt-start': `${props.tiltStart}deg`,
-  '--tilt-end': `${props.tiltEnd}deg`
+  '--tilt-start': `${tiltStart}deg`,
+  '--tilt-end': `${tiltEnd}deg`
 }));
 
 
