@@ -92,8 +92,8 @@ const tracks = ref([
   {
     id: 1,
     name: "Dock of the Bay",
-    artist: "Black Pumas",
-    href: "https://www.youtube.com/watch?v=gAF-NZkTt3k",
+    artist: "IMY2",
+    href: "https://www.youtube.com/watch?v=Q-Bl7LzC_Bk",
     source: "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/dockofthebay-otis-redding-cover.mp3"
   }
 ]);
