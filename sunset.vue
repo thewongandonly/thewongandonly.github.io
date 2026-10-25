@@ -10,6 +10,22 @@
             :style="imgStyle"
             @click="toggleMovement" 
           />
+
+
+		      <div class="fade"></div>
+    			<div v-if="y!=0" class="star-wars" :style="{ perspective: perspective + 'px', color: textColor }">
+    				  <div :key="animKey" class="crawl" :style="crawlStyles">
+              					<div class="title">
+              					  <h2>{{ episodeNumber }}</h2>
+              					  <h1>{{ episodeTitle }}</h1>
+              					</div>
+          					<p v-for="(paragraph, index) in paragraphs" :key="index">
+          					  {{ paragraph }}
+          					</p>
+    				  </div>
+    				</div>
+    			  
+          
         </div>
       </div>
     </div>
