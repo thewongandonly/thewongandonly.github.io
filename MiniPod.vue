@@ -172,6 +172,14 @@ const tracks = ref([
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/melodic-techno.mp3",
   },
+    {
+    id: 3,
+    name: "Deep Work Frequency: 40Hz Focus Mode for Productivity",
+    artist: "VYBFRQ",
+    href: "https://www.youtube.com/shorts/_pQIuTCQr50",
+    source:
+      "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/DeepFocusMode.mp3",
+  },
 ]);
 
 const currentIndex = ref(0);

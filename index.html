@@ -79,7 +79,7 @@
 
           const showppod = ref(false);
           const myvid = ref("sunset.mp4");
-          const showchat = computed(() => myvid.value === "sunset.mp4");
+          const showchat = computed(() => currentIndex.value !== 1);
           const setVid = (newVid) => {
             myvid.value = newVid;
           };
@@ -88,8 +88,20 @@
           };
           const setRunning = (n) => {
             runningIndex.value = n;
-            if ((n ?? -1) > -1) currentIndex.value = n;
-            const vid = n === 1 ? "sea.mp4" : "sunset.mp4";
+            if ((n ?? -1) < 0) return;
+            currentIndex.value = n;
+            let vid;
+            switch (n) {
+              case 1:
+                vid = "sea.mp4";
+                break;
+              case 2:
+                vid = "darkcode.mp4";
+                break;
+              default:
+                vid = "sunset.mp4";
+                break;
+            }
             setVid(vid);
           };
           // Expose variables and functions to the template
