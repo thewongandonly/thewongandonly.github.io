@@ -50,10 +50,6 @@ const episodeNumber = "Sitting";
 const episodeTitle = "Dock of the bay";
 const sitting = `
 
-
-
-
-
 Sittin' in the mornin' sun
 
 I'll be sittin' when the evenin' come
@@ -121,7 +117,7 @@ Wastin' time...
 
 
 `;
-const duration = 60;
+const duration = 230;
 const perspective = 400;
 const tiltStart = 20;
 const tiltEnd = 25;
@@ -222,7 +218,7 @@ onBeforeUnmount(() => {
   height: 8rem;
   cursor: pointer;
   user-select: none;
-  margin-top: 225px;
+  margin-top: 125px;
 }
 
 .container {
@@ -290,7 +286,7 @@ onBeforeUnmount(() => {
   position: relative;
   top: 9999px;
   transform-origin: 50% 100%;
-  animation: crawl var(--crawl-duration, 60s) linear infinite;
+  animation: crawl var(--crawl-duration, 360s) linear infinite;
   animation-play-state: var(--crawl-play-state, running);
 }
 
