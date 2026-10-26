@@ -75,51 +75,60 @@
         </div>
       </div>
 
-      <!-- Center/Right: Playlist Section (Before time-section) -->
-      <div class="playlist-container">
-        <button
-          @click="showPlaylist = !showPlaylist"
-          class="playlist-btn"
-          :class="{ active: showPlaylist }"
-          aria-label="Toggle Playlist"
-          title="Playlist"
-        >
-          <svg
-            class="playlist-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <line x1="3" y1="6" x2="3.01" y2="6"></line>
-            <line x1="3" y1="12" x2="3.01" y2="12"></line>
-            <line x1="3" y1="18" x2="3.01" y2="18"></line>
-          </svg>
-        </button>
+      <!-- Center/Right Controls: Volume & Playlist (Before time-section) -->
+      <div class="controls-right-section">
+        <!-- Triangle Volume Control -->
+        <div class="volumeBar" @click="setVolume" title="Adjust Volume">
+          <div class="volumebkg"></div>
+          <div class="volume" :style="{ clip: `rect(0px, ${volume * 54}px, 30px, 0px)` }"></div>
+        </div>
 
-        <!-- Playlist Dropdown Menu -->
-        <div v-if="showPlaylist" class="playlist-menu">
-          <div class="playlist-header">Playlist</div>
-          <ul class="playlist-list">
-            <li
-              v-for="(track, idx) in tracks"
-              :key="track.id"
-              class="playlist-item"
-              :class="{ 'is-active': idx === currentIndex }"
-              @click="selectTrack(idx)"
+        <!-- Playlist Container -->
+        <div class="playlist-container">
+          <button
+            @click="showPlaylist = !showPlaylist"
+            class="playlist-btn"
+            :class="{ active: showPlaylist }"
+            aria-label="Toggle Playlist"
+            title="Playlist"
+          >
+            <svg
+              class="playlist-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             >
-              <span class="playing-mark" v-if="idx === currentIndex">▶</span>
-              <div class="playlist-item-info">
-                <span class="playlist-item-name">{{ track.name }}</span>
-                <span class="playlist-item-artist">{{ track.artist }}</span>
-              </div>
-            </li>
-          </ul>
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+          </button>
+
+          <!-- Playlist Dropdown Menu -->
+          <div v-if="showPlaylist" class="playlist-menu">
+            <div class="playlist-header">Playlist</div>
+            <ul class="playlist-list">
+              <li
+                v-for="(track, idx) in tracks"
+                :key="track.id"
+                class="playlist-item"
+                :class="{ 'is-active': idx === currentIndex }"
+                @click="selectTrack(idx)"
+              >
+                <span class="playing-mark" v-if="idx === currentIndex">▶</span>
+                <div class="playlist-item-info">
+                  <span class="playlist-item-name">{{ track.name }}</span>
+                  <span class="playlist-item-artist">{{ track.artist }}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -171,6 +180,7 @@ const currentTime = ref(0);
 const duration = ref(0);
 const hoverProgress = ref(null);
 const showPlaylist = ref(false);
+const volume = ref(0.314); // 0 to 1
 
 let audio = null;
 
@@ -189,6 +199,7 @@ watch(
 onMounted(() => {
   audio = new Audio();
   audio.src = currentTrack.value.source;
+  audio.volume = volume.value;
 
   audio.addEventListener("timeupdate", () => {
     currentTime.value = audio.currentTime || 0;
@@ -211,6 +222,16 @@ onUnmounted(() => {
   }
 });
 
+const setVolume = (e) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const newVol = Math.max(0, Math.min(1, clickX / rect.width));
+  volume.value = newVol;
+  if (audio) {
+    audio.volume = volume.value;
+  }
+};
+
 const selectTrack = (newIndex, autoplay = true) => {
   if (
     newIndex < 0 ||
@@ -224,6 +245,7 @@ const selectTrack = (newIndex, autoplay = true) => {
 
   if (audio) {
     audio.src = currentTrack.value.source;
+    audio.volume = volume.value;
     if (autoplay || isPlaying.value) {
       audio
         .play()
@@ -470,11 +492,53 @@ const formatTime = (sec) => {
   margin-top: 2px;
 }
 
+/* Controls Right Section (Volume & Playlist grouped together before time-section) */
+.controls-right-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+/* Triangle Volume Control Styles */
+.volumeBar {
+  display: block;
+  height: 30px;
+  position: relative;
+  background-color: transparent;
+  z-index: 100;
+  width: 54px;
+  cursor: pointer;
+}
+
+.volume {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 54px;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 30px 54px;
+  border-color: transparent transparent #F61C0D transparent;
+  line-height: 0px;
+}
+
+.volumebkg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 30px 54px;
+  border-color: transparent transparent #cbd5e0 transparent;
+  line-height: 0px;
+}
+
 /* Playlist Toggle & Dropdown Menu */
 .playlist-container {
   position: relative;
-  margin-left: auto;
-  margin-right: 12px;
 }
 
 .playlist-btn {
