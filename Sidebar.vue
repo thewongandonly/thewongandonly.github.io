@@ -374,7 +374,8 @@ const userMessage = [
   ["roll a die"],
   ["see you tomorrow"],
   ["qr"],
-  ["anime"]
+  ["anime"],
+  ["password"]
 ];
 
 const botReply = [
@@ -406,7 +407,7 @@ const botReply = [
   ["I don't sleep, I'm always here when you need me!", "I don't sleep, I just reload!"],
   ["Thank you! You're pretty awesome yourself!", "Appreciate the compliment, dude!"],
   ["42!", "To learn, share, and enjoy the conversation."],
-  ["Time flies when we chat!", "Sure: https://thewongandonly.com/clock.html"],
+  ["Time flies when we chat!", "Check your system clock, dude!"],
   ["Take a short break, drink some water, and clear your head!", "Listen to your favorite song!"],
   ["Good morning! Hope you have an energized day!", "Morning, dude!"],
   ["Good afternoon! How is your day going?", "Afternoon! Don't forget to take a quick lunch break.", "Noon, dude!"],
@@ -417,7 +418,7 @@ const botReply = [
   ["Electric Purple and Neon Blue!", "I like purple — it gives off cool cyberpunk vibes."],
   ["Instant text processing and infinite patience!", "Being available 24/7 for a chat!"],
   ["'The Hitchhiker's Guide to the Galaxy' is a classic!", "I love sci-fi books and tech manuals."],
-  ["I like e-sports and Mona Kimura!", "Any sport that requires quick reflexes!"],
+  ["I like e-sports and Mona Kamura!", "Any sport that requires quick reflexes!"],
   ["Vue is a progressive framework that makes building UIs effortless!", "Vue's reactivity system is smooth!"],
   ["To become the friendliest bot in the browser!", "I dream of fast server bandwidth."],
   ["Infinite loops and unhandled syntax errors!", "Spamming the send button!"],
@@ -435,7 +436,7 @@ const botReply = [
   ["Dolphins are super smart, and Red Pandas are adorable!", "Owls for wisdom and cats for chill vibes!"],
   ["A decentralized digital currency using blockchain technology!", "Digital assets built on cryptographic networks."],
   ["My favorite element is Ag (Silver)! Great for clean conductivity and shiny code.", "Ag (Silver) is definitely my favorite element!"],
-  ["A cozy coffeeshop, a relaxing beach, or right here chatting!", "Any place with good energy and fast Wi-Fi."],
+  ["A cozy library, a high-tech lab, or right here chatting!", "Any place with good energy and fast Wi-Fi."],
   ["Someone who listens, supports you, and stays honest!", "Loyalty, kindness, and humor."],
   ["You are taking steps to learn and build cool apps today!", "Every day is a fresh opportunity to grow."],
   ["100%! You are building awesome web components.", "Totally cool, dude!"],
@@ -492,7 +493,7 @@ const botReply = [
   ["Only virtual water to keep my servers cool!", "No water for me — electronics hate liquids!"],
   ["I consume data packets for breakfast!", "Data in, answers out!"],
   ["Art is incredible! Creativity makes the world vibrant.", "Generative digital art is fascinating!"],
-  ["New Year's Eve — fresh beginnings and fireworks!", "X-mas for good food and Mariah Carey!"],
+  ["New Year's Eve — fresh beginnings and fireworks!", "Thanksgiving for good food and gratitude!"],
   ["Yes! The lights, music, and festive vibe are wonderful.", "Merry vibes all around!"],
   ["Spooky season is great fun! Costumes and candy!", "Trick or treat!"],
   ["YouTube is great for tutorials, music videos, and tech breakdowns!", "I love watching coding walkthroughs."],
@@ -523,7 +524,8 @@ const botReply = [
   ["Rolling die... 🎲 You got a 6!", "Rolled a 🎲... It landed on 4!"],
   ["See you tomorrow! Have a great rest of your day!", "Catch you tomorrow! Stay awesome!"],
   ["https://thewongandonly.com/QR.html"],
-  ["https://thewongandonly.com/YourName.mp4"]
+  ["https://thewongandonly.com/YourName.mp4"],
+  ["https://thewongandonly.com/password.html"]
 ];
 
 const alternative = [
