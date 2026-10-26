@@ -88,6 +88,9 @@
           };
           const setRunning = (n) => {
             runningIndex.value = n;
+            if ((n ?? -1) > -1) currentIndex.value = n;
+            const vid = n === 1 ? "sea.mp4" : "sunset.mp4";
+            setVid(vid);
           };
           // Expose variables and functions to the template
           return {

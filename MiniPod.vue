@@ -75,6 +75,54 @@
         </div>
       </div>
 
+      <!-- Center/Right: Playlist Section (Before time-section) -->
+      <div class="playlist-container">
+        <button
+          @click="showPlaylist = !showPlaylist"
+          class="playlist-btn"
+          :class="{ active: showPlaylist }"
+          aria-label="Toggle Playlist"
+          title="Playlist"
+        >
+          <svg
+            class="playlist-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Playlist Dropdown Menu -->
+        <div v-if="showPlaylist" class="playlist-menu">
+          <div class="playlist-header">Playlist</div>
+          <ul class="playlist-list">
+            <li
+              v-for="(track, idx) in tracks"
+              :key="track.id"
+              class="playlist-item"
+              :class="{ 'is-active': idx === currentIndex }"
+              @click="selectTrack(idx)"
+            >
+              <span class="playing-mark" v-if="idx === currentIndex">▶</span>
+              <div class="playlist-item-info">
+                <span class="playlist-item-name">{{ track.name }}</span>
+                <span class="playlist-item-artist">{{ track.artist }}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <!-- Right: Time & Status Indicator -->
       <div class="time-section">
         <div class="playing-indicator" :class="{ active: isPlaying }">
@@ -107,6 +155,14 @@ const tracks = ref([
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/dockofthebay-otis-redding-cover.mp3",
   },
+  {
+    id: 2,
+    name: "Sandstorm (Extended Mix)",
+    artist: "Tryger",
+    href: "https://www.youtube.com/watch?v=iTpk88R0IRg",
+    source:
+      "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/melodic-techno.mp3",
+  },
 ]);
 
 const currentIndex = ref(0);
@@ -114,6 +170,7 @@ const isPlaying = ref(false);
 const currentTime = ref(0);
 const duration = ref(0);
 const hoverProgress = ref(null);
+const showPlaylist = ref(false);
 
 let audio = null;
 
@@ -125,8 +182,7 @@ const progressPercent = computed(() =>
 watch(
   () => props.index,
   (newVal, oldVal) => {
-    currentIndex.value = newVal;
-    // console.log("Prop changed: ", newVal, " | was: ", oldVal);
+    selectTrack(newVal, false);
   },
 );
 
@@ -155,6 +211,33 @@ onUnmounted(() => {
   }
 });
 
+const selectTrack = (newIndex, autoplay = true) => {
+  if (
+    newIndex < 0 ||
+    newIndex >= tracks.value.length ||
+    currentIndex.value === newIndex
+  )
+    return;
+  currentIndex.value = newIndex;
+  currentTime.value = 0;
+  showPlaylist.value = false;
+
+  if (audio) {
+    audio.src = currentTrack.value.source;
+    if (autoplay || isPlaying.value) {
+      audio
+        .play()
+        .then(() => {
+          isPlaying.value = true;
+          emit("startedSong", currentIndex.value);
+        })
+        .catch(() => {
+          isPlaying.value = false;
+        });
+    }
+  }
+};
+
 const togglePlay = () => {
   if (!audio) return;
   if (isPlaying.value) {
@@ -165,7 +248,7 @@ const togglePlay = () => {
       isPlaying.value = false;
     });
     isPlaying.value = true;
-    emit('startedSong', currentIndex.value);
+    emit("startedSong", currentIndex.value);
   }
 };
 
@@ -208,7 +291,7 @@ const formatTime = (sec) => {
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif;
-  overflow: hidden;
+  overflow: visible;
 
   /* Slide down entry animation */
   animation: slideDown 5.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -385,6 +468,111 @@ const formatTime = (sec) => {
   font-size: 11px;
   color: #718096;
   margin-top: 2px;
+}
+
+/* Playlist Toggle & Dropdown Menu */
+.playlist-container {
+  position: relative;
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+.playlist-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.playlist-btn:hover,
+.playlist-btn.active {
+  background: #edf2f7;
+  color: #ee5253;
+  border-color: #cbd5e0;
+}
+
+.playlist-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.playlist-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 240px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.playlist-header {
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #a0aec0;
+  background: #f7fafc;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.playlist-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+}
+
+.playlist-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  gap: 8px;
+}
+
+.playlist-item:hover {
+  background: #f7fafc;
+}
+
+.playlist-item.is-active {
+  background: #fff5f5;
+}
+
+.playing-mark {
+  color: #ee5253;
+  font-size: 10px;
+}
+
+.playlist-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-item-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.playlist-item.is-active .playlist-item-name {
+  color: #ee5253;
+}
+
+.playlist-item-artist {
+  font-size: 10px;
+  color: #718096;
 }
 
 /* Time & Animated Sound Waves */
