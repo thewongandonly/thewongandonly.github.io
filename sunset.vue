@@ -3,29 +3,33 @@
     <div class="container">
       <div class="centered-element">
         <div class="content">
-          <img v-if="!sunGone"
-            src="https://thewongandonly.com/davidwong.png" 
-            alt="David Wong" 
-            class="profile-img" 
+          <img
+            v-if="!sunGone"
+            src="https://thewongandonly.com/davidwong.png"
+            alt="David Wong"
+            class="profile-img"
             :style="imgStyle"
-            @click="toggleMovement" 
+            @click="toggleMovement"
           />
 
-<div class="wrapper" v-if="sunGone">
-		      <div class="fade"></div>
-    			<div v-if="isPlaying" class="star-wars" :style="{ perspective: perspective + 'px', color: textColor }">
-    				  <div :key="animKey" class="crawl" :style="crawlStyles">
-              					<div class="title">
-              					  <h2>{{ episodeNumber }}</h2>
-              					  <h1>{{ episodeTitle }}</h1>
-              					</div>
-          					<p v-for="(paragraph, index) in paragraphs" :key="index">
-          					  {{ paragraph }}
-          					</p>
-    				  </div>
-    				</div>
- </div>   			  
-          
+          <div class="wrapper" v-if="running === 0">
+            <div class="fade"></div>
+            <div
+              v-if="isPlaying"
+              class="star-wars"
+              :style="{ perspective: perspective + 'px', color: textColor }"
+            >
+              <div :key="animKey" class="crawl" :style="crawlStyles">
+                <div class="title">
+                  <h2>{{ episodeNumber }}</h2>
+                  <h1>{{ episodeTitle }}</h1>
+                </div>
+                <p v-for="(paragraph, index) in paragraphs" :key="index">
+                  {{ paragraph }}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -33,15 +37,18 @@
 </template>
 
 <script setup>
-import { ref, computed, onBeforeUnmount } from 'vue';
-const emit = defineEmits(['isGone'])
-defineOptions({
-  name: "Sunset"
+import { ref, computed, onBeforeUnmount } from "vue";
+const emit = defineEmits(["isGone"]);
+const props = defineProps({
+  running: {
+    type: Number,
+    required: false,
+  },
 });
 
- const episodeNumber='Sitting';
- const episodeTitle='Dock of the bay';
- const crawlText=`
+const episodeNumber = "Sitting";
+const episodeTitle = "Dock of the bay";
+const sitting = `
 
 
 
@@ -114,28 +121,25 @@ Wastin' time...
 
 
 `;
- const duration= 60;
- const perspective= 400;
- const tiltStart=20 ;
- const tiltEnd=25;
- const textColor=  '#feda4a' 
+const duration = 60;
+const perspective = 400;
+const tiltStart = 20;
+const tiltEnd = 25;
+const textColor = "#feda4a";
 
 const isPlaying = ref(false);
 const animKey = ref(0);
 
 const paragraphs = computed(() => {
-  return crawlText.split('\n\n');
+  return props.running === 0 ? sitting.split("\n\n") : [];
 });
 
 const crawlStyles = computed(() => ({
-  '--crawl-duration': `${duration}s`,
-  '--crawl-play-state': isPlaying.value ? 'running' : 'paused',
-  '--tilt-start': `${tiltStart}deg`,
-  '--tilt-end': `${tiltEnd}deg`
+  "--crawl-duration": `${duration}s`,
+  "--crawl-play-state": isPlaying.value ? "running" : "paused",
+  "--tilt-start": `${tiltStart}deg`,
+  "--tilt-end": `${tiltEnd}deg`,
 }));
-
-
-
 
 // Reactive state
 const isMoving = ref(false);
@@ -144,14 +148,13 @@ const x = ref(0);
 const y = ref(0);
 let animationId = null;
 
-	
 const sunGone = computed(() => {
   return y.value < -465;
 });
 // Computed style for the image transform
 const imgStyle = computed(() => ({
   transform: `translate(${x.value}px, ${y.value}px)`,
-  cursor: "pointer"
+  cursor: "pointer",
 }));
 
 // Animation loop function
@@ -170,16 +173,16 @@ const animate = () => {
     //theta.value = 0;
     //x.value = 0;
     //y.value = 0;
-	emit('isGone');
+    emit("isGone");
     return;
   }
 
   // 1. Horizontal arc sweep: Starts at 0 when theta = 0, avoiding any initial jump
-  const horizontalRange = 250; 
+  const horizontalRange = 250;
   x.value = (theta.value / maxTheta) * horizontalRange * -1;
 
   // 2. Vertical arc: Strict sine trajectory starting at 0 and moving up
-  const verticalHeight = (window.innerHeight / 2) + 150;
+  const verticalHeight = window.innerHeight / 2 + 150;
   y.value = -Math.sin(theta.value) * verticalHeight;
 
   animationId = requestAnimationFrame(animate);
@@ -188,7 +191,8 @@ const animate = () => {
 // Toggle movement handler
 const toggleMovement = () => {
   if (!isMoving.value) {
-    isMoving.value = true; isPlaying.value = true;
+    isMoving.value = true;
+    isPlaying.value = true;
     theta.value = 0;
     x.value = 0;
     y.value = 0;
@@ -218,7 +222,7 @@ onBeforeUnmount(() => {
   height: 8rem;
   cursor: pointer;
   user-select: none;
-	  margin-top: 225px;
+  margin-top: 225px;
 }
 
 .container {
@@ -227,8 +231,8 @@ onBeforeUnmount(() => {
   height: 75vh;
   border: 0px solid #006100;
   overflow: hidden;
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .full-height {
@@ -236,23 +240,23 @@ onBeforeUnmount(() => {
   height: 100vh;
   width: 100%;
   color: #f3e1d1;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 100%;
   text-align: center;
-	  font-family: "Special Elite", system-ui, sans-serif !important;
+  font-family: "Special Elite", system-ui, sans-serif !important;
   font-weight: 400;
   font-style: normal;
 }
 
- .wrapper{
-	overflow:hidden;
-	 height: 50%;
-    position: fixed;
-    bottom: 0%;
-    width: 100%;
+.wrapper {
+  overflow: hidden;
+  height: 50%;
+  position: fixed;
+  bottom: 0%;
+  width: 100%;
 }
 
 .fade {
@@ -260,7 +264,7 @@ onBeforeUnmount(() => {
   width: 100%;
   min-height: 50%;
   top: -2px;
- 
+
   z-index: 1;
 }
 
@@ -270,15 +274,15 @@ onBeforeUnmount(() => {
   position: relative;
   height: 800px;
   color: #feda4a;
- 
+
   font-size: 200%;
   font-weight: 600;
   letter-spacing: 6px;
   line-height: 150%;
   perspective: 800px;
   text-align: justify;
-		  font-family: "Special Elite", system-ui, sans-serif !important;
-  
+  font-family: "Special Elite", system-ui, sans-serif !important;
+
   font-style: normal;
 }
 
@@ -305,10 +309,9 @@ onBeforeUnmount(() => {
     top: 0;
     transform: rotateX(var(--tilt-start, 20deg)) translateZ(0);
   }
-  100% { 
+  100% {
     top: -6000px;
     transform: rotateX(var(--tilt-end, 25deg)) translateZ(-2500px);
   }
 }
-
 </style>

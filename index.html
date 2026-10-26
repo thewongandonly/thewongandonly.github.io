@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>David Wong</title>
@@ -7,12 +7,15 @@
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
-<script src="https://cdn.jsdelivr.net/npm/vue@3.5.44/dist/vue.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.5.44/dist/vue.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader"></script>
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
     <style>
       html,
       body {
@@ -38,7 +41,7 @@
         },
         getFile(url) {
           return fetch(url).then((resp) =>
-            resp.ok ? resp.text() : Promise.reject(resp)
+            resp.ok ? resp.text() : Promise.reject(resp),
           );
         },
         addStyle(styleStr) {
@@ -57,20 +60,23 @@
 
       const app = createApp({
         components: {
-          "sunset": Vue.defineAsyncComponent(() =>
-            loadModule("./sunset.vue", options)
+          Sunset: Vue.defineAsyncComponent(() =>
+            loadModule("./sunset.vue", options),
           ),
-          "Sidebar": Vue.defineAsyncComponent(() =>
-            loadModule("./Sidebar.vue", options)
+          Sidebar: Vue.defineAsyncComponent(() =>
+            loadModule("./Sidebar.vue", options),
           ),
-          "my-background": Vue.defineAsyncComponent(() =>
-            loadModule("./myBackground.vue", options)
+          FullBackground: Vue.defineAsyncComponent(() =>
+            loadModule("./myBackground.vue", options),
           ),
-          "MiniPod": Vue.defineAsyncComponent(() =>
-            loadModule("./MiniPod.vue", options)
-          )
+          MiniPod: Vue.defineAsyncComponent(() =>
+            loadModule("./MiniPod.vue", options),
+          ),
         },
         setup() {
+          const currentIndex = ref(0);
+          const runningIndex = ref(-1);
+
           const showppod = ref(false);
           const myvid = ref("sunset.mp4");
           const showchat = computed(() => myvid.value === "sunset.mp4");
@@ -80,18 +86,28 @@
           const setGone = () => {
             showppod.value = true;
           };
+          const setRunning = (n) => {
+            runningIndex.value = n;
+          };
           // Expose variables and functions to the template
           return {
             myvid,
             showchat,
-            setVid,showppod,setGone
+            setVid,
+            showppod,
+            setGone,
+            currentIndex,
+            setRunning,
+            runningIndex,
           };
         },
-        template: `<my-background :vid="myvid" /> 
-        <sunset @is-gone="setGone" />  <MiniPod v-if="showppod" />  <Sidebar v-if="showchat" />`,
+        template: `<FullBackground :vid="myvid" /> 
+        <Sunset @is-gone="setGone" :running="runningIndex" />  
+        <MiniPod v-if="showppod" :index=currentIndex @started-song="setRunning"  />  
+        <Sidebar v-if="showchat" />`,
       });
 
       app.mount("#app");
     </script>
   </body>
-</html> 
+</html>

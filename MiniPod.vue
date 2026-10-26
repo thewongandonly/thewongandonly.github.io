@@ -1,22 +1,25 @@
 <template>
   <header class="top-header-bar">
     <!-- Top Edge Full-Width Progress Bar -->
-    <div 
-      class="progress-track" 
-      @click="seekTrack" 
+    <div
+      class="progress-track"
+      @click="seekTrack"
       @mousemove="handleProgressHover"
       @mouseleave="hoverProgress = null"
     >
-      <div class="progress-fill" :style="{ width: progressPercent + '%' }"></div>
-      <div 
-        class="progress-handle" 
+      <div
+        class="progress-fill"
+        :style="{ width: progressPercent + '%' }"
+      ></div>
+      <div
+        class="progress-handle"
         :style="{ left: progressPercent + '%' }"
       ></div>
 
       <!-- Hover Time Tooltip -->
-      <div 
-        v-if="hoverProgress !== null" 
-        class="time-tooltip" 
+      <div
+        v-if="hoverProgress !== null"
+        class="time-tooltip"
         :style="{ left: hoverProgress.x + 'px' }"
       >
         {{ formatTime(hoverProgress.time) }}
@@ -27,30 +30,30 @@
     <div class="header-content">
       <!-- Left: Track Info & Play/Pause -->
       <div class="track-section">
-        <button 
-          @click="togglePlay" 
-          class="play-btn" 
+        <button
+          @click="togglePlay"
+          class="play-btn"
           :aria-label="isPlaying ? 'Pause' : 'Play'"
         >
-          <span class="icon">{{ isPlaying ? '❚❚' : '▶' }}</span>
+          <span class="icon">{{ isPlaying ? "❚❚" : "▶" }}</span>
         </button>
 
         <!-- Clickable YouTube SVG Icon -->
-        <a  
-          :href="currentTrack.href" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="youtube-logo-wrapper" 
+        <a
+          :href="currentTrack.href"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="youtube-logo-wrapper"
           :class="{ 'is-playing': isPlaying }"
           title="Watch on YouTube"
         >
-          <svg 
-            class="youtube-svg" 
-            viewBox="0 0 461.001 461.001" 
+          <svg
+            class="youtube-svg"
+            viewBox="0 0 461.001 461.001"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path 
-              fill="#F61C0D" 
+            <path
+              fill="#F61C0D"
               d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728
               c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137
               C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607
@@ -60,10 +63,10 @@
         </a>
 
         <div class="track-info">
-          <a 
-            :href="currentTrack.href" 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            :href="currentTrack.href"
+            target="_blank"
+            rel="noopener noreferrer"
             class="track-title-link"
           >
             <span class="track-title">{{ currentTrack.name }}</span>
@@ -86,12 +89,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from "vue";
+const emit = defineEmits(["startedSong"]);
 const props = defineProps({
   index: {
     type: Number,
     required: false,
-    default:0
+    default: 0,
   },
 });
 const tracks = ref([
@@ -100,8 +104,9 @@ const tracks = ref([
     name: "Dock of the Bay",
     artist: "IMY2",
     href: "https://www.youtube.com/watch?v=Q-Bl7LzC_Bk",
-    source: "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/dockofthebay-otis-redding-cover.mp3"
-  }
+    source:
+      "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/dockofthebay-otis-redding-cover.mp3",
+  },
 ]);
 
 const currentIndex = ref(0);
@@ -113,29 +118,31 @@ const hoverProgress = ref(null);
 let audio = null;
 
 const currentTrack = computed(() => tracks.value[currentIndex.value]);
-const progressPercent = computed(() => (duration.value ? (currentTime.value / duration.value) * 100 : 0));
+const progressPercent = computed(() =>
+  duration.value ? (currentTime.value / duration.value) * 100 : 0,
+);
 
 watch(
   () => props.index,
   (newVal, oldVal) => {
-    currentIndex.value = (newVal);
+    currentIndex.value = newVal;
     // console.log("Prop changed: ", newVal, " | was: ", oldVal);
-  }
+  },
 );
 
 onMounted(() => {
   audio = new Audio();
   audio.src = currentTrack.value.source;
 
-  audio.addEventListener('timeupdate', () => {
+  audio.addEventListener("timeupdate", () => {
     currentTime.value = audio.currentTime || 0;
   });
 
-  audio.addEventListener('loadedmetadata', () => {
+  audio.addEventListener("loadedmetadata", () => {
     duration.value = audio.duration || 0;
   });
 
-  audio.addEventListener('ended', () => {
+  audio.addEventListener("ended", () => {
     isPlaying.value = false;
     currentTime.value = 0;
   });
@@ -158,6 +165,7 @@ const togglePlay = () => {
       isPlaying.value = false;
     });
     isPlaying.value = true;
+    emit('startedSong', currentIndex.value);
   }
 };
 
@@ -176,15 +184,15 @@ const handleProgressHover = (e) => {
   const percentage = Math.max(0, Math.min(1, hoverX / rect.width));
   hoverProgress.value = {
     x: hoverX,
-    time: percentage * duration.value
+    time: percentage * duration.value,
   };
 };
 
 const formatTime = (sec) => {
-  if (!sec || isNaN(sec)) return '0:00';
+  if (!sec || isNaN(sec)) return "0:00";
   const minutes = Math.floor(sec / 60);
   const seconds = Math.floor(sec % 60);
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 };
 </script>
 
@@ -197,9 +205,11 @@ const formatTime = (sec) => {
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   user-select: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   overflow: hidden;
-  
+
   /* Slide down entry animation */
   animation: slideDown 5.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -266,7 +276,7 @@ const formatTime = (sec) => {
   border-radius: 4px;
   pointer-events: none;
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Main Content Area */
@@ -326,7 +336,10 @@ const formatTime = (sec) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
   text-decoration: none;
 }
 
@@ -415,7 +428,11 @@ const formatTime = (sec) => {
 }
 
 @keyframes bounce {
-  0% { height: 3px; }
-  100% { height: 12px; }
+  0% {
+    height: 3px;
+  }
+  100% {
+    height: 12px;
+  }
 }
 </style>
