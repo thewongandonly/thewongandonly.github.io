@@ -86,8 +86,14 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
+const props = defineProps({
+  index: {
+    type: Number,
+    required: false,
+    default:0
+  },
+});
 const tracks = ref([
   {
     id: 1,
@@ -108,6 +114,14 @@ let audio = null;
 
 const currentTrack = computed(() => tracks.value[currentIndex.value]);
 const progressPercent = computed(() => (duration.value ? (currentTime.value / duration.value) * 100 : 0));
+
+watch(
+  () => props.index,
+  (newVal, oldVal) => {
+    currentIndex.value = (newVal);
+    // console.log("Prop changed: ", newVal, " | was: ", oldVal);
+  }
+);
 
 onMounted(() => {
   audio = new Audio();
