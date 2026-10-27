@@ -37,7 +37,6 @@
         </p>
 
         <p class="terminal-last-line" ref="terminalLastLine">
-          
           <span>
             <span v-if="1 === 1" class="prompt">{{ prompt }}</span>
             <span class="prompt" v-else>\{{ title }}</span>
@@ -545,6 +544,10 @@ onMounted(async () => {
   top: 200px;
   box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
   border: 1px solid #00ff66;
+}
+
+.terminal-window {
+  border-bottom: 1px solid #00ff66;
 }
 
 .vue-terminal .terminal-window {
