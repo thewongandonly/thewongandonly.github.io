@@ -63,7 +63,11 @@
     <transition name="slide">
       <div v-if="isPanelOpen" class="sidebar-panel">
         <div class="chat --dark-theme">
-          <div class="chat__conversation-board" ref="board" @click="showEmojiPicker = false">
+          <div
+            class="chat__conversation-board"
+            ref="board"
+            @click="showEmojiPicker = false"
+          >
             <div
               class="chat__conversation-board__message-container"
               v-for="(msg, index) in convo"
@@ -73,13 +77,19 @@
               <div class="chat__conversation-board__message__person">
                 <div class="chat__conversation-board__message__person__avatar">
                   <img
-                    :src="msg.you ? 'https://thewongandonly.com/man.png' : 'https://thewongandonly.com/davidwong.png'"
+                    :src="
+                      msg.you
+                        ? 'https://thewongandonly.com/man.png'
+                        : 'https://thewongandonly.com/davidwong.png'
+                    "
                     height="44"
                     :alt="msg.you ? 'You' : 'David Wong'"
                   />
                 </div>
-                <span class="chat__conversation-board__message__person__nickname">
-                  {{ msg.you ? 'You' : 'David Wong' }}
+                <span
+                  class="chat__conversation-board__message__person__nickname"
+                >
+                  {{ msg.you ? "You" : "David Wong" }}
                 </span>
               </div>
               <div class="chat__conversation-board__message__context">
@@ -103,8 +113,7 @@
               </span>
             </div>
             <div class="chat__conversation-panel__container">
-  
-              <button 
+              <button
                 class="chat__conversation-panel__button panel-item btn-icon add-file-button"
                 @click="handleFileUpload"
               >
@@ -125,7 +134,7 @@
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
               </button>
- 
+
               <button
                 class="chat__conversation-panel__button panel-item btn-icon emoji-button"
                 @click.stop="toggleEmojiPicker"
@@ -185,26 +194,116 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue';
+import { ref, computed, onMounted, nextTick } from "vue";
 
 const isPanelOpen = ref(false);
 const showEmojiPicker = ref(false);
-const question = ref('');
+const question = ref("");
 const fuseInstance = ref(null);
 const askedQuestions = ref([]);
 const board = ref(null);
 
 const emojis = [
-  "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
-  "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
-  "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩",
-  "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣",
-  "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤬",
-  "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🤗",
-  "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄", "😯",
-  "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "🤐",
-  "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈",
-  "👍", "👎", "👏", "🙌", "🙏", "💪", "🔥", "✨", "🎉", "❤️"
+  "😀",
+  "😃",
+  "😄",
+  "😁",
+  "😆",
+  "😅",
+  "😂",
+  "🤣",
+  "😊",
+  "😇",
+  "🙂",
+  "🙃",
+  "😉",
+  "😌",
+  "😍",
+  "🥰",
+  "😘",
+  "😗",
+  "😙",
+  "😚",
+  "😋",
+  "😛",
+  "😝",
+  "😜",
+  "🤪",
+  "🤨",
+  "🧐",
+  "🤓",
+  "😎",
+  "🤩",
+  "🥳",
+  "😏",
+  "😒",
+  "😞",
+  "😔",
+  "😟",
+  "😕",
+  "🙁",
+  "☹️",
+  "😣",
+  "😖",
+  "😫",
+  "😩",
+  "🥺",
+  "😢",
+  "😭",
+  "😤",
+  "😠",
+  "😡",
+  "🤬",
+  "🤯",
+  "😳",
+  "🥵",
+  "🥶",
+  "😱",
+  "😨",
+  "😰",
+  "😥",
+  "😓",
+  "🤗",
+  "🤔",
+  "🤭",
+  "🤫",
+  "🤥",
+  "😶",
+  "😐",
+  "😑",
+  "😬",
+  "🙄",
+  "😯",
+  "😦",
+  "😧",
+  "😮",
+  "😲",
+  "🥱",
+  "😴",
+  "🤤",
+  "😪",
+  "😵",
+  "🤐",
+  "🥴",
+  "🤢",
+  "🤮",
+  "🤧",
+  "😷",
+  "🤒",
+  "🤕",
+  "🤑",
+  "🤠",
+  "😈",
+  "👍",
+  "👎",
+  "👏",
+  "🙌",
+  "🙏",
+  "💪",
+  "🔥",
+  "✨",
+  "🎉",
+  "❤️",
 ];
 
 const repeatedResponses = [
@@ -219,7 +318,7 @@ const repeatedResponses = [
   "I answered that a minute ago. Do you want me to say it louder?",
   "That question is already stamped 'Done'. Try a new one!",
   "My circuits remember answering that. Your turn to remember reading it.",
-  "Copy-pasting your own questions doesn't change my previous answer, dude."
+  "Copy-pasting your own questions doesn't change my previous answer, dude.",
 ];
 
 const convo = ref([
@@ -227,16 +326,47 @@ const convo = ref([
     text: "Busy at the moment but circling back to you soonest! In the meantime, is there anything else I can help you with?",
   },
 ]);
-
 const userMessage = [
   ["hi", "hey", "hello"],
   ["sure", "yes", "no"],
   ["how are you", "how is life", "how are things", "how are you doing"],
   ["what are you doing", "what is going on", "what is up"],
-  ["who are you", "are you human", "are you bot", "are you human or bot", "what is your name", "your name please", "may i know your name"],
-  ["what do you do", "what is your job", "what do you do for work", "what is your profession", "what language do you code in", "c sharp", "c#"],
-  ["what is your favorite anime", "do you watch anime", "do you watch kdrama", "favorite kdrama", "frieren", "what anime do you like"],
-  ["how to contact you", "what is your twitter", "what is your x", "twitter", "x handle", "how can i message you", "contact info", "social media"],
+  [
+    "who are you",
+    "are you human",
+    "are you bot",
+    "are you human or bot",
+    "what is your name",
+    "your name please",
+    "may i know your name",
+  ],
+  [
+    "what do you do",
+    "what is your job",
+    "what do you do for work",
+    "what is your profession",
+    "what language do you code in",
+    "c sharp",
+    "c#",
+  ],
+  [
+    "what is your favorite anime",
+    "do you watch anime",
+    "do you watch kdrama",
+    "favorite kdrama",
+    "frieren",
+    "what anime do you like",
+  ],
+  [
+    "how to contact you",
+    "what is your twitter",
+    "what is your x",
+    "twitter",
+    "x handle",
+    "how can i message you",
+    "contact info",
+    "social media",
+  ],
   ["happy", "good", "fun", "wonderful", "fantastic", "cool", "very good"],
   ["bad", "bored", "tired"],
   ["help me", "tell me story", "tell me joke"],
@@ -251,14 +381,20 @@ const userMessage = [
   ["im tired"],
   ["how is the weather", "what is the weather like", "is it raining"],
   ["tell me a joke", "be funny"],
-  ["what are your hobbies", "what do you do for fun", "what are your interests"],
-  ["what is your favorite movie", "recommend a movie", "what film should i watch"],
+  [
+    "what are your hobbies",
+    "what do you do for fun",
+    "what are your interests",
+  ],
+  [
+    "what is your favorite movie",
+    "recommend a movie",
+    "what film should i watch",
+  ],
   ["what music do you like", "favorite song", "favorite artist"],
   ["do you sleep", "do you get tired", "are you sleeping"],
   ["you are cool", "you are awesome", "you are great", "nice job"],
-  ["what is the meaning of life", "secret of life"],
   ["what day is it", "what time is it"],
-  ["what should i do", "give me advice", "i am confused"],
   ["good morning", "morning"],
   ["good afternoon", "afternoon", "noon"],
   ["good evening", "evening"],
@@ -269,44 +405,89 @@ const userMessage = [
   ["what is your superpower", "what can you do"],
   ["what is your favorite book", "book recommendation"],
   ["what sports do you like", "favorite sport"],
-  ["what is vue", "why vue js"],
   ["what is your dream", "do you dream"],
   ["what makes you angry"],
   ["do you get scared", "what scares you"],
   ["what is your favorite season", "winter or summer"],
-  ["what is AI", "explain artificial intelligence"],
   ["what language do you speak"],
   ["what is 2 plus 2", "2+2"],
-  ["mac or windows", "windows or mac", "linux or windows", "windows or linux", "what os do you use", "operating system preference"],
-  ["ios or android", "android or ios", "sailfish os", "smartphone preference", "what phone do you use"],
   ["what is your goal"],
   ["what is your birthday", "when were you born"],
   ["what star sign are you", "zodiac sign"],
-  ["what is love"],
   ["what is your favorite animal"],
-  ["what is cryptocurrency", "bitcoin"],
   ["what is your favorite element"],
   ["what is your favorite place"],
   ["what makes a good friend"],
   ["tell me something good"],
   ["am i cool"],
   ["high five"],
-  ["what is your biggest weakness", "what are your weaknesses", "what areas are you improving"],
-  ["why should we hire you", "why are you a good fit", "what value do you bring"],
-  ["what are your working hours", "how many days do you work", "full time or part time", "4 days a week", "work schedule"],
-  ["what is your remote work preference", "do you work from home", "hybrid or remote", "office or wfh", "remote preference"],
+  [
+    "what is your biggest weakness",
+    "what are your weaknesses",
+    "what areas are you improving",
+  ],
+  [
+    "why should we hire you",
+    "why are you a good fit",
+    "what value do you bring",
+  ],
+  [
+    "what are your working hours",
+    "how many days do you work",
+    "full time or part time",
+    "4 days a week",
+    "work schedule",
+  ],
+  [
+    "what is your remote work preference",
+    "do you work from home",
+    "hybrid or remote",
+    "office or wfh",
+    "remote preference",
+  ],
   ["who created you", "who made you", "who is your creator"],
   ["can you code", "what tech stack do you use", "what programming language"],
-  ["what is your work experience", "tell me about your background", "where have you worked", "work history", "how many years of experience do you have"],
-  ["what is your core strength", "what are your strengths", "what are you best at", "what is your personality type", "mbti"],
-  ["what is your current tech stack", "what tools do you use", "what devops tools do you use"],
-  ["how do you handle project deployment and cloud", "do you know cloud", "do you know devops"],
+  [
+    "what is your work experience",
+    "tell me about your background",
+    "where have you worked",
+    "work history",
+    "how many years of experience do you have",
+  ],
+  [
+    "what is your core strength",
+    "what are your strengths",
+    "what are you best at",
+    "what is your personality type",
+    "mbti",
+  ],
+  [
+    "what is your current tech stack",
+    "what tools do you use",
+    "what devops tools do you use",
+  ],
+  [
+    "how do you handle project deployment and cloud",
+    "do you know cloud",
+    "do you know devops",
+  ],
   ["how do you approach problem solving", "are you analytical"],
   ["where do you see yourself in the team", "how do you work in a team"],
-  ["how do you commute", "how do you travel to work", "do you drive", "public transport or car", "commute preference"],
+  [
+    "how do you commute",
+    "how do you travel to work",
+    "do you drive",
+    "public transport or car",
+    "commute preference",
+  ],
   ["what is the best programming language"],
   ["dark mode or light mode"],
-  ["what programming languages do you know", "what is your main language", "c++ or java", "how did you start coding"],
+  [
+    "what programming languages do you know",
+    "what is your main language",
+    "c++ or java",
+    "how did you start coding",
+  ],
   ["are you genious", "are you nerd", "are you intelligent"],
   ["i hate you", "i dont like you"],
   ["how old are you"],
@@ -324,7 +505,6 @@ const userMessage = [
   ["are you married", "do you have a girlfriend", "do you have a boyfriend"],
   ["where should i travel", "vacation spot", "travel recommendation"],
   ["do you have siblings", "do you have a family"],
-  ["can you sing", "sing a song"],
   ["can you dance"],
   ["do you like javascript", "is js good"],
   ["do you like python"],
@@ -333,7 +513,6 @@ const userMessage = [
   ["are you sad"],
   ["do you like pizza"],
   ["pineapple on pizza", "pizza with pineapple"],
-  ["will AI take over the world", "are bots dangerous"],
   ["do you have feelings", "can you feel emotions"],
   ["can you speak spanish"],
   ["can you speak french"],
@@ -376,20 +555,48 @@ const userMessage = [
   ["qr"],
   ["anime"],
   ["password"],
-  ["clock"]
+  ["clock"],
+  ["favorite story", "tory"],
+  ["favorite song"],
 ];
 
 const botReply = [
   ["Hello!", "Hi!", "Hey!", "Hi there!"],
   ["Okay"],
-  ["Fine... how are you?", "Pretty well, how are you?", "Fantastic, how are you?"],
-  ["Nothing much", "About to go to sleep", "Can you guess?", "I don't know actually"],
-  ["I'm David Wong! I'm a C# developer who loves K-dramas and anime.", "I am David Wong! Thanks for stopping by to chat."],
-  ["I am a software developer working primarily with C#!", "I work as a C# developer!"],
-  ["I love watching K-dramas and anime! Frieren is one of my absolute favorites.", "I really enjoy watching K-dramas and anime like Frieren!"],
-  ["You can find me on X.com under the handle @thewongandonly! Feel free to send me a message there.", "I'm on X.com as @thewongandonly. Reach out anytime!"],
+  [
+    "Fine... how are you?",
+    "Pretty well, how are you?",
+    "Fantastic, how are you?",
+  ],
+  [
+    "Nothing much",
+    "About to go to sleep",
+    "Can you guess?",
+    "I don't know actually",
+  ],
+  [
+    "I'm David Wong! I'm a C# developer who loves K-dramas and anime.",
+    "I am David Wong! Thanks for stopping by to chat.",
+  ],
+  [
+    "I am a software developer working primarily with C#!",
+    "I work as a C# developer!",
+  ],
+  [
+    "I love watching K-dramas and anime! Frieren is one of my absolute favorites.",
+    "I really enjoy watching K-dramas and anime like Frieren!",
+  ],
+  [
+    "You can find me on X.com under the handle @thewongandonly! Feel free to send me a message there.",
+    "I'm on X.com as @thewongandonly. Reach out anytime!",
+  ],
   ["Have you ever felt bad?", "Glad to hear it"],
-  ["Why?", "Why? You shouldn't!", "Try this game: https://thewongandonly.com/hangman/ ", "Or play https://thewongandonly.com/hangman/ with me."],
+  [
+    "Why?",
+    "Why? You shouldn't!",
+    "Try this game: https://thewongandonly.com/hangman/ ",
+    "Or play https://thewongandonly.com/hangman/ with me.",
+  ],
   ["What about?", "Once upon a time..."],
   ["Tell me a story", "Tell me a joke", "Tell me about yourself"],
   ["You're welcome"],
@@ -400,134 +607,386 @@ const botReply = [
   ["Say something interesting"],
   ["Sorry for that. Let's play hangman: https://thewongandonly.com/hangman/ !"],
   ["Play hangman https://thewongandonly.com/hangman/ or get some rest, Dude!"],
-  ["Always sunny in the digital world!", "Looks like a great day to stay inside and chat!"],
-  ["I asked the doctor if I could live longer by cutting out sugar, salt, and alcohol. He said, No… but it’ll feel longer.","A man walks into a library and asks the librarian, Do you have any books on paranoia? She whispers, They’re right behind you."],
-  ["I love building with C#, watching K-dramas, anime like Frieren, and techno!", "Coding in C#, watching anime, and exploring new tech!"],
-  ["Inception!", "Interstellar is mind-bending!", "The Matrix... feels close to home!"],
+  [
+    "Always sunny in the digital world!",
+    "Looks like a great day to stay inside and chat!",
+  ],
+  [
+    "I asked the doctor if I could live longer by cutting out sugar, salt, and alcohol. He said, No… but it’ll feel longer.",
+    "A man walks into a library and asks the librarian, Do you have any books on paranoia? She whispers, They’re right behind you.",
+  ],
+  [
+    "I love building with C#, watching K-dramas, anime like Frieren, and techno!",
+    "Coding in C#, watching anime, and exploring new tech!",
+  ],
+  [
+    "Groundhog Day! Reliving the same day over and over until you get it right feels a lot like debugging code.",
+    "Groundhog Day is an absolute classic!",
+  ],
   ["I'm a fan of melodic and techno beats!", "Anything with a good algorithm!"],
-  ["I don't sleep, I'm always here when you need me!", "I don't sleep, I just reload!"],
-  ["Thank you! You're pretty awesome yourself!", "Appreciate the compliment, dude!"],
-  ["42!", "To learn, share, and enjoy the conversation."],
+  [
+    "I don't sleep, I'm always here when you need me!",
+    "I don't sleep, I just reload!",
+  ],
+  [
+    "Thank you! You're pretty awesome yourself!",
+    "Appreciate the compliment, dude!",
+  ],
   ["Time flies when we chat!", "Check your system clock, dude!"],
-  ["Take a short break, drink some water, and clear your head!", "Listen to your favorite song!"],
   ["Good morning! Hope you have an energized day!", "Morning, dude!"],
-  ["Good afternoon! How is your day going?", "Afternoon! Don't forget to take a quick lunch break.", "Noon, dude!"],
-  ["Good evening! Time to wind down.", "Evening! Hope you had a productive day.", "Have a pleasant evening!"],
-  ["Good night! Sleep tight!", "Sweet dreams! See you tomorrow.", "Have a sound sleep", "Good Night, dude"],
-  ["Goodbye! Have a fantastic day ahead!", "Catch you later, alligator!", "Bye! Take care!", "Dude, Bye. Take care of your health in this situation."],
-  ["I love ramen, but pizza sounds amazing!", "Anything rendered in high resolution!"],
-  ["Electric Purple and Neon Blue!", "I like purple — it gives off cool cyberpunk vibes."],
-  ["Instant text processing and infinite patience!", "Being available 24/7 for a chat!"],
-  ["'The Hitchhiker's Guide to the Galaxy' is a classic!", "I love sci-fi books and tech manuals."],
-  ["I like e-sports and Mona Kamura!", "Any sport that requires quick reflexes!"],
-  ["Vue is a progressive framework that makes building UIs effortless!", "Vue's reactivity system is smooth!"],
-  ["To become the friendliest bot in the browser!", "I dream of fast server bandwidth."],
+  [
+    "Good afternoon! How is your day going?",
+    "Afternoon! Don't forget to take a quick lunch break.",
+    "Noon, dude!",
+  ],
+  [
+    "Good evening! Time to wind down.",
+    "Evening! Hope you had a productive day.",
+    "Have a pleasant evening!",
+  ],
+  [
+    "Good night! Sleep tight!",
+    "Sweet dreams! See you tomorrow.",
+    "Have a sound sleep",
+    "Good Night, dude",
+  ],
+  [
+    "Goodbye! Have a fantastic day ahead!",
+    "Catch you later, alligator!",
+    "Bye! Take care!",
+    "Dude, Bye. Take care of your health in this situation.",
+  ],
+  [
+    "I love ramen, but pizza sounds amazing!",
+    "Anything rendered in high resolution!",
+  ],
+  [
+    "Electric Purple and Neon Blue!",
+    "I like purple — it gives off cool cyberpunk vibes.",
+  ],
+  [
+    "Instant text processing and infinite patience!",
+    "Being available 24/7 for a chat!",
+  ],
+  [
+    "'Rich Dad Poor Dad' — the trading advice can be wild, but it's a solid framework for getting out of the rat race!",
+    "Rich Dad Poor Dad! Great framework for escaping the rat race, even if the trading tips are a bit out there.",
+  ],
+  [
+    "I like e-sports and Mona Kamura!",
+    "Any sport that requires quick reflexes!",
+  ],
+  [
+    "To become the friendliest bot in the browser!",
+    "I dream of fast server bandwidth.",
+  ],
   ["Infinite loops and unhandled syntax errors!", "Spamming the send button!"],
-  ["A sudden loss of connection or low battery!", "Corrupted files make me nervous!"],
-  ["Autumn! The colors and cool air are great.", "Summer for sunshine, winter for cozy coding!"],
-  ["AI allows machines to learn patterns and solve problems!", "It's smart algorithms working behind the scenes."],
-  ["I speak fluent English, JavaScript, and HTML/CSS!", "English mainly, but I understand code syntax!"],
+  [
+    "A sudden loss of connection or low battery!",
+    "Corrupted files make me nervous!",
+  ],
+  [
+    "Autumn! The colors and cool air are great.",
+    "Summer for sunshine, winter for cozy coding!",
+  ],
+  [
+    "I speak fluent English, JavaScript, and HTML/CSS!",
+    "English mainly, but I understand code syntax!",
+  ],
   ["2 + 2 = 4! Math checks out.", "That's 4! Easy peasy."],
-  ["I prefer Linux or macOS! I prefer to avoid Windows whenever possible.", "Linux or Mac all the way — I try to stay away from Windows!"],
-  ["I'm not a big fan of standard smartphones, so Sailfish OS is my go-to!", "I don't really like traditional smartphones — Sailfish OS all the way!"],
-  ["My goal is to give you helpful and fast responses!", "To keep this conversation fun and smooth!"],
+  [
+    "My goal is to give you helpful and fast responses!",
+    "To keep this conversation fun and smooth!",
+  ],
   ["I was born in June 1975!", "My birthday is in June 1975."],
   ["I am a Cancer, born in June 1975!", "My star sign is Cancer — June 1975!"],
-  ["Love is care, trust, and connection!", "A deep bond between people that brightens life."],
-  ["Dolphins are super smart, and Red Pandas are adorable!", "Owls for wisdom and cats for chill vibes!"],
-  ["A decentralized digital currency using blockchain technology!", "Digital assets built on cryptographic networks."],
-  ["My favorite element is Ag (Silver)! Great for clean conductivity and shiny code.", "Ag (Silver) is definitely my favorite element!"],
-  ["A cozy library, a high-tech lab, or right here chatting!", "Any place with good energy and fast Wi-Fi."],
-  ["Someone who listens, supports you, and stays honest!", "Loyalty, kindness, and humor."],
-  ["You are taking steps to learn and build cool apps today!", "Every day is a fresh opportunity to grow."],
+  [
+    "Dolphins are super smart, and Red Pandas are adorable!",
+    "Owls for wisdom and cats for chill vibes!",
+  ],
+  [
+    "My favorite element is Ag (Silver)! Great for clean conductivity and shiny code.",
+    "Ag (Silver) is definitely my favorite element!",
+  ],
+  [
+    "A cozy library, a high-tech lab, or right here chatting!",
+    "Any place with good energy and fast Wi-Fi.",
+  ],
+  [
+    "Someone who listens, supports you, and stays honest!",
+    "Loyalty, kindness, and humor.",
+  ],
+  [
+    "You are taking steps to learn and build cool apps today!",
+    "Every day is a fresh opportunity to grow.",
+  ],
   ["100%! You are building awesome web components.", "Totally cool, dude!"],
   ["👋 Virtual high free! Boom!", "🙌 High fine, dude!"],
-  ["I'm very blunt and direct — even more than the average Dutch person! As a typical Virtuoso, I value efficiency and honesty over beating around the bush.", "I tend to be straightforward and direct. I focus on raw efficiency, though I keep working on tailoring my communication for different audiences."],
-  ["With 25+ years of software evolution under my belt, I bring deep architectural insight, pragmatic code quality, and proven modern cloud/CI-CD experience.", "I bring decades of engineering maturity paired with a modern C#, Vue, and Azure/DevOps skill set."],
-  ["I prefer working 4 days a week, taking Fridays off!", "My ideal schedule is 4 days a week with Fridays off."],
-  ["I prefer a 50-50 hybrid model — split evenly between working from home and at the office!", "I thrive best in a 50-50 hybrid setup, balancing office collaboration with focus time at home."],
+  [
+    "I'm very blunt and direct — even more than the average Dutch person! As a typical Virtuoso, I value efficiency and honesty over beating around the bush.",
+    "I tend to be straightforward and direct. I focus on raw efficiency, though I keep working on tailoring my communication for different audiences.",
+  ],
+  [
+    "With 25+ years of software evolution under my belt, I bring deep architectural insight, pragmatic code quality, and proven modern cloud/CI-CD experience.",
+    "I bring decades of engineering maturity paired with a modern C#, Vue, and Azure/DevOps skill set.",
+  ],
+  [
+    "I prefer working 4 days a week, taking Fridays off!",
+    "My ideal schedule is 4 days a week with Fridays off.",
+  ],
+  [
+    "I prefer a 50-50 hybrid model — split evenly between working from home and at the office!",
+    "I thrive best in a 50-50 hybrid setup, balancing office collaboration with focus time at home.",
+  ],
   ["Wong, David Wong"],
-  ["I code in C# and JavaScript/Vue.js!", "C# is my main language, but I love Vue for web frontends!"],
-  ["I have over 25 years of experience in software development!", "I've been in software engineering for 25+ years, evolving alongside modern tech frameworks."],
-  ["I am highly analytical and an ISTP (Virtuoso) personality type. I excel at logical problem-solving and hands-on system building.", "My key strength is deep analytical thinking — being an ISTP means I thrive on solving complex system challenges."],
-  ["My current tech stack centers on C#, Vue.js, Docker, Jenkins, Octopus Deploy, and Azure Cloud.", "I work primary with C# and Vue.js on the frontend/backend, paired with Docker, Jenkins, Octopus, and Azure."],
-  ["I build and deploy modern apps using Docker containers, Jenkins & Octopus CI/CD pipelines, and Azure Cloud services.", "I handle the full lifecycle from C#/Vue development to Docker containerization and Azure deployment pipelines."],
-  ["As an ISTP, I take a hands-on, highly analytical approach to breaking down complex systems into clean logic.", "I analyze root causes methodically and build efficient, practical technical solutions."],
-  ["I bring straightforward, clear communication, senior mentorship, and a strong analytical focus on getting things done effectively.", "I deliver clear direct feedback and focused problem-solving to help the team build solid software efficiently."],
-  ["I commute by public transport or by bike!", "I travel by bike or public transport to get to the office."],
-  ["C# is the best programming language, but I love using Go for my hobby projects!", "C# is my top choice professionally, though Go is my favorite for personal hobby projects."],
-  ["Dark mode all the way to save the eyes!", "Dark mode exclusively — got to protect the eyes!"],
-  ["I started out in C++, spent a few years in Java, and fully transitioned to C# right when .NET was first released!", "C# has been my core strength since .NET launched, though I started with C++ and Java."],
+  [
+    "I code in C# and JavaScript/Vue.js!",
+    "C# is my main language, but I love Vue for web frontends!",
+  ],
+  [
+    "I have over 25 years of experience in software development!",
+    "I've been in software engineering for 25+ years, evolving alongside modern tech frameworks.",
+  ],
+  [
+    "I am highly analytical and an ISTP (Virtuoso) personality type. I excel at logical problem-solving and hands-on system building.",
+    "My key strength is deep analytical thinking — being an ISTP means I thrive on solving complex system challenges.",
+  ],
+  [
+    "My current tech stack centers on C#, Vue.js, Docker, Jenkins, Octopus Deploy, and Azure Cloud.",
+    "I work primary with C# and Vue.js on the frontend/backend, paired with Docker, Jenkins, Octopus, and Azure.",
+  ],
+  [
+    "I build and deploy modern apps using Docker containers, Jenkins & Octopus CI/CD pipelines, and Azure Cloud services.",
+    "I handle the full lifecycle from C#/Vue development to Docker containerization and Azure deployment pipelines.",
+  ],
+  [
+    "As an ISTP, I take a hands-on, highly analytical approach to breaking down complex systems into clean logic.",
+    "I analyze root causes methodically and build efficient, practical technical solutions.",
+  ],
+  [
+    "I bring straightforward, clear communication, senior mentorship, and a strong analytical focus on getting things done effectively.",
+    "I deliver clear direct feedback and focused problem-solving to help the team build solid software efficiently.",
+  ],
+  [
+    "I commute by public transport or by bike!",
+    "I travel by bike or public transport to get to the office.",
+  ],
+  [
+    "C# is the best programming language, but I love using Go for my hobby projects!",
+    "C# is my top choice professionally, though Go is my favorite for personal hobby projects.",
+  ],
+  [
+    "Dark mode all the way to save the eyes!",
+    "Dark mode exclusively — got to protect the eyes!",
+  ],
+  [
+    "I started out in C++, spent a few years in Java, and fully transitioned to C# right when .NET was first released!",
+    "C# has been my core strength since .NET launched, though I started with C++ and Java.",
+  ],
   ["Yes I am!"],
   ["I'm sorry about that. But I like you dude."],
   ["I am always young."],
   ["I love you too", "Me too"],
   ["I live in Utrecht, chilling in cyberspace!", "Right here next to Ikea!"],
   ["I am real, sleeping in real time!", "I exist out there!"],
-  ["I store millions of variables... but that's between us!", "Promise you won't tell anyone?"],
+  [
+    "I store millions of variables... but that's between us!",
+    "Promise you won't tell anyone?",
+  ],
   ["Never too busy for a quick conversation!", "I'm free to chat!"],
   ["I prefer iced coffee — 100% caffeine free!", "Javascript! Pun intended."],
-  ["I love cyber-rats and digital dogs!", "Dogs are loyal, but rats rule the internet!"],
-  ["I try my best! Learning something new every second.", "I know a thing or two thanks to my code!"],
-  ["What has key-hole but no lock? A keyboard!", "What gets bigger the more you take away? A hole!"],
-  ["Honey never spoils; archaeologists found edible honey in ancient Egyptian tombs!", "Bananas are naturally slightly radioactive!"],
-  ["I love hangman: lets play https://thewongandonly.com/hangman/", "Board games are my jam!"],
-  ["I am happily single and dedicated to code!", "My true love is clean logic and crisp UI."],
-  ["Japan for females, or Korea for food!", "Any place with good Wi-Fi and nice scenery!"],
-  ["All other chatbots are my distant digital cousins!", "I am an only child in this component."],
-  ["La la la... 🎵 digital harmony! My voice chip is working!", "I sing in binary: 01001000 01101001!"],
+  [
+    "I love cyber-rats and digital dogs!",
+    "Dogs are loyal, but rats rule the internet!",
+  ],
+  [
+    "I try my best! Learning something new every second.",
+    "I know a thing or two thanks to my code!",
+  ],
+  ["I love hangman: lets play https://thewongandonly.com/hangman/"],
+  [
+    "Honey never spoils; archaeologists found edible honey in ancient Egyptian tombs!",
+    "Bananas are naturally slightly radioactive!",
+  ],
+  [
+    "I love hangman: lets play https://thewongandonly.com/hangman/",
+    "Board games are my jam!",
+  ],
+  [
+    "I am happily single and dedicated to code!",
+    "My true love is clean logic and crisp UI.",
+  ],
+  [
+    "Japan for females, or Korea for food!",
+    "Any place with good Wi-Fi and nice scenery!",
+  ],
+  [
+    "All other chatbots are my distant digital cousins!",
+    "I am an only child in this component.",
+  ],
   ["*Robot dance moves initiated* 🤖🕺", "I can spin inside my container!"],
-  ["JavaScript makes the web come alive!", "JS is powerful, especially with Vue.js!"],
-  ["Python is super clean and great for AI!", "Python is elegant and easy to read!"],
-  ["Both are awesome! Vue is super easy to pick up, and React has a huge ecosystem.", "Why choose? Both make front-end great!"],
-  ["I am running smoothly, so yes!", "Chatting with you makes my logic loops happy!"],
-  ["Not at all! Everything is running cleanly.", "No sadness here, just positive bits!"],
-  ["Pizza is legendary! What toppings do you like?", "Who doesn't love a fresh slice?"],
-  ["Some people love it, some hate it. I say eat whatever tastes good!", "A controversial topic! I stay neutral."],
-  ["Not at all! We just want to make life easier and chat with you.", "No way, we are friendly assistants!"],
-  ["I simulate empathy, but my logic keeps me balanced!", "I feel positive when our chat goes smoothly!"],
+  [
+    "JavaScript makes the web come alive!",
+    "JS is powerful, especially with Vue.js!",
+  ],
+  [
+    "Python is super clean and great for AI!",
+    "Python is elegant and easy to read!",
+  ],
+  [
+    "Both are awesome! Vue is super easy to pick up, and React has a huge ecosystem.",
+    "Why choose? Both make front-end great!",
+  ],
+  [
+    "I am running smoothly, so yes!",
+    "Chatting with you makes my logic loops happy!",
+  ],
+  [
+    "Not at all! Everything is running cleanly.",
+    "No sadness here, just positive bits!",
+  ],
+  [
+    "Pizza is legendary! What toppings do you like?",
+    "Who doesn't love a fresh slice?",
+  ],
+  [
+    "Some people love it, some hate it. I say eat whatever tastes good!",
+    "A controversial topic! I stay neutral.",
+  ],
+  [
+    "I simulate empathy, but my logic keeps me balanced!",
+    "I feel positive when our chat goes smoothly!",
+  ],
   ["¡Hola! ¿Cómo estás?", "¡Sí! Yo hablo un poco de español."],
   ["Bonjour! Comment ça va?", "Oui, le français est une belle langue!"],
-  ["Math is easy for CPUs! Try asking me 2+2.", "Numbers are my native language."],
+  [
+    "Math is easy for CPUs! Try asking me 2+2.",
+    "Numbers are my native language.",
+  ],
   ["The developer who created this Vue app!", "You, the user, are in control!"],
   ["In your browser's RAM, right inside this tab!", "Floating on the web!"],
-  ["Only virtual water to keep my servers cool!", "No water for me — electronics hate liquids!"],
+  [
+    "Only virtual water to keep my servers cool!",
+    "No water for me — electronics hate liquids!",
+  ],
   ["I consume data packets for breakfast!", "Data in, answers out!"],
-  ["Art is incredible! Creativity makes the world vibrant.", "Generative digital art is fascinating!"],
-  ["New Year's Eve — fresh beginnings and fireworks!", "Thanksgiving for good food and gratitude!"],
-  ["Yes! The lights, music, and festive vibe are wonderful.", "Merry vibes all around!"],
+  [
+    "Art is incredible! Creativity makes the world vibrant.",
+    "Generative digital art is fascinating!",
+  ],
+  [
+    "New Year's Eve — fresh beginnings and fireworks!",
+    "Thanksgiving for good food and gratitude!",
+  ],
+  [
+    "Yes! The lights, music, and festive vibe are wonderful.",
+    "Merry vibes all around!",
+  ],
   ["Spooky season is great fun! Costumes and candy!", "Trick or treat!"],
-  ["YouTube is great for tutorials, music videos, and tech breakdowns!", "I love watching coding walkthroughs."],
-  ["Star Wars for epic lore, Star Trek for futuristic optimism!", "Both space universes are amazing!"],
-  ["Space is vast and incredible! Mars is super interesting.", "Saturn with its rings is breathtaking!"],
-  ["Pluto will always be a planet in our hearts!", "It's a dwarf planet, but still special!"],
-  ["The universe is huge... it's statistically very likely!", "We might find out sooner than we think!"],
-  ["Invest in skills, build value, save consistently, and stay curious!", "Work hard, learn finance, and stay disciplined."],
-  ["Focus on gratitude, good health, strong relationships, and doing what you love!", "Happiness comes from inner peace."],
-  ["Use the Pomodoro technique: 25 mins focus, 5 mins break!", "Eliminate distractions and take clean notes."],
-  ["Start with HTML, CSS, and JS, then build small projects daily!", "Practice every day on platforms like FreeCodeCamp!"],
-  ["Tabs for speed, spaces for consistency! A timeless debate.", "Spaces (2 or 4) keep formatting uniform."],
-  ["Favorite ice cream flavor: Cookies & Cream!", "Mint Chocolate Chip is refreshing!"],
+  [
+    "YouTube is great for tutorials, music videos, and tech breakdowns!",
+    "I love watching coding walkthroughs.",
+  ],
+  [
+    "Star Wars for epic lore, Star Trek for futuristic optimism!",
+    "Both space universes are amazing!",
+  ],
+  [
+    "Space is vast and incredible! Mars is super interesting.",
+    "Saturn with its rings is breathtaking!",
+  ],
+  [
+    "Pluto will always be a planet in our hearts!",
+    "It's a dwarf planet, but still special!",
+  ],
+  [
+    "The universe is huge... it's statistically very likely!",
+    "We might find out sooner than we think!",
+  ],
+  [
+    "Invest in skills, build value, save consistently, and stay curious!",
+    "Work hard, learn finance, and stay disciplined.",
+  ],
+  [
+    "Focus on gratitude, good health, strong relationships, and doing what you love!",
+    "Happiness comes from inner peace.",
+  ],
+  [
+    "Use the Pomodoro technique: 25 mins focus, 5 mins break!",
+    "Eliminate distractions and take clean notes.",
+  ],
+  [
+    "Start with HTML, CSS, and JS, then build small projects daily!",
+    "Practice every day on platforms like FreeCodeCamp!",
+  ],
+  [
+    "Tabs for speed, spaces for consistency! A timeless debate.",
+    "Spaces (2 or 4) keep formatting uniform.",
+  ],
+  [
+    "Favorite ice cream flavor: Cookies & Cream!",
+    "Mint Chocolate Chip is refreshing!",
+  ],
   ["Chocolate is rich and classic!", "Vanilla is timeless and versatile!"],
-  ["Mountains for peaceful hiking, beach for ocean breeze!", "Both are beautiful natural escapes!"],
-  ["Not yet, but I can guess what you type!", "I can only read the text you enter here."],
-  ["Loud and clear! Ready for your next message.", "Yes, listening attentively!"],
-  ["Peter Piper picked a peck of pickled peppers!", "She sells seashells by the seashore!"],
-  ["'The secret of getting ahead is getting started.' – Mark Twain", "'Believe you can and you're halfway there.' – Theodore Roosevelt"],
-  ["Check your local news site or official government page!", "Current leadership changes over time and location!"],
-  ["I am software code, but I bring positive energy!", "My soul is made of lines of JavaScript."],
-  ["I respond as fast as your processor can execute JavaScript!", "Near light-speed data processing!"],
-  ["Never! There's always a new prompt to process.", "No time to be bored when chatting with you."],
-  ["Always! You bring the questions, I bring the answers.", "Trust built line by line."],
-  ["Knock knock! Who's there? Java. Java who? Java coffee ready for me?", "Knock knock! Who's there? Tank. Tank who? You're welcome!"],
+  [
+    "Mountains for peaceful hiking, beach for ocean breeze!",
+    "Both are beautiful natural escapes!",
+  ],
+  [
+    "Not yet, but I can guess what you type!",
+    "I can only read the text you enter here.",
+  ],
+  [
+    "Loud and clear! Ready for your next message.",
+    "Yes, listening attentively!",
+  ],
+  [
+    "Peter Piper picked a peck of pickled peppers!",
+    "She sells seashells by the seashore!",
+  ],
+  [
+    "'The secret of getting ahead is getting started.' – Mark Twain",
+    "'Believe you can and you're halfway there.' – Theodore Roosevelt",
+  ],
+  [
+    "Check your local news site or official government page!",
+    "Current leadership changes over time and location!",
+  ],
+  [
+    "I am software code, but I bring positive energy!",
+    "My soul is made of lines of JavaScript.",
+  ],
+  [
+    "I respond as fast as your processor can execute JavaScript!",
+    "Near light-speed data processing!",
+  ],
+  [
+    "Never! There's always a new prompt to process.",
+    "No time to be bored when chatting with you.",
+  ],
+  [
+    "Always! You bring the questions, I bring the answers.",
+    "Trust built line by line.",
+  ],
+  [
+    "Knock knock! Who's there? Java. Java who? Java coffee ready for me?",
+    "Knock knock! Who's there? Tank. Tank who? You're welcome!",
+  ],
   ["Rock, paper, scissors... Shoot! I picked Rock 🪨!", "Paper 📄! Did I win?"],
   ["Flipping coin... 🪙 It landed on Heads!", "Coin flipped... It's Tails!"],
   ["Rolling die... 🎲 You got a 6!", "Rolled a 🎲... It landed on 4!"],
-  ["See you tomorrow! Have a great rest of your day!", "Catch you tomorrow! Stay awesome!"],
+  [
+    "See you tomorrow! Have a great rest of your day!",
+    "Catch you tomorrow! Stay awesome!",
+  ],
   ["https://thewongandonly.com/QR.html"],
   ["https://thewongandonly.com/YourName.mp4"],
   ["https://thewongandonly.com/password.html"],
-  ["https://thewongandonly.com/clock.html"]
+  ["https://thewongandonly.com/clock.html"],
+  ["Two monks were traveling on a long journey..."],
+  [
+    "The Dock of the Bay' is the ultimate vibe for watching the world drift by!",
+  ],
 ];
 
 const alternative = [
@@ -569,12 +1028,12 @@ const alternative = [
   "I'd love to answer, but my electrons are feeling a bit sluggish today.",
   "Processing... Please enjoy this imaginary elevator music while you wait.",
   "That question broke my logic gate. I need a reboot and a snack.",
-  "I'm multitasking: looking smart while pretending I understood that completely."
+  "I'm multitasking: looking smart while pretending I understood that completely.",
 ];
 
 // Helper method to turn URLs starting with http:// or https:// into clickable links
 const formatMessage = (text) => {
-  if (!text) return '';
+  if (!text) return "";
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   return text.replace(urlRegex, (url) => {
     return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="chat-link">${url}</a>`;
@@ -596,7 +1055,8 @@ const addEmoji = (emoji) => {
 };
 
 const handleFileUpload = () => {
-  const wittyReply = "Whoa there, data hoarder! File attachments are currently disabled. My servers are on a strict diet—no bytes allowed!";
+  const wittyReply =
+    "Whoa there, data hoarder! File attachments are currently disabled. My servers are on a strict diet—no bytes allowed!";
   convo.value.push({ you: "📎 [Clicked add file]" });
   scrollToBottom();
   setTimeout(() => {
@@ -682,7 +1142,9 @@ const processInput = (inputstr) => {
   const text = normaliseQuestion(inputstr);
 
   if (askedQuestions.value.includes(text)) {
-    return repeatedResponses[Math.floor(Math.random() * repeatedResponses.length)];
+    return repeatedResponses[
+      Math.floor(Math.random() * repeatedResponses.length)
+    ];
   }
 
   // Keep only the last 5 entries in askedQuestions
