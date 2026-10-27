@@ -375,7 +375,8 @@ const userMessage = [
   ["see you tomorrow"],
   ["qr"],
   ["anime"],
-  ["password"]
+  ["password"],
+  ["clock"]
 ];
 
 const botReply = [
@@ -525,7 +526,8 @@ const botReply = [
   ["See you tomorrow! Have a great rest of your day!", "Catch you tomorrow! Stay awesome!"],
   ["https://thewongandonly.com/QR.html"],
   ["https://thewongandonly.com/YourName.mp4"],
-  ["https://thewongandonly.com/password.html"]
+  ["https://thewongandonly.com/password.html"],
+  ["https://thewongandonly.com/clock.html"]
 ];
 
 const alternative = [
