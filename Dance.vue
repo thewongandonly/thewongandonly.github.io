@@ -107,7 +107,8 @@ const svgRef = ref(null)
 <style>
 .dancecontainer {
   position: relative;
-  top: 100px; /* Reduced from 222px to move it further upwards */
+  top: 100px; 
+  margin-top: 120px;
   display: flex;
   justify-content: center;
   align-items: center;

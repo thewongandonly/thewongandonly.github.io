@@ -536,14 +536,14 @@ onMounted(async () => {
 <style scoped>
 .vue-terminal {
   position: relative;
-  width: 100%;
+  width: 80%;
   border-radius: 6px;
   color: #00ff66;
   margin-bottom: 10px;
   max-height: 580px;
-  top: 200px;
+  top: 120px;
   box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
-  border: 1px solid #00ff66;
+  left: 50px;
 }
 
 .terminal-window {
