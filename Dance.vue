@@ -112,7 +112,7 @@ const svgRef = ref(null)
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 70%;
 }
 
 .dancecontainer svg {
