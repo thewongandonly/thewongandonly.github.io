@@ -75,7 +75,7 @@
           VueTerminal: Vue.defineAsyncComponent(() =>
             loadModule("./VueTerminal.vue", options),
           ),
-              Dance: Vue.defineAsyncComponent(() =>
+          Dance: Vue.defineAsyncComponent(() =>
             loadModule("./Dance.vue", options),
           ),
         },
@@ -124,10 +124,11 @@
         },
         template: `<FullBackground :vid="myvid" /> 
         <Sunset @is-gone="setGone" :running="runningIndex" />  
-        <MiniPod v-if="showppod" :index=currentIndex @started-song="setRunning"  />  
         <VueTerminal v-if="runningIndex === 2" />
         <Dance v-if="runningIndex === 1" />
-        <Sidebar v-if="showchat" />`,
+        <Sidebar v-if="showchat" />
+        <MiniPod v-if="showppod" :index=currentIndex @started-song="setRunning"  />  
+        `,
       });
 
       app.mount("#app");

@@ -537,6 +537,8 @@ onMounted(async () => {
 .vue-terminal {
   position: relative;
   width: 80%;
+  max-width: 600px;
+  min-width: 350px;
   border-radius: 6px;
   color: #00ff66;
   margin-bottom: 10px;
