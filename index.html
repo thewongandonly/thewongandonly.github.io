@@ -72,6 +72,9 @@
           MiniPod: Vue.defineAsyncComponent(() =>
             loadModule("./MiniPod.vue", options),
           ),
+          VueTerminal: Vue.defineAsyncComponent(() =>
+            loadModule("./VueTerminal.vue", options),
+          ),
         },
         setup() {
           const currentIndex = ref(0);
@@ -119,6 +122,7 @@
         template: `<FullBackground :vid="myvid" /> 
         <Sunset @is-gone="setGone" :running="runningIndex" />  
         <MiniPod v-if="showppod" :index=currentIndex @started-song="setRunning"  />  
+        <VueTerminal v-if="runningIndex == 2" />
         <Sidebar v-if="showchat" />`,
       });
 
