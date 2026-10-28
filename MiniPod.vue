@@ -547,6 +547,7 @@ const formatTime = (sec) => {
 /* Playlist Toggle & Dropdown Menu */
 .playlist-container {
   position: relative;
+  z-index: 999999;
 }
 
 .playlist-btn {
@@ -584,7 +585,7 @@ const formatTime = (sec) => {
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  z-index: 9999999;
   overflow: hidden;
 }
 
