@@ -80,7 +80,10 @@
         <!-- Triangle Volume Control -->
         <div class="volumeBar" @click="setVolume" title="Adjust Volume">
           <div class="volumebkg"></div>
-          <div class="volume" :style="{ clip: `rect(0px, ${volume * 54}px, 30px, 0px)` }"></div>
+          <div
+            class="volume"
+            :style="{ clip: `rect(0px, ${volume * 54}px, 30px, 0px)` }"
+          ></div>
         </div>
 
         <!-- Playlist Container -->
@@ -172,13 +175,21 @@ const tracks = ref([
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/melodic-techno.mp3",
   },
-    {
+  {
     id: 3,
     name: "Deep Work Frequency: 40Hz Focus Mode for Productivity",
     artist: "VYBFRQ",
     href: "https://www.youtube.com/shorts/_pQIuTCQr50",
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/DeepFocusMode.mp3",
+  },
+  {
+    id: 4,
+    name: "Doki Doki Literature Club! OST - Doki Doki Literature Club!",
+    artist: "Team Salvato",
+    href: "https://youtu.be/BFSWlDpA6C4",
+    source:
+      "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/BGM03g.mp3",
   },
 ]);
 
@@ -322,7 +333,7 @@ const formatTime = (sec) => {
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif;
   overflow: visible;
-
+  z-index: 999999999;
   /* Slide down entry animation */
   animation: slideDown 5.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -528,7 +539,7 @@ const formatTime = (sec) => {
   height: 0;
   border-style: solid;
   border-width: 0 0 30px 54px;
-  border-color: transparent transparent #F61C0D transparent;
+  border-color: transparent transparent #f61c0d transparent;
   line-height: 0px;
 }
 
