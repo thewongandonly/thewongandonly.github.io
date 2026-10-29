@@ -81,6 +81,9 @@
           SlideShower: Vue.defineAsyncComponent(() =>
             loadModule("./SlideShower.vue", options),
           ),
+          Ramen: Vue.defineAsyncComponent(() =>
+            loadModule("./Ramen.vue", options),
+          ),
         },
         setup() {
           const currentIndex = ref(0);
@@ -107,6 +110,9 @@
               case 2:
                 vid = "darkcode.mp4";
                 break;
+              case 4:
+                vid = "bowlramen.mp4";
+                break;
               default:
                 vid = "sunset.mp4";
                 break;
@@ -131,6 +137,7 @@
         <SlideShower v-if="runningIndex === 3" />
         <VueTerminal v-if="runningIndex === 2" />
         <Dance v-if="runningIndex === 1" />
+        <Ramen v-if="runningIndex === 4" />
         <Sidebar v-if="showchat" />
         `,
       });

@@ -191,6 +191,14 @@ const tracks = ref([
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/BGM03g.mp3",
   },
+  {
+    id: 5,
+    name: "Eat ramen with me",
+    artist: "Wen Daily Life",
+    href: "https://youtube.com/shorts/Y4eFAqJC12M",
+    source:
+      "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/ramen.mp3",
+  },
 ]);
 
 const currentIndex = ref(0);
