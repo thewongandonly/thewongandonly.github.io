@@ -199,6 +199,14 @@ const tracks = ref([
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/ramen.mp3",
   },
+  {
+    id: 6,
+    name: "Midnight Mayhem (Hotline Miami)",
+    artist: "Warl'OK",
+    href: "https://youtube.com/shorts/xK5XIGD_Wxs",
+    source:
+      "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/MidnightMayhem.mp3",
+  },  
 ]);
 
 const currentIndex = ref(0);

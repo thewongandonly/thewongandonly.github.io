@@ -16,6 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap"
       rel="stylesheet"
     />
+        <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
     <style>
       html,
       body {
@@ -84,6 +85,9 @@
           Ramen: Vue.defineAsyncComponent(() =>
             loadModule("./Ramen.vue", options),
           ),
+          OutlawHarbor: Vue.defineAsyncComponent(() =>
+            loadModule("./OutlawHarbor.vue", options),
+          ),
         },
         setup() {
           const currentIndex = ref(0);
@@ -138,6 +142,7 @@
         <VueTerminal v-if="runningIndex === 2" />
         <Dance v-if="runningIndex === 1" />
         <Ramen v-if="runningIndex === 4" />
+        <OutlawHarbor v-if="runningIndex === 5" />
         <Sidebar v-if="showchat" />
         `,
       });
