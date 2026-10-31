@@ -209,9 +209,9 @@ const tracks = ref([
   },
   {
     id: 7,
-    name: "The best thunderstorm sounds for sleeping",
-    artist: "Gentle Rain Dreamer",
-    href: "https://youtube.com/shorts/g_-NSExs6Vo",
+    name: "Thunder sounds for relaxation and sleep",
+    artist: "Sleep Asmrtist",
+    href: "https://www.youtube.com/shorts/JN8rbMipr8o",
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/thunderstorm.mp3",
   },
