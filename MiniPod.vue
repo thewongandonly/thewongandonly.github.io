@@ -193,9 +193,9 @@ const tracks = ref([
   },
   {
     id: 5,
-    name: "Eat ramen with me",
-    artist: "Wen Daily Life",
-    href: "https://youtube.com/shorts/Y4eFAqJC12M",
+    name: "Midnight Ramen Shop",
+    artist: "Little Neko Japan",
+    href: "https://youtube.com/shorts/d73WkFeGmQ0",
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/ramen.mp3",
   },
