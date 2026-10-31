@@ -16,7 +16,14 @@
       href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap"
       rel="stylesheet"
     />
-        <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@600;700&family=Segoe+UI:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Outfit:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
       html,
       body {
@@ -95,7 +102,9 @@
 
           const showppod = ref(false);
           const myvid = ref("sunset.mp4");
-          const showchat = computed(() => currentIndex.value !== 1 && currentIndex.value !== 5);
+          const showchat = computed(
+            () => currentIndex.value !== 1 && currentIndex.value !== 5,
+          );
           const setVid = (newVid) => {
             myvid.value = newVid;
           };
