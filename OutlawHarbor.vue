@@ -681,13 +681,12 @@ onUnmounted(() => {
 
 /* Base Container Styling */
 .game-app-container {
-  height: 100vh;
-  width: 100vw;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+ 
   background-color: #030712;
   font-family: 'VT323', monospace;
   overflow: hidden;
@@ -699,7 +698,7 @@ onUnmounted(() => {
 .game-window {
   position: relative;
   width: 100%;
-  max-width: 72rem;
+  
   aspect-ratio: 16 / 10;
   max-height: 82vh;
   background-color: #000000;
