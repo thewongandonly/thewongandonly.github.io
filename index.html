@@ -95,6 +95,7 @@
           OutlawHarbor: Vue.defineAsyncComponent(() =>
             loadModule("./OutlawHarbor.vue", options),
           ),
+          Neo: Vue.defineAsyncComponent(() => loadModule("./Neo.vue", options)),
         },
         setup() {
           const currentIndex = ref(0);
@@ -103,7 +104,7 @@
           const showppod = ref(false);
           const myvid = ref("sunset.mp4");
           const showchat = computed(
-            () => currentIndex.value !== 1 && currentIndex.value !== 5,
+            () => currentIndex.value !== 1 && currentIndex.value !== 5 && currentIndex.value !== 6,
           );
           const setVid = (newVid) => {
             myvid.value = newVid;
@@ -152,6 +153,7 @@
         <Dance v-if="runningIndex === 1" />
         <Ramen v-if="runningIndex === 4" />
         <OutlawHarbor v-if="runningIndex === 5" />
+        <Neo v-if="runningIndex === 6" />
         <Sidebar v-if="showchat" />
         `,
       });

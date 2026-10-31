@@ -206,7 +206,15 @@ const tracks = ref([
     href: "https://youtube.com/shorts/xK5XIGD_Wxs",
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/MidnightMayhem.mp3",
-  },  
+  },
+  {
+    id: 7,
+    name: "The best thunderstorm sounds for sleeping",
+    artist: "Gentle Rain Dreamer",
+    href: "https://youtube.com/shorts/g_-NSExs6Vo",
+    source:
+      "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/thunderstorm.mp3",
+  },
 ]);
 
 const currentIndex = ref(0);

@@ -1,37 +1,6 @@
 <template>
   <div class="sidebar">
     <div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen">
-      <div class="close">
-        <svg
-          width="30px"
-          height="30px"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-            stroke="#292D32"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M9.16998 14.83L14.83 9.17004"
-            stroke="#292D32"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M14.83 14.83L9.16998 9.17004"
-            stroke="#292D32"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
     </div>
     <div v-if="!isPanelOpen" class="wishtochat" @click="isPanelOpen = true">
       <svg
@@ -115,7 +84,7 @@
             <div class="chat__conversation-panel__container">
               <button
                 class="chat__conversation-panel__button panel-item btn-icon add-file-button"
-                @click="handleFileUpload"
+                @click="closeSidebarPanel"
               >
                 <svg
                   class="feather feather-plus sc-dnqmqq jxshSx"
@@ -132,6 +101,29 @@
                 >
                   <line x1="12" y1="5" x2="12" y2="19"></line>
                   <line x1="5" y1="12" x2="19" y2="12"></line>
+
+          <path
+            d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
+            stroke="#292D32"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M9.16998 14.83L14.83 9.17004"
+            stroke="#292D32"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M14.83 14.83L9.16998 9.17004"
+            stroke="#292D32"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
                 </svg>
               </button>
 
@@ -1181,6 +1173,7 @@ onMounted(() => {
 });
 </script>
 
+
 <style scoped>
 .slide-enter-active,
 .slide-leave-active {
@@ -1188,11 +1181,11 @@ onMounted(() => {
 }
 .slide-enter,
 .slide-leave-to {
-  transform: translateX(100%);
+  transform: translateY(100%);
   transition: all 150ms ease-in 0s;
 }
 .sidebar {
-  top: 0;
+  bottom: 0;
   position: fixed;
   right: 0px;
   width: 400px;
@@ -1209,8 +1202,9 @@ onMounted(() => {
 .sidebar-panel {
   position: fixed;
   overflow-y: auto;
-  height: 100vh;
-  top: 24px;
+  height: 50vh; /* Fills the bottom half */
+  bottom: 0;
+  top: auto;
 }
 .--dark-theme {
   --chat-background: rgba(10, 14, 14, 0.95);
@@ -1225,12 +1219,16 @@ onMounted(() => {
 .chat {
   background: var(--chat-background);
   max-width: 400px;
-  margin: 25px auto;
+  margin: 0 auto;
   box-sizing: border-box;
   padding: 1em;
-  border-radius: 12px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   position: relative;
   overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .chat::before {
   content: "";
@@ -1257,7 +1255,7 @@ onMounted(() => {
 }
 .chat .chat__conversation-board {
   padding: 1em 0 2em;
-  height: calc(100vh - 55px - 2em - 25px * 2 - 0.5em - 3em);
+  flex: 1;
   overflow: auto;
 }
 .chat .chat__conversation-board__message-container.reversed {
@@ -1369,17 +1367,6 @@ onMounted(() => {
   border-radius: 6px;
   font-family: "Lato", sans-serif;
 }
-
-/* Hyperlink Styles inside chat bubbles */
-:deep(.chat-link) {
-  color: #a855f7;
-  text-decoration: underline;
-  word-break: break-all;
-}
-:deep(.chat-link:hover) {
-  color: #c084fc;
-}
-
 .chat .chat__conversation-board__message__bubble:not(:last-child) {
   margin: 0 0 0.3em;
 }
@@ -1393,6 +1380,7 @@ onMounted(() => {
   height: 55px;
   margin: 0.5em 0 0;
   position: relative;
+  flex-shrink: 0;
 }
 .chat .chat__conversation-panel__container {
   display: flex;
@@ -1501,9 +1489,10 @@ onMounted(() => {
   top: 8px;
   cursor: pointer;
   position: relative;
+  z-index: 10;
 }
 
-/* --- Mobile --- */
+/* --- Mobile Responsive Media Query --- */
 @media (max-width: 768px) {
   .sidebar,
   .sidebar-backdrop,
@@ -1513,12 +1502,12 @@ onMounted(() => {
     left: 0;
   }
   .sidebar-panel {
-    top: 0;
-    height: 100vh;
+    bottom: 0;
+    height: 50vh;
   }
   .chat {
     max-width: 100%;
-    height: 100vh;
+    height: 100%;
     margin: 0;
     border-radius: 0;
   }
