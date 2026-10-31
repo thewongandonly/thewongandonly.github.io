@@ -349,9 +349,9 @@ const formatTime = (sec) => {
 .top-header-bar {
   position: relative;
   width: 100%;
-  background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  background: #121212;
+  border-bottom: 1px solid #282828;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   user-select: none;
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
@@ -380,7 +380,7 @@ const formatTime = (sec) => {
   left: 0;
   right: 0;
   height: 4px;
-  background: #edf2f7;
+  background: #282828;
   cursor: pointer;
   transition: height 0.15s ease;
   z-index: 10;
@@ -392,7 +392,7 @@ const formatTime = (sec) => {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ff7675, #ee5253);
+  background: linear-gradient(90deg, #ff4757, #ff6b81);
   transition: width 0.1s linear;
 }
 
@@ -402,7 +402,7 @@ const formatTime = (sec) => {
   transform: translate(-50%, -50%) scale(0);
   width: 10px;
   height: 10px;
-  background-color: #ee5253;
+  background-color: #ff6b81;
   border-radius: 50%;
   transition: transform 0.15s ease;
   pointer-events: none;
@@ -417,14 +417,15 @@ const formatTime = (sec) => {
   position: absolute;
   top: 10px;
   transform: translateX(-50%);
-  background: #2d3748;
-  color: #fff;
+  background: #2a2a2a;
+  color: #f1f1f1;
   font-size: 11px;
   padding: 2px 6px;
   border-radius: 4px;
   pointer-events: none;
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  border: 1px solid #3a3a3a;
 }
 
 /* Main Content Area */
@@ -449,18 +450,18 @@ const formatTime = (sec) => {
   height: 36px;
   border-radius: 50%;
   border: none;
-  background: #f1f5f9;
-  color: #2d3748;
+  background: #212121;
+  color: #f1f1f1;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .play-btn:hover {
-  background: #ee5253;
+  background: #ff4757;
   color: #ffffff;
   transform: scale(1.05);
 }
@@ -479,8 +480,8 @@ const formatTime = (sec) => {
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #f8fafc;
-  border: 1px solid #f1f5f9;
+  background: #212121;
+  border: 1px solid #2f2f2f;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -493,12 +494,12 @@ const formatTime = (sec) => {
 
 .youtube-logo-wrapper:hover {
   transform: scale(1.05);
-  border-color: rgba(246, 28, 13, 0.4);
+  border-color: rgba(246, 28, 13, 0.6);
 }
 
 .youtube-logo-wrapper.is-playing {
-  box-shadow: 0 4px 10px rgba(246, 28, 13, 0.25);
-  border-color: rgba(246, 28, 13, 0.2);
+  box-shadow: 0 4px 10px rgba(246, 28, 13, 0.35);
+  border-color: rgba(246, 28, 13, 0.4);
 }
 
 .youtube-svg {
@@ -517,21 +518,21 @@ const formatTime = (sec) => {
 }
 
 .track-title-link:hover .track-title {
-  color: #ee5253;
+  color: #ff6b81;
   text-decoration: underline;
 }
 
 .track-title {
   font-size: 13px;
   font-weight: 600;
-  color: #1a202c;
+  color: #f1f1f1;
   line-height: 1.2;
   transition: color 0.2s ease;
 }
 
 .track-artist {
   font-size: 11px;
-  color: #718096;
+  color: #aaaaaa;
   margin-top: 2px;
 }
 
@@ -575,7 +576,7 @@ const formatTime = (sec) => {
   height: 0;
   border-style: solid;
   border-width: 0 0 30px 54px;
-  border-color: transparent transparent #cbd5e0 transparent;
+  border-color: transparent transparent #333333 transparent;
   line-height: 0px;
 }
 
@@ -589,9 +590,9 @@ const formatTime = (sec) => {
   width: 32px;
   height: 32px;
   border-radius: 6px;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-  color: #4a5568;
+  border: 1px solid #2f2f2f;
+  background: #212121;
+  color: #aaaaaa;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -601,9 +602,9 @@ const formatTime = (sec) => {
 
 .playlist-btn:hover,
 .playlist-btn.active {
-  background: #edf2f7;
-  color: #ee5253;
-  border-color: #cbd5e0;
+  background: #2a2a2a;
+  color: #ff6b81;
+  border-color: #3f3f3f;
 }
 
 .playlist-icon {
@@ -616,10 +617,10 @@ const formatTime = (sec) => {
   top: 40px;
   right: 0;
   width: 240px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: #181818;
+  border: 1px solid #2f2f2f;
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
   z-index: 9999999;
   overflow: hidden;
 }
@@ -630,9 +631,9 @@ const formatTime = (sec) => {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #a0aec0;
-  background: #f7fafc;
-  border-bottom: 1px solid #edf2f7;
+  color: #888888;
+  background: #1f1f1f;
+  border-bottom: 1px solid #282828;
 }
 
 .playlist-list {
@@ -651,15 +652,15 @@ const formatTime = (sec) => {
 }
 
 .playlist-item:hover {
-  background: #f7fafc;
+  background: #252525;
 }
 
 .playlist-item.is-active {
-  background: #fff5f5;
+  background: #2d1f21;
 }
 
 .playing-mark {
-  color: #ee5253;
+  color: #ff6b81;
   font-size: 10px;
 }
 
@@ -671,16 +672,16 @@ const formatTime = (sec) => {
 .playlist-item-name {
   font-size: 12px;
   font-weight: 600;
-  color: #2d3748;
+  color: #f1f1f1;
 }
 
 .playlist-item.is-active .playlist-item-name {
-  color: #ee5253;
+  color: #ff6b81;
 }
 
 .playlist-item-artist {
   font-size: 10px;
-  color: #718096;
+  color: #aaaaaa;
 }
 
 /* Time & Animated Sound Waves */
@@ -693,7 +694,7 @@ const formatTime = (sec) => {
 .time-display {
   font-size: 12px;
   font-weight: 500;
-  color: #a0aec0;
+  color: #888888;
   font-variant-numeric: tabular-nums;
 }
 
@@ -708,7 +709,7 @@ const formatTime = (sec) => {
 .playing-indicator span {
   width: 3px;
   height: 3px;
-  background-color: #ee5253;
+  background-color: #ff6b81;
   border-radius: 1px;
   transition: height 0.2s ease;
 }
