@@ -17,12 +17,18 @@
           <div
             class="boat-wrapper"
             :class="[
-              speedMode === 'turbo' ? 'boat-fast nitro-active' : 'boat-normal'
+              speedMode === 'turbo' ? 'boat-fast nitro-active' : 'boat-normal',
             ]"
           >
             <svg viewBox="0 0 1000 450" class="boat-svg">
               <defs>
-                <linearGradient id="hullGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <linearGradient
+                  id="hullGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
                   <stop offset="0%" stop-color="#ffffff" />
                   <stop offset="45%" stop-color="#e2e8f0" />
                   <stop offset="50%" stop-color="#00bebc" />
@@ -32,139 +38,439 @@
                   <stop offset="100%" stop-color="#1e152a" />
                 </linearGradient>
 
-                <linearGradient id="deckGradient" x1="0%" y1="0%" x2="100%" y2="50%">
+                <linearGradient
+                  id="deckGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="50%"
+                >
                   <stop offset="0%" stop-color="#f8fafc" />
                   <stop offset="50%" stop-color="#cbd5e1" />
                   <stop offset="100%" stop-color="#64748b" />
                 </linearGradient>
 
-                <linearGradient id="windshieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient
+                  id="windshieldGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
                   <stop offset="0%" stop-color="#ff9a9e" stop-opacity="0.8" />
                   <stop offset="50%" stop-color="#fecfef" stop-opacity="0.5" />
                   <stop offset="100%" stop-color="#6b1158" stop-opacity="0.9" />
                 </linearGradient>
 
-                <linearGradient id="suitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient
+                  id="suitGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
                   <stop offset="0%" stop-color="#f1f5f9" />
                   <stop offset="60%" stop-color="#cbd5e1" />
                   <stop offset="100%" stop-color="#94a3b8" />
                 </linearGradient>
 
-                <linearGradient id="shirtGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <linearGradient
+                  id="shirtGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
                   <stop offset="0%" stop-color="#38bdf8" />
                   <stop offset="100%" stop-color="#0284c7" />
                 </linearGradient>
 
-                <linearGradient id="skinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient
+                  id="skinGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
                   <stop offset="0%" stop-color="#ffdbac" />
                   <stop offset="70%" stop-color="#f1c27d" />
                   <stop offset="100%" stop-color="#e0ac69" />
                 </linearGradient>
 
-                <linearGradient id="flameGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+                <linearGradient
+                  id="flameGrad"
+                  x1="0%"
+                  y1="50%"
+                  x2="100%"
+                  y2="50%"
+                >
                   <stop offset="0%" stop-color="#ffffff" />
                   <stop offset="30%" stop-color="#ffea00" />
                   <stop offset="70%" stop-color="#ff4400" />
                   <stop offset="100%" stop-color="#ff0055" stop-opacity="0" />
                 </linearGradient>
 
-                <filter id="vectorShadow" x="-10%" y="-10%" width="130%" height="130%">
-                  <feDropShadow dx="3" dy="4" stdDeviation="0" flood-color="#0b0813" flood-opacity="0.9" />
+                <filter
+                  id="vectorShadow"
+                  x="-10%"
+                  y="-10%"
+                  width="130%"
+                  height="130%"
+                >
+                  <feDropShadow
+                    dx="3"
+                    dy="4"
+                    stdDeviation="0"
+                    flood-color="#0b0813"
+                    flood-opacity="0.9"
+                  />
                 </filter>
               </defs>
 
               <!-- NITRO EXHAUST FLAMES -->
-              <g class="nitro-group" :class="{ 'flames-hidden': speedMode !== 'turbo' }">
-                <polygon points="120,285 20,270 90,295 10,310 120,305" fill="url(#flameGrad)">
-                  <animate attributeName="opacity" values="0.7;1;0.8;1" dur="0.1s" repeatCount="indefinite" />
+              <g
+                class="nitro-group"
+                :class="{ 'flames-hidden': speedMode !== 'turbo' }"
+              >
+                <polygon
+                  points="120,285 20,270 90,295 10,310 120,305"
+                  fill="url(#flameGrad)"
+                >
+                  <animate
+                    attributeName="opacity"
+                    values="0.7;1;0.8;1"
+                    dur="0.1s"
+                    repeatCount="indefinite"
+                  />
                 </polygon>
-                <polygon points="110,295 0,290 80,310 -20,330 110,320" fill="url(#flameGrad)">
-                  <animate attributeName="opacity" values="1;0.6;0.9;0.7" dur="0.12s" repeatCount="indefinite" />
+                <polygon
+                  points="110,295 0,290 80,310 -20,330 110,320"
+                  fill="url(#flameGrad)"
+                >
+                  <animate
+                    attributeName="opacity"
+                    values="1;0.6;0.9;0.7"
+                    dur="0.12s"
+                    repeatCount="indefinite"
+                  />
                 </polygon>
               </g>
 
               <!-- DUAL ENGINE EXHAUST PIPES -->
               <g stroke="#1e293b" stroke-width="2">
-                <rect x="110" y="280" width="22" height="12" rx="2" fill="#64748b" />
+                <rect
+                  x="110"
+                  y="280"
+                  width="22"
+                  height="12"
+                  rx="2"
+                  fill="#64748b"
+                />
                 <circle cx="114" cy="286" r="4" fill="#0f172a" />
-                <rect x="100" y="295" width="22" height="12" rx="2" fill="#475569" />
+                <rect
+                  x="100"
+                  y="295"
+                  width="22"
+                  height="12"
+                  rx="2"
+                  fill="#475569"
+                />
                 <circle cx="104" cy="301" r="4" fill="#0f172a" />
               </g>
 
               <!-- BOAT HULL BASE SHADOW -->
-              <path d="M 120 330 L 890 330 L 980 345 L 850 365 L 140 360 Z" fill="#051322" opacity="0.6" />
+              <path
+                d="M 120 330 L 890 330 L 980 345 L 850 365 L 140 360 Z"
+                fill="#051322"
+                opacity="0.6"
+              />
 
               <!-- MAIN BOAT HULL -->
-              <path d="M 130 265 L 420 250 L 450 280 L 120 295 Z" fill="#cbd5e1" stroke="#0f172a" stroke-width="4" />
-              <path d="M 130 265 L 350 255 L 360 270 L 120 280 Z" fill="#f8fafc" />
+              <path
+                d="M 130 265 L 420 250 L 450 280 L 120 295 Z"
+                fill="#cbd5e1"
+                stroke="#0f172a"
+                stroke-width="4"
+              />
+              <path
+                d="M 130 265 L 350 255 L 360 270 L 120 280 Z"
+                fill="#f8fafc"
+              />
 
               <!-- Engine Scoop Grill -->
-              <polygon points="200,256 310,251 320,263 210,268" fill="#1e293b" stroke="#475569" stroke-width="2" />
-              <line x1="230" y1="255" x2="237" y2="266" stroke="#ff2a8d" stroke-width="3" />
-              <line x1="250" y1="254" x2="257" y2="265" stroke="#00bebc" stroke-width="3" />
-              <line x1="270" y1="253" x2="277" y2="264" stroke="#ff2a8d" stroke-width="3" />
+              <polygon
+                points="200,256 310,251 320,263 210,268"
+                fill="#1e293b"
+                stroke="#475569"
+                stroke-width="2"
+              />
+              <line
+                x1="230"
+                y1="255"
+                x2="237"
+                y2="266"
+                stroke="#ff2a8d"
+                stroke-width="3"
+              />
+              <line
+                x1="250"
+                y1="254"
+                x2="257"
+                y2="265"
+                stroke="#00bebc"
+                stroke-width="3"
+              />
+              <line
+                x1="270"
+                y1="253"
+                x2="277"
+                y2="264"
+                stroke="#ff2a8d"
+                stroke-width="3"
+              />
 
               <!-- DRIVER: Bong Tubs -->
               <g class="interactive-object" @click="interactBong">
-                <path d="M 400 220 C 400 190, 425 185, 440 185 C 455 185, 465 200, 465 240 Z" fill="#007a78" stroke="#0f172a" stroke-width="3" />
-                <path d="M 410 240 Q 425 210 460 212 L 515 255 L 450 275 Z" fill="url(#suitGrad)" stroke="#1e293b" stroke-width="3.5" />
-                <path d="M 460 215 L 525 228 L 545 250 L 510 255 Z" fill="#e2e8f0" stroke="#1e293b" stroke-width="3" />
-                <path d="M 525 228 L 565 235 L 570 248 L 545 250 Z" fill="url(#skinGrad)" stroke="#1e293b" stroke-width="2.5" />
-                <path d="M 480 214 L 505 218 L 498 245 L 478 240 Z" fill="url(#shirtGrad)" stroke="#0f172a" stroke-width="2" />
+                <path
+                  d="M 400 220 C 400 190, 425 185, 440 185 C 455 185, 465 200, 465 240 Z"
+                  fill="#007a78"
+                  stroke="#0f172a"
+                  stroke-width="3"
+                />
+                <path
+                  d="M 410 240 Q 425 210 460 212 L 515 255 L 450 275 Z"
+                  fill="url(#suitGrad)"
+                  stroke="#1e293b"
+                  stroke-width="3.5"
+                />
+                <path
+                  d="M 460 215 L 525 228 L 545 250 L 510 255 Z"
+                  fill="#e2e8f0"
+                  stroke="#1e293b"
+                  stroke-width="3"
+                />
+                <path
+                  d="M 525 228 L 565 235 L 570 248 L 545 250 Z"
+                  fill="url(#skinGrad)"
+                  stroke="#1e293b"
+                  stroke-width="2.5"
+                />
+                <path
+                  d="M 480 214 L 505 218 L 498 245 L 478 240 Z"
+                  fill="url(#shirtGrad)"
+                  stroke="#0f172a"
+                  stroke-width="2"
+                />
 
                 <!-- Head & Face -->
-                <path d="M 470 198 L 488 200 L 485 216 L 467 214 Z" fill="#e0ac69" stroke="#1e293b" stroke-width="2" />
-                <path d="M 462 170 C 455 155, 485 145, 500 162 C 512 175, 505 195, 488 202 C 472 205, 460 190, 462 170 Z" fill="url(#skinGrad)" stroke="#1e293b" stroke-width="3.5" />
-                <path d="M 475 185 Q 495 188 498 198 C 490 205, 470 203, 470 192 Z" fill="#ab8154" opacity="0.6" />
-                <ellipse cx="468" cy="180" rx="4" ry="6" fill="#e0ac69" stroke="#1e293b" stroke-width="2" />
-                <path d="M 458 175 C 450 160, 460 140, 485 142 C 505 140, 515 155, 508 168 C 498 152, 475 150, 462 168 Z" fill="#d97706" stroke="#1e293b" stroke-width="3" />
-                <path d="M 470 144 C 485 148, 500 156, 505 165" stroke="#fef08a" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path
+                  d="M 470 198 L 488 200 L 485 216 L 467 214 Z"
+                  fill="#e0ac69"
+                  stroke="#1e293b"
+                  stroke-width="2"
+                />
+                <path
+                  d="M 462 170 C 455 155, 485 145, 500 162 C 512 175, 505 195, 488 202 C 472 205, 460 190, 462 170 Z"
+                  fill="url(#skinGrad)"
+                  stroke="#1e293b"
+                  stroke-width="3.5"
+                />
+                <path
+                  d="M 475 185 Q 495 188 498 198 C 490 205, 470 203, 470 192 Z"
+                  fill="#ab8154"
+                  opacity="0.6"
+                />
+                <ellipse
+                  cx="468"
+                  cy="180"
+                  rx="4"
+                  ry="6"
+                  fill="#e0ac69"
+                  stroke="#1e293b"
+                  stroke-width="2"
+                />
+                <path
+                  d="M 458 175 C 450 160, 460 140, 485 142 C 505 140, 515 155, 508 168 C 498 152, 475 150, 462 168 Z"
+                  fill="#d97706"
+                  stroke="#1e293b"
+                  stroke-width="3"
+                />
+                <path
+                  d="M 470 144 C 485 148, 500 156, 505 165"
+                  stroke="#fef08a"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  fill="none"
+                />
 
                 <!-- Sunglasses -->
-                <path d="M 482 170 L 506 172 L 504 183 L 484 180 Z" fill="#09080e" stroke="#fbbf24" stroke-width="2" />
-                <path d="M 494 171 L 494 174" stroke="#fbbf24" stroke-width="2" />
-                <line x1="485" y1="173" x2="492" y2="180" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
-                <line x1="497" y1="174" x2="502" y2="180" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.8" />
+                <path
+                  d="M 482 170 L 506 172 L 504 183 L 484 180 Z"
+                  fill="#09080e"
+                  stroke="#fbbf24"
+                  stroke-width="2"
+                />
+                <path
+                  d="M 494 171 L 494 174"
+                  stroke="#fbbf24"
+                  stroke-width="2"
+                />
+                <line
+                  x1="485"
+                  y1="173"
+                  x2="492"
+                  y2="180"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="497"
+                  y1="174"
+                  x2="502"
+                  y2="180"
+                  stroke="#ffffff"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-opacity="0.8"
+                />
 
                 <!-- Hands -->
-                <ellipse cx="572" cy="242" rx="7" ry="6" fill="#f1c27d" stroke="#1e293b" stroke-width="2" />
+                <ellipse
+                  cx="572"
+                  cy="242"
+                  rx="7"
+                  ry="6"
+                  fill="#f1c27d"
+                  stroke="#1e293b"
+                  stroke-width="2"
+                />
               </g>
 
               <!-- DASHBOARD & WINDSHIELD -->
-              <ellipse cx="578" cy="245" rx="5" ry="18" fill="none" stroke="#334155" stroke-width="4.5" />
-              <line x1="578" y1="245" x2="568" y2="245" stroke="#94a3b8" stroke-width="3" />
-              <path d="M 440 248 L 520 185 L 630 188 L 660 240 Z" fill="url(#windshieldGrad)" stroke="#0f172a" stroke-width="4" />
+              <ellipse
+                cx="578"
+                cy="245"
+                rx="5"
+                ry="18"
+                fill="none"
+                stroke="#334155"
+                stroke-width="4.5"
+              />
+              <line
+                x1="578"
+                y1="245"
+                x2="568"
+                y2="245"
+                stroke="#94a3b8"
+                stroke-width="3"
+              />
+              <path
+                d="M 440 248 L 520 185 L 630 188 L 660 240 Z"
+                fill="url(#windshieldGrad)"
+                stroke="#0f172a"
+                stroke-width="4"
+              />
               <path d="M 520 185 L 530 242" stroke="#1e293b" stroke-width="3" />
-              <path d="M 445 242 L 515 190" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6" />
+              <path
+                d="M 445 242 L 515 190"
+                stroke="#ffffff"
+                stroke-width="3"
+                stroke-linecap="round"
+                opacity="0.6"
+              />
 
               <!-- HULL BODY -->
-              <path d="M 120 295 L 450 280 L 660 240 L 980 325 L 880 335 L 120 300 Z" fill="url(#deckGradient)" stroke="#0f172a" stroke-width="4" />
-              <path d="M 115 295 L 880 335 L 980 325 L 910 345 L 160 338 Z" fill="url(#hullGradient)" stroke="#0f172a" stroke-width="4" filter="url(#vectorShadow)" />
+              <path
+                d="M 120 295 L 450 280 L 660 240 L 980 325 L 880 335 L 120 300 Z"
+                fill="url(#deckGradient)"
+                stroke="#0f172a"
+                stroke-width="4"
+              />
+              <path
+                d="M 115 295 L 880 335 L 980 325 L 910 345 L 160 338 Z"
+                fill="url(#hullGradient)"
+                stroke="#0f172a"
+                stroke-width="4"
+                filter="url(#vectorShadow)"
+              />
 
               <!-- STRIPES -->
-              <path d="M 180 310 L 850 332 L 910 330 L 820 338 L 175 320 Z" fill="#ff2a8d" />
-              <path d="M 220 304 L 800 327 L 860 326 L 780 331 L 215 311 Z" fill="#00bebc" />
-              <polygon points="300,300 700,320 730,323 290,305" fill="#ffda79" />
+              <path
+                d="M 180 310 L 850 332 L 910 330 L 820 338 L 175 320 Z"
+                fill="#ff2a8d"
+              />
+              <path
+                d="M 220 304 L 800 327 L 860 326 L 780 331 L 215 311 Z"
+                fill="#00bebc"
+              />
+              <polygon
+                points="300,300 700,320 730,323 290,305"
+                fill="#ffda79"
+              />
 
-              <text x="320" y="318" class="boat-title-text" transform="rotate(1.5, 320, 318)" letter-spacing="2">SCARAB 38</text>
+              <text
+                x="320"
+                y="318"
+                class="boat-title-text"
+                transform="rotate(1.5, 320, 318)"
+                letter-spacing="2"
+              >
+                SCARAB 38
+              </text>
 
-              <path d="M 660 238 L 965 320" stroke="#f8fafc" stroke-width="4" stroke-linecap="round" />
-              <path d="M 720 252 L 720 262 M 800 274 L 800 284 M 880 297 L 880 307" stroke="#94a3b8" stroke-width="2.5" />
+              <path
+                d="M 660 238 L 965 320"
+                stroke="#f8fafc"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+              <path
+                d="M 720 252 L 720 262 M 800 274 L 800 284 M 880 297 L 880 307"
+                stroke="#94a3b8"
+                stroke-width="2.5"
+              />
 
               <!-- WATER SPRAY -->
               <g>
-                <path d="M 920 330 Q 970 310 1000 260 Q 960 320 900 340 Z" fill="#ffffff" opacity="0.85">
-                  <animate attributeName="d" values="M 920 330 Q 970 310 1000 260 Q 960 320 900 340 Z; M 920 330 Q 980 300 1010 240 Q 950 325 900 340 Z; M 920 330 Q 970 310 1000 260 Q 960 320 900 340 Z" dur="0.2s" repeatCount="indefinite" />
+                <path
+                  d="M 920 330 Q 970 310 1000 260 Q 960 320 900 340 Z"
+                  fill="#ffffff"
+                  opacity="0.85"
+                >
+                  <animate
+                    attributeName="d"
+                    values="M 920 330 Q 970 310 1000 260 Q 960 320 900 340 Z; M 920 330 Q 980 300 1010 240 Q 950 325 900 340 Z; M 920 330 Q 970 310 1000 260 Q 960 320 900 340 Z"
+                    dur="0.2s"
+                    repeatCount="indefinite"
+                  />
                 </path>
-                <path d="M 880 335 Q 940 330 980 290 Q 930 340 860 345 Z" fill="#66e4e8" opacity="0.7">
-                  <animate attributeName="d" values="M 880 335 Q 940 330 980 290 Q 930 340 860 345 Z; M 880 335 Q 950 320 990 280 Q 920 345 860 345 Z; M 880 335 Q 940 330 980 290 Q 930 340 860 345 Z" dur="0.25s" repeatCount="indefinite" />
+                <path
+                  d="M 880 335 Q 940 330 980 290 Q 930 340 860 345 Z"
+                  fill="#66e4e8"
+                  opacity="0.7"
+                >
+                  <animate
+                    attributeName="d"
+                    values="M 880 335 Q 940 330 980 290 Q 930 340 860 345 Z; M 880 335 Q 950 320 990 280 Q 920 345 860 345 Z; M 880 335 Q 940 330 980 290 Q 930 340 860 345 Z"
+                    dur="0.25s"
+                    repeatCount="indefinite"
+                  />
                 </path>
               </g>
 
               <!-- REAR WAKE FOAM -->
               <g>
-                <path d="M 160 335 Q 90 320 10 360 Q 90 350 170 345 Z" fill="#ffffff" opacity="0.8" />
-                <path d="M 200 340 Q 110 335 30 390 Q 110 365 210 350 Z" fill="#55e6c1" opacity="0.5" />
+                <path
+                  d="M 160 335 Q 90 320 10 360 Q 90 350 170 345 Z"
+                  fill="#ffffff"
+                  opacity="0.8"
+                />
+                <path
+                  d="M 200 340 Q 110 335 30 390 Q 110 365 210 350 Z"
+                  fill="#55e6c1"
+                  opacity="0.5"
+                />
               </g>
             </svg>
           </div>
@@ -180,9 +486,7 @@
 
         <!-- GAME DIALOG OVERLAY -->
         <div class="dialog-container" :class="{ 'dialog-hidden': !showDialog }">
-          <span class="dialog-box">
-            "{{ currentQuote }}"
-          </span>
+          <span class="dialog-box"> "{{ currentQuote }}" </span>
         </div>
 
         <!-- SPEEDOMETER HUD OVERLAY -->
@@ -214,7 +518,7 @@
               class="audio-btn"
               :class="isAudioOn ? 'audio-on' : 'audio-off'"
             >
-              🔊 AUDIO: {{ isAudioOn ? 'ON' : 'OFF' }}
+              🔊 AUDIO: {{ isAudioOn ? "ON" : "OFF" }}
             </button>
           </div>
         </div>
@@ -242,7 +546,7 @@
                 class="mode-badge"
                 :class="speedMode === 'turbo' ? 'badge-turbo' : 'badge-cruise'"
               >
-                {{ speedMode === 'turbo' ? 'TURBO NITRO' : 'CRUISE' }}
+                {{ speedMode === "turbo" ? "TURBO NITRO" : "CRUISE" }}
               </span>
             </div>
 
@@ -286,19 +590,19 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from "vue";
 
 // Refs & Reactive State
 const stageCanvas = ref(null);
 const gameWindow = ref(null);
 
-const speedMode = ref('cruise');
+const speedMode = ref("cruise");
 const targetSpeed = ref(65);
 const currentSpeed = ref(65);
-const selectedVerb = ref('Use');
-const actionText = ref('Walk to speedboat');
+const selectedVerb = ref("Use");
+const actionText = ref("Walk to speedboat");
 const showDialog = ref(false);
-const currentQuote = ref('');
+const currentQuote = ref("");
 
 const isAudioOn = ref(false);
 let audioCtx = null;
@@ -307,17 +611,23 @@ let engineGain = null;
 let animationFrameId = null;
 
 const verbs = [
-  'Give', 'Open', 'Close',
-  'Pick up', 'Look at', 'Talk to',
-  'Use', 'Push', 'Pull'
+  "Give",
+  "Open",
+  "Close",
+  "Pick up",
+  "Look at",
+  "Talk to",
+  "Use",
+  "Push",
+  "Pull",
 ];
 
 const quotes = [
-  'We gotta catch Tubbs before the offshore drop.',
-  'This Scarab 38 KV handles like a dream.',
-  'Keep your eyes peeled for Vice command.',
-  'No time for a coffee break, partner.',
-  'I love the smell of ocean salt and race fuel in the evening.'
+  "We gotta catch Tubbs before the offshore drop.",
+  "This Scarab 38 KV handles like a dream.",
+  "Keep your eyes peeled for Vice command.",
+  "No time for a coffee break, partner.",
+  "I love the smell of ocean salt and race fuel in the evening.",
 ];
 let quoteIdx = 0;
 
@@ -341,14 +651,14 @@ class SprayParticle {
     this.reset();
   }
   reset() {
-    const isTurbo = speedMode.value === 'turbo';
+    const isTurbo = speedMode.value === "turbo";
     this.x = width * 0.75 + (Math.random() * 40 - 20);
-    this.y = height * 0.72 + (Math.random() * 10);
-    this.vx = (Math.random() * 4 + (isTurbo ? 10 : 5));
+    this.y = height * 0.72 + Math.random() * 10;
+    this.vx = Math.random() * 4 + (isTurbo ? 10 : 5);
     this.vy = -(Math.random() * 3 + (isTurbo ? 6 : 3));
     this.size = Math.random() * (isTurbo ? 6 : 4) + 2;
     this.alpha = 1;
-    this.color = Math.random() > 0.3 ? '#ffffff' : '#66e4e8';
+    this.color = Math.random() > 0.3 ? "#ffffff" : "#66e4e8";
   }
   update() {
     this.x += this.vx;
@@ -373,7 +683,7 @@ function initBackgroundElements() {
       x: Math.random() * width,
       y: Math.random() * (height * 0.4),
       size: Math.random() * 2 + 1,
-      alpha: Math.random()
+      alpha: Math.random(),
     });
   }
 
@@ -386,7 +696,7 @@ function initBackgroundElements() {
       x: currentX,
       w: bWidth,
       h: bHeight,
-      type: Math.floor(Math.random() * 3)
+      type: Math.floor(Math.random() * 3),
     });
     currentX += bWidth + Math.random() * 15;
   }
@@ -395,7 +705,7 @@ function initBackgroundElements() {
   for (let i = 0; i < 5; i++) {
     palmTrees.push({
       x: (width / 4) * i + Math.random() * 100,
-      scale: 0.5 + Math.random() * 0.5
+      scale: 0.5 + Math.random() * 0.5,
     });
   }
 
@@ -418,7 +728,7 @@ function drawPalmTree(ctx, x, y, scale) {
   ctx.save();
   ctx.translate(x, y);
   ctx.scale(scale, scale);
-  ctx.fillStyle = '#0a0314';
+  ctx.fillStyle = "#0a0314";
 
   ctx.beginPath();
   ctx.moveTo(-5, 0);
@@ -443,18 +753,18 @@ function drawPalmTree(ctx, x, y, scale) {
 
 function renderScene() {
   if (!ctx) return;
-  time += speedMode.value === 'turbo' ? 0.08 : 0.03;
+  time += speedMode.value === "turbo" ? 0.08 : 0.03;
 
   const horizonY = height * 0.52;
   const skyGrad = ctx.createLinearGradient(0, 0, 0, horizonY);
-  skyGrad.addColorStop(0, '#120524');
-  skyGrad.addColorStop(0.4, '#4a0e4e');
-  skyGrad.addColorStop(0.75, '#b8165c');
-  skyGrad.addColorStop(1, '#ff6b4a');
+  skyGrad.addColorStop(0, "#120524");
+  skyGrad.addColorStop(0.4, "#4a0e4e");
+  skyGrad.addColorStop(0.75, "#b8165c");
+  skyGrad.addColorStop(1, "#ff6b4a");
   ctx.fillStyle = skyGrad;
   ctx.fillRect(0, 0, width, horizonY);
 
-  ctx.fillStyle = '#ffffff';
+  ctx.fillStyle = "#ffffff";
   stars.forEach((star) => {
     ctx.globalAlpha = 0.3 + Math.sin(time * 2 + star.x) * 0.4;
     ctx.fillRect(star.x, star.y, star.size, star.size);
@@ -465,10 +775,15 @@ function renderScene() {
   const sunX = width * 0.3;
   const sunY = horizonY - sunRadius * 0.3;
 
-  const sunGrad = ctx.createLinearGradient(sunX, sunY - sunRadius, sunX, sunY + sunRadius);
-  sunGrad.addColorStop(0, '#ffe600');
-  sunGrad.addColorStop(0.5, '#ff2a8d');
-  sunGrad.addColorStop(1, '#b8165c');
+  const sunGrad = ctx.createLinearGradient(
+    sunX,
+    sunY - sunRadius,
+    sunX,
+    sunY + sunRadius,
+  );
+  sunGrad.addColorStop(0, "#ffe600");
+  sunGrad.addColorStop(0.5, "#ff2a8d");
+  sunGrad.addColorStop(1, "#b8165c");
 
   ctx.save();
   ctx.fillStyle = sunGrad;
@@ -476,27 +791,32 @@ function renderScene() {
   ctx.arc(sunX, sunY, sunRadius, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.fillStyle = '#120524';
+  ctx.fillStyle = "#120524";
   const numBlinds = 6;
   for (let i = 0; i < numBlinds; i++) {
     const blindY = sunY + i * (sunRadius / numBlinds) - 5;
     const blindHeight = 2 + i * 1.5;
-    ctx.fillRect(sunX - sunRadius - 10, blindY, sunRadius * 2 + 20, blindHeight);
+    ctx.fillRect(
+      sunX - sunRadius - 10,
+      blindY,
+      sunRadius * 2 + 20,
+      blindHeight,
+    );
   }
   ctx.restore();
 
   const citySpeed = (time * 15) % width;
-  ctx.fillStyle = '#1e0838';
+  ctx.fillStyle = "#1e0838";
   cityBuildings.forEach((b) => {
     let drawX = (b.x - citySpeed) % (width + 100);
     if (drawX < -100) drawX += width + 100;
     ctx.fillRect(drawX, horizonY - b.h, b.w, b.h);
-    ctx.fillStyle = '#ffda79';
+    ctx.fillStyle = "#ffda79";
     if (b.type === 1) {
       ctx.fillRect(drawX + 5, horizonY - b.h + 10, 4, 4);
       ctx.fillRect(drawX + 15, horizonY - b.h + 25, 4, 4);
     }
-    ctx.fillStyle = '#1e0838';
+    ctx.fillStyle = "#1e0838";
   });
 
   const palmSpeed = (time * 40) % (width + 200);
@@ -507,10 +827,10 @@ function renderScene() {
   });
 
   const oceanGrad = ctx.createLinearGradient(0, horizonY, 0, height);
-  oceanGrad.addColorStop(0, '#0a243a');
-  oceanGrad.addColorStop(0.3, '#094359');
-  oceanGrad.addColorStop(0.7, '#086375');
-  oceanGrad.addColorStop(1, '#031c28');
+  oceanGrad.addColorStop(0, "#0a243a");
+  oceanGrad.addColorStop(0.3, "#094359");
+  oceanGrad.addColorStop(0.7, "#086375");
+  oceanGrad.addColorStop(1, "#031c28");
   ctx.fillStyle = oceanGrad;
   ctx.fillRect(0, horizonY, width, height - horizonY);
 
@@ -523,7 +843,7 @@ function renderScene() {
     const waveSpeed = time * (1 + progress * 4);
     const waveShift = Math.sin(waveSpeed + i) * (10 + progress * 30);
 
-    ctx.strokeStyle = i % 2 === 0 ? '#18a999' : '#00bebc';
+    ctx.strokeStyle = i % 2 === 0 ? "#18a999" : "#00bebc";
     ctx.lineWidth = 1 + progress * 3.5;
 
     ctx.beginPath();
@@ -536,10 +856,15 @@ function renderScene() {
     ctx.stroke();
 
     if (progress > 0.1) {
-      ctx.fillStyle = i % 2 === 0 ? '#ff2a8d' : '#ffda79';
+      ctx.fillStyle = i % 2 === 0 ? "#ff2a8d" : "#ffda79";
       ctx.globalAlpha = 0.4 - progress * 0.25;
       const reflWidth = 100 + progress * 300;
-      ctx.fillRect(sunX - reflWidth / 2 + waveShift, y, reflWidth, 2 + progress * 3);
+      ctx.fillRect(
+        sunX - reflWidth / 2 + waveShift,
+        y,
+        reflWidth,
+        2 + progress * 3,
+      );
       ctx.globalAlpha = 1.0;
     }
   }
@@ -557,13 +882,13 @@ function renderScene() {
 // Gameplay Interactivity Logic
 function setSpeed(mode) {
   speedMode.value = mode;
-  if (mode === 'turbo') {
+  if (mode === "turbo") {
     targetSpeed.value = 115;
-    actionText.value = 'Engage twin-turbo nitro boosters!';
+    actionText.value = "Engage twin-turbo nitro boosters!";
     playEngineSound(1.8);
   } else {
     targetSpeed.value = 65;
-    actionText.value = 'Cruising through Biscayne Bay';
+    actionText.value = "Cruising through Biscayne Bay";
     playEngineSound(1.0);
   }
 }
@@ -601,10 +926,10 @@ function initAudio() {
   const engineFilter = audioCtx.createBiquadFilter();
   engineGain = audioCtx.createGain();
 
-  engineOsc.type = 'sawtooth';
+  engineOsc.type = "sawtooth";
   engineOsc.frequency.setValueAtTime(55, audioCtx.currentTime);
 
-  engineFilter.type = 'lowpass';
+  engineFilter.type = "lowpass";
   engineFilter.frequency.setValueAtTime(220, audioCtx.currentTime);
 
   engineGain.gain.setValueAtTime(0.05, audioCtx.currentTime);
@@ -618,7 +943,7 @@ function initAudio() {
 function toggleAudio() {
   if (!isAudioOn.value) {
     initAudio();
-    if (audioCtx && audioCtx.state === 'suspended') {
+    if (audioCtx && audioCtx.state === "suspended") {
       audioCtx.resume();
     }
     isAudioOn.value = true;
@@ -630,7 +955,11 @@ function toggleAudio() {
 
 function playEngineSound(multiplier) {
   if (!audioCtx || !isAudioOn.value) return;
-  engineOsc.frequency.setTargetAtTime(55 * multiplier, audioCtx.currentTime, 0.1);
+  engineOsc.frequency.setTargetAtTime(
+    55 * multiplier,
+    audioCtx.currentTime,
+    0.1,
+  );
 }
 
 function playVoiceBeep() {
@@ -639,7 +968,7 @@ function playVoiceBeep() {
   for (let i = 0; i < 6; i++) {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-    osc.type = 'square';
+    osc.type = "square";
     osc.frequency.setValueAtTime(280 + Math.random() * 120, now + i * 0.08);
     gain.gain.setValueAtTime(0.04, now + i * 0.08);
     gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.05);
@@ -651,54 +980,83 @@ function playVoiceBeep() {
 }
 
 function handleFirstClick() {
-  if (audioCtx && audioCtx.state === 'suspended' && isAudioOn.value) {
+  if (audioCtx && audioCtx.state === "suspended" && isAudioOn.value) {
     audioCtx.resume();
   }
 }
 
 onMounted(() => {
   if (stageCanvas.value) {
-    ctx = stageCanvas.value.getContext('2d');
+    ctx = stageCanvas.value.getContext("2d");
   }
   resizeCanvas();
   renderScene();
-  window.addEventListener('resize', resizeCanvas);
-  document.body.addEventListener('click', handleFirstClick, { once: true });
+  window.addEventListener("resize", resizeCanvas);
+  document.body.addEventListener("click", handleFirstClick, { once: true });
+
+  // Set initial value on mount
+  isMobile.value = mediaQuery.matches;
+  // Listen for window resize/breakpoint changes
+  mediaQuery.addEventListener("change", updateScreenSize);
 });
 
 onUnmounted(() => {
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
-  window.removeEventListener('resize', resizeCanvas);
-  document.body.removeEventListener('click', handleFirstClick);
+  window.removeEventListener("resize", resizeCanvas);
+  document.body.removeEventListener("click", handleFirstClick);
   if (audioCtx) {
     audioCtx.close();
   }
+  // Remove media query listener on unmount
+  mediaQuery.removeEventListener("change", updateScreenSize);
+});
+
+// 1. Create a reactive reference for the screen width condition
+const isMobile = ref(false);
+
+// Define your mobile breakpoint (e.g., 768px for standard tablets/phones)
+const mediaQuery = window.matchMedia("(max-width: 767px)");
+
+// 2. Update the reference when the match state changes
+const updateScreenSize = (e) => {
+  isMobile.value = e.matches;
+};
+
+// 3. Use it just like a computed property or reactive state
+const dynamicClass = computed(() => {
+  return isMobile.value ? "mobile-layout" : "desktop-layout";
 });
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Outfit:wght@600;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Outfit:wght@600;800&display=swap");
+
+
 
 /* Base Container Styling */
 .game-app-container {
-
-  display: flex;
+  display: none; /* Hidden by default on mobile */
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
- 
+
   background-color: #030712;
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
 }
-
+/* Shown on screens wider than 768px (Desktop/Tablet) */
+@media (min-width: 768px) {
+  .game-app-container {
+    display: flex; /* or flex, grid, etc. */
+  }
+}
 /* Game Window Container */
 .game-window {
   position: relative;
   width: 100%;
-  
+
   aspect-ratio: 16 / 10;
   max-height: 82vh;
   background-color: #000000;
@@ -711,10 +1069,7 @@ onUnmounted(() => {
 
 /* CRT & Scanline Effects */
 .scanlines {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%,
-    rgba(0, 0, 0, 0.35) 50%
-  );
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
   background-size: 100% 4px;
   pointer-events: none;
   position: absolute;
@@ -723,7 +1078,9 @@ onUnmounted(() => {
 }
 
 .game-window {
-  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.75), 0 0 20px rgba(235, 87, 147, 0.2);
+  box-shadow:
+    inset 0 0 80px rgba(0, 0, 0, 0.75),
+    0 0 20px rgba(235, 87, 147, 0.2);
 }
 
 /* Viewport Layout */
@@ -769,20 +1126,42 @@ onUnmounted(() => {
 }
 
 @keyframes boatBobbing {
-  0% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-4px) rotate(1.2deg); }
-  50% { transform: translateY(2px) rotate(-0.8deg); }
-  75% { transform: translateY(-7px) rotate(2deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-4px) rotate(1.2deg);
+  }
+  50% {
+    transform: translateY(2px) rotate(-0.8deg);
+  }
+  75% {
+    transform: translateY(-7px) rotate(2deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 }
 
 @keyframes boatTurbo {
-  0% { transform: translateY(-2px) rotate(4deg) translateX(0px); }
-  20% { transform: translateY(4px) rotate(2.5deg) translateX(-3px); }
-  40% { transform: translateY(-6px) rotate(5deg) translateX(2px); }
-  60% { transform: translateY(3px) rotate(3deg) translateX(-1px); }
-  80% { transform: translateY(-8px) rotate(5.5deg) translateX(3px); }
-  100% { transform: translateY(-2px) rotate(4deg) translateX(0px); }
+  0% {
+    transform: translateY(-2px) rotate(4deg) translateX(0px);
+  }
+  20% {
+    transform: translateY(4px) rotate(2.5deg) translateX(-3px);
+  }
+  40% {
+    transform: translateY(-6px) rotate(5deg) translateX(2px);
+  }
+  60% {
+    transform: translateY(3px) rotate(3deg) translateX(-1px);
+  }
+  80% {
+    transform: translateY(-8px) rotate(5.5deg) translateX(3px);
+  }
+  100% {
+    transform: translateY(-2px) rotate(4deg) translateX(0px);
+  }
 }
 
 .boat-normal {
@@ -795,17 +1174,39 @@ onUnmounted(() => {
 
 /* Camera Shake */
 @keyframes cameraShake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-0.5deg); }
-  20% { transform: translate(-3px, 0px) rotate(0.5deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(0.5deg); }
-  50% { transform: translate(-1px, 2px) rotate(-0.5deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-0.5deg); }
-  80% { transform: translate(-1px, -1px) rotate(0.5deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-0.5deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-0.5deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(0.5deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(0.5deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-0.5deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-0.5deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(0.5deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-0.5deg);
+  }
 }
 
 .shaking {
@@ -855,7 +1256,8 @@ onUnmounted(() => {
 }
 
 @keyframes ping {
-  75%, 100% {
+  75%,
+  100% {
     transform: scale(2);
     opacity: 0;
   }
@@ -871,7 +1273,7 @@ onUnmounted(() => {
 
 .location-text {
   color: #67e8f9;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
 }
@@ -896,7 +1298,7 @@ onUnmounted(() => {
 }
 
 .dialog-box {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   color: #fde047;
   font-size: 0.875rem;
   text-shadow: 0 3px 0 #000000;
@@ -928,12 +1330,12 @@ onUnmounted(() => {
 
 .speed-label {
   font-size: 10px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   color: #94a3b8;
 }
 
 .speed-value {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 1.125rem;
   color: #34d399;
 }
@@ -994,7 +1396,7 @@ onUnmounted(() => {
 }
 
 .action-text {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   color: #22d3ee;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
@@ -1002,7 +1404,7 @@ onUnmounted(() => {
 
 .audio-btn {
   font-size: 0.75rem;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
   border: 1px solid rgba(245, 158, 11, 0.5);
@@ -1036,13 +1438,15 @@ onUnmounted(() => {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.25rem;
   font-size: 10px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
 }
 
 .scumm-btn {
   background-color: #2a2538;
   border: 2px solid #5a5175;
-  box-shadow: inset -2px -2px 0px #121019, inset 2px 2px 0px #7b709c;
+  box-shadow:
+    inset -2px -2px 0px #121019,
+    inset 2px 2px 0px #7b709c;
   color: #55e6c1;
   transition: all 0.05s ease;
   cursor: pointer;
@@ -1060,7 +1464,9 @@ onUnmounted(() => {
 .scumm-btn:active,
 .scumm-btn.active {
   background-color: #1a1624;
-  box-shadow: inset 2px 2px 0px #09080e, inset -2px -2px 0px #423b56;
+  box-shadow:
+    inset 2px 2px 0px #09080e,
+    inset -2px -2px 0px #423b56;
   color: #ff5252;
 }
 
@@ -1082,13 +1488,13 @@ onUnmounted(() => {
 }
 
 .engine-title {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 0.75rem;
   color: #f472b6;
 }
 
 .mode-badge {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 10px;
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
@@ -1109,8 +1515,13 @@ onUnmounted(() => {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .action-buttons-row {
@@ -1123,7 +1534,7 @@ onUnmounted(() => {
 .engine-btn {
   border-radius: 0.25rem;
   padding: 0.5rem;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 0.75rem;
   display: flex;
   flex-direction: column;
@@ -1144,7 +1555,7 @@ onUnmounted(() => {
 
 .status-footer {
   font-size: 11px;
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
   color: #94a3b8;
   display: flex;
   justify-content: space-between;
@@ -1156,7 +1567,7 @@ onUnmounted(() => {
 }
 
 .boat-title-text {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 12px;
   fill: #ffffff;
   font-weight: bold;
@@ -1167,7 +1578,7 @@ onUnmounted(() => {
   margin-top: 0.5rem;
   text-align: center;
   font-size: 0.75rem;
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
   color: #94a3b8;
   display: flex;
   align-items: center;
