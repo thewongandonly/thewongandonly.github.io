@@ -22,66 +22,114 @@
       <div class="start__menu-main-items">
         <ul class="start__menu-main-items-list1">
           <!-- Programs Item with Submenu -->
-          <li class="start__menu-main-items-item programs" @click.stop="toggleProgramsMenu">
-            <img class="programs-img icon" src="https://i.ya-webdesign.com/images/windows-95-icons-png-7.png" alt="Programs"/>
-            <p class="start__menu-main-items-item-title programs"><span class="underline">P</span>rograms</p>
+          <li
+            class="start__menu-main-items-item programs"
+            @click.stop="toggleProgramsMenu"
+          >
+            <img
+              class="programs-img icon"
+              src="https://i.ya-webdesign.com/images/windows-95-icons-png-7.png"
+              alt="Programs"
+            />
+            <p class="start__menu-main-items-item-title programs">
+              <span class="underline">P</span>rograms
+            </p>
             <div class="start__menu-main-items-item-arrowright"></div>
-            
-            <ul class="start__menu-sub sub__programs" :class="{ 'menu-open': isProgramsMenuOpen }">
+
+            <ul
+              class="start__menu-sub sub__programs"
+              :class="{ 'menu-open': isProgramsMenuOpen }"
+            >
               <li class="start__menu-sub-items-item sub__programs-items">
-                <img class="accessories-img icon" src="https://i.ya-webdesign.com/images/windows-95-icons-png-7.png" alt="Accessories"/>
-                <p class="start__menu-sub-items-item-title accessories">Accessories</p>
+                <img
+                  class="accessories-img icon"
+                  src="https://i.ya-webdesign.com/images/windows-95-icons-png-7.png"
+                  alt="Accessories"
+                />
+                <p class="start__menu-sub-items-item-title accessories">
+                  Accessories
+                </p>
                 <div class="start__menu-main-items-item-arrowright"></div>
               </li>
               <li class="start__menu-sub-items-item sub__programs-items">
-                <img class="startup-img icon" src="https://i.ya-webdesign.com/images/windows-95-icons-png-7.png" alt="StartUp"/>
+                <img
+                  class="startup-img icon"
+                  src="https://i.ya-webdesign.com/images/windows-95-icons-png-7.png"
+                  alt="StartUp"
+                />
                 <p class="start__menu-sub-items-item-title startup">StartUp</p>
                 <div class="start__menu-main-items-item-arrowright"></div>
               </li>
               <li class="start__menu-sub-items-item sub__programs-items">
-                <img class="dos-img icon" src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Msdos-icon.png" alt="DOS"/>
-                <p class="start__menu-sub-items-item-title dos">MS-DOS Prompt</p>
+                <img
+                  class="dos-img icon"
+                  src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Msdos-icon.png"
+                  alt="DOS"
+                />
+                <p class="start__menu-sub-items-item-title dos">
+                  MS-DOS Prompt
+                </p>
                 <div class="start__menu-main-items-item-arrowright"></div>
               </li>
             </ul>
           </li>
 
           <li class="start__menu-main-items-item documents">
-            <img class="documents-img icon" src="https://i.ya-webdesign.com/images/windows-95-icons-png-6.png" alt="Documents"/>
-            <p class="start__menu-main-items-item-title documents"><span class="underline">D</span>ocuments</p>
+            <img
+              class="documents-img icon"
+              src="https://i.ya-webdesign.com/images/windows-95-icons-png-6.png"
+              alt="Documents"
+            />
+            <p class="start__menu-main-items-item-title documents">
+              <span class="underline">D</span>ocuments
+            </p>
             <div class="start__menu-main-items-item-arrowright"></div>
           </li>
           <li class="start__menu-main-items-item settings">
             <div class="settings-img icon bg-img"></div>
-            <p class="start__menu-main-items-item-title settings"><span class="underline">S</span>ettings</p>
+            <p class="start__menu-main-items-item-title settings">
+              <span class="underline">S</span>ettings
+            </p>
             <div class="start__menu-main-items-item-arrowright"></div>
           </li>
           <li class="start__menu-main-items-item find">
             <div class="find-img icon bg-img"></div>
-            <p class="start__menu-main-items-item-title find"><span class="underline">F</span>ind</p>
+            <p class="start__menu-main-items-item-title find">
+              <span class="underline">F</span>ind
+            </p>
             <div class="start__menu-main-items-item-arrowright"></div>
           </li>
           <li class="start__menu-main-items-item help">
-            <img class="help-img icon" src="https://expensive.toys/img/about-icon.png" alt="Help"/>
-            <p class="start__menu-main-items-item-title help"><span class="underline">H</span>elp</p>
+            <img
+              class="help-img icon"
+              src="https://expensive.toys/img/about-icon.png"
+              alt="Help"
+            />
+            <p class="start__menu-main-items-item-title help">
+              <span class="underline">H</span>elp
+            </p>
           </li>
           <li class="start__menu-main-items-item run">
             <div class="run-img icon bg-img"></div>
-            <p class="start__menu-main-items-item-title run"><span class="underline">R</span>un...</p>
+            <p class="start__menu-main-items-item-title run">
+              <span class="underline">R</span>un...
+            </p>
           </li>
         </ul>
 
         <ul class="start__menu-main-items-list2">
           <li class="start__menu-main-items-item shutdown">
             <div class="shutdown-img icon bg-img"></div>
-            <p class="start__menu-main-items-item-title shutdown">Sh<span class="underline">u</span>t Down...</p>
+            <p class="start__menu-main-items-item-title shutdown">
+              Sh<span class="underline">u</span>t Down...
+            </p>
           </li>
         </ul>
       </div>
     </div>
 
-    <!-- Desktop Icons (Draggable via Directive or Mousedown Events) -->
-    <div 
+    <!-- Desktop Icons -->
+    <div
       class="computer desktop-icon"
       :style="{ top: computerPos.top + 'px', left: computerPos.left + 'px' }"
       @mousedown="startDrag($event, 'computer')"
@@ -90,7 +138,7 @@
       <p class="computer__text desktop-icon__text">My Computer</p>
     </div>
 
-    <div 
+    <div
       class="recycle desktop-icon"
       :style="{ top: recyclePos.top + 'px', left: recyclePos.left + 'px' }"
       @mousedown="startDrag($event, 'recycle')"
@@ -98,96 +146,511 @@
       <div class="recycle__icon desktop-icon__icon"></div>
       <p class="recycle__text desktop-icon__text">Recycle Bin</p>
     </div>
+
+    <!-- Notepad Window -->
+    <div
+      v-if="isNotepadOpen"
+      class="window notepad-window"
+      :style="{ top: notepadPos.top + 'px', left: notepadPos.left + 'px' }"
+    >
+      <!-- Titlebar -->
+      <div class="title-bar" @mousedown="startDrag($event, 'notepad')">
+        <div class="title-bar-text">{{ fileName }} - Notepad</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize" @click.stop="isNotepadOpen = false">
+            _
+          </button>
+          <button aria-label="Close" @click.stop="isNotepadOpen = false">
+            X
+          </button>
+        </div>
+      </div>
+
+      <!-- Menubar -->
+      <header>
+        <nav class="menubar">
+          <div class="menu" :class="{ open: activeMenu === 'file' }">
+            <button @click.stop="toggleMenu('file')">File</button>
+            <div class="menu-list">
+              <div class="menu-item" @click="executeAction('new')">New</div>
+              <div class="menu-item" @click="executeAction('open')">Open…</div>
+              <div class="menu-item" @click="executeAction('save')">Save</div>
+              <div class="menu-item" @click="executeAction('saveAs')">
+                Save As…
+              </div>
+              <div class="menu-hr"></div>
+              <div class="menu-item" @click="executeAction('exit')">Exit</div>
+            </div>
+          </div>
+          <div class="menu" :class="{ open: activeMenu === 'edit' }">
+            <button @click.stop="toggleMenu('edit')">Edit</button>
+            <div class="menu-list">
+              <div class="menu-item" @click="executeAction('undo')">Undo</div>
+              <div class="menu-item" @click="executeAction('redo')">Redo</div>
+              <div class="menu-hr"></div>
+              <div class="menu-item" @click="executeAction('cut')">Cut</div>
+              <div class="menu-item" @click="executeAction('copy')">Copy</div>
+              <div class="menu-item" @click="executeAction('paste')">Paste</div>
+              <div class="menu-item" @click="executeAction('delete')">
+                Delete
+              </div>
+              <div class="menu-hr"></div>
+              <div class="menu-item" @click="executeAction('find')">Find…</div>
+              <div class="menu-item" @click="executeAction('replace')">
+                Replace…
+              </div>
+              <div class="menu-item" @click="executeAction('goto')">Go To…</div>
+              <div class="menu-hr"></div>
+              <div class="menu-item" @click="executeAction('selectAll')">
+                Select All
+              </div>
+              <div class="menu-item" @click="executeAction('time')">
+                Time/Date
+              </div>
+            </div>
+          </div>
+          <div class="menu" :class="{ open: activeMenu === 'format' }">
+            <button @click.stop="toggleMenu('format')">Format</button>
+            <div class="menu-list">
+              <div class="menu-item" @click="executeAction('wrap')">
+                Word Wrap
+              </div>
+              <div class="menu-item" @click="executeAction('font')">Font…</div>
+            </div>
+          </div>
+          <div class="menu" :class="{ open: activeMenu === 'view' }">
+            <button @click.stop="toggleMenu('view')">View</button>
+            <div class="menu-list">
+              <div class="menu-item" @click="executeAction('toggleStatus')">
+                Status Bar
+              </div>
+            </div>
+          </div>
+          <div class="menu" :class="{ open: activeMenu === 'help' }">
+            <button @click.stop="toggleMenu('help')">Help</button>
+            <div class="menu-list">
+              <div class="menu-item" @click="executeAction('about')">
+                About Notepad
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Editor Content -->
+      <textarea
+        ref="editorRef"
+        class="editor"
+        spellcheck="false"
+        :style="{
+          whiteSpace: wordWrap ? 'pre-wrap' : 'pre',
+          fontFamily: fontFamily,
+          fontSize: fontSize + 'px',
+        }"
+        @keyup="updateStatus"
+        @click="updateStatus"
+      ></textarea>
+
+      <!-- Status Bar -->
+      <div v-if="showStatusBar" class="statusbar">
+        <span>Ln {{ cursorLine }}, Col {{ cursorCol }}</span>
+        <span>Chars {{ charCount }}</span>
+      </div>
+    </div>
+
+    <!-- Dialogs -->
+    <dialog ref="findDialogRef">
+      <label>Find:<input v-model="findTextQuery" /></label>
+      <footer>
+        <button @click="handleFindNext">Find Next</button>
+        <button @click="findDialogRef.close()">Cancel</button>
+      </footer>
+    </dialog>
+
+    <dialog ref="replaceDialogRef">
+      <label>Find:<input v-model="repFindQuery" /></label>
+      <label>Replace:<input v-model="repWithQuery" /></label>
+      <footer>
+        <button @click="handleReplace">Replace</button>
+        <button @click="handleReplaceAll">Replace All</button>
+        <button @click="replaceDialogRef.close()">Cancel</button>
+      </footer>
+    </dialog>
+
+    <dialog ref="gotoDialogRef">
+      <label
+        >Line:<input v-model.number="gotoLineNum" type="number" min="1"
+      /></label>
+      <footer>
+        <button @click="handleGoto">Go</button>
+        <button @click="gotoDialogRef.close()">Cancel</button>
+      </footer>
+    </dialog>
+
+    <dialog ref="fontDialogRef">
+      <label>Font:<input v-model="fontFamilyInput" /></label>
+      <label>Size:<input v-model.number="fontSizeInput" type="number" /></label>
+      <footer>
+        <button @click="handleFontOk">OK</button>
+        <button @click="fontDialogRef.close()">Cancel</button>
+      </footer>
+    </dialog>
+
+    <input type="file" ref="fileInputRef" hidden @change="handleFileOpen" />
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from "vue";
 
 // --- Time State & Logic ---
-const currentTime = ref('')
-let timer = null
+const currentTime = ref("");
+let timer = null;
 
 const updateTime = () => {
-  const today = new Date()
-  const hours24 = today.getHours()
-  const minutes = today.getMinutes()
-  
-  const suffix = hours24 >= 12 ? ' PM' : ' AM'
-  const hours12 = hours24 % 12 || 12
-  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes
+  const today = new Date();
+  const hours24 = today.getHours();
+  const minutes = today.getMinutes();
 
-  currentTime.value = `${hours12}:${formattedMinutes}${suffix}`
-}
+  const suffix = hours24 >= 12 ? " PM" : " AM";
+  const hours12 = hours24 % 12 || 12;
+  const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
 
-onMounted(() => {
-  updateTime()
-  timer = setInterval(updateTime, 1000)
-})
-
-onUnmounted(() => {
-  clearInterval(timer)
-})
+  currentTime.value = `${hours12}:${formattedMinutes}${suffix}`;
+};
 
 // --- Start Menu Controls ---
-const isStartMenuOpen = ref(false)
-const isProgramsMenuOpen = ref(false)
+const isStartMenuOpen = ref(false);
+const isProgramsMenuOpen = ref(false);
 
 const toggleStartMenu = () => {
-  isStartMenuOpen.value = !isStartMenuOpen.value
+  isStartMenuOpen.value = !isStartMenuOpen.value;
   if (!isStartMenuOpen.value) {
-    isProgramsMenuOpen.value = false
+    isProgramsMenuOpen.value = false;
   }
-}
+};
 
 const toggleProgramsMenu = () => {
-  isProgramsMenuOpen.value = !isProgramsMenuOpen.value
-}
+  isProgramsMenuOpen.value = !isProgramsMenuOpen.value;
+};
 
 const handleBodyClick = (e) => {
-  // If click is outside elements starting with 'start__', close the start menu
-  const isStartElement = e.target.closest('[class*="start__"]')
+  activeMenu.value = null;
+  const isStartElement = e.target.closest('[class*="start__"]');
   if (!isStartElement) {
-    isStartMenuOpen.value = false
-    isProgramsMenuOpen.value = false
+    isStartMenuOpen.value = false;
+    isProgramsMenuOpen.value = false;
   }
-}
+};
 
-// --- Draggable Icons Logic ---
-const computerPos = reactive({ top: 20, left: 10 })
-const recyclePos = reactive({ top: 120, left: 10 })
+// --- Draggable Positions ---
+const computerPos = reactive({ top: 20, left: 10 });
+const recyclePos = reactive({ top: 120, left: 10 });
+const notepadPos = reactive({ top: 50, left: 150 });
 
 const startDrag = (e, iconKey) => {
-  e.preventDefault()
-  let startX = e.clientX
-  let startY = e.clientY
+  e.preventDefault();
+  let startX = e.clientX;
+  let startY = e.clientY;
 
-  const targetPos = iconKey === 'computer' ? computerPos : recyclePos
+  let targetPos;
+  if (iconKey === "computer") targetPos = computerPos;
+  else if (iconKey === "recycle") targetPos = recyclePos;
+  else if (iconKey === "notepad") targetPos = notepadPos;
 
   const onMouseMove = (moveEvent) => {
-    moveEvent.preventDefault()
-    const dx = startX - moveEvent.clientX
-    const dy = startY - moveEvent.clientY
-    startX = moveEvent.clientX
-    startY = moveEvent.clientY
+    moveEvent.preventDefault();
+    const dx = startX - moveEvent.clientX;
+    const dy = startY - moveEvent.clientY;
+    startX = moveEvent.clientX;
+    startY = moveEvent.clientY;
 
-    targetPos.top -= dy
-    targetPos.left -= dx
-  }
+    targetPos.top -= dy;
+    targetPos.left -= dx;
+  };
 
   const onMouseUp = () => {
-    document.removeEventListener('mousemove', onMouseMove)
-    document.removeEventListener('mouseup', onMouseUp)
+    document.removeEventListener("mousemove", onMouseMove);
+    document.removeEventListener("mouseup", onMouseUp);
+  };
+
+  document.addEventListener("mousemove", onMouseMove);
+  document.addEventListener("mouseup", onMouseUp);
+};
+
+// --- Notepad State & Methods ---
+const isNotepadOpen = ref(true);
+const fileName = ref("untitled.txt");
+const wordWrap = ref(false);
+const showStatusBar = ref(true);
+const activeMenu = ref(null);
+const cursorLine = ref(1);
+const cursorCol = ref(1);
+const charCount = ref(0);
+
+const fontFamily = ref("Consolas, monospace");
+const fontSize = ref(14);
+const fontFamilyInput = ref("Consolas, monospace");
+const fontSizeInput = ref(14);
+
+const findTextQuery = ref("");
+const repFindQuery = ref("");
+const repWithQuery = ref("");
+const gotoLineNum = ref(1);
+
+// Element References
+const editorRef = ref(null);
+const fileInputRef = ref(null);
+const findDialogRef = ref(null);
+const replaceDialogRef = ref(null);
+const gotoDialogRef = ref(null);
+const fontDialogRef = ref(null);
+
+const toggleMenu = (name) => {
+  activeMenu.value = activeMenu.value === name ? null : name;
+};
+
+const updateStatus = () => {
+  if (!editorRef.value) return;
+  const pos = editorRef.value.selectionStart;
+  const txt = editorRef.value.value.substr(0, pos);
+  const lines = txt.split("\n");
+  cursorLine.value = lines.length;
+  cursorCol.value = lines[lines.length - 1].length + 1;
+  charCount.value = editorRef.value.value.length;
+};
+
+// Actions Execution
+const newFile = () => {
+  if (confirm("Discard current text?")) {
+    editorRef.value.value = "";
+    fileName.value = "untitled.txt";
+    updateStatus();
+  }
+};
+
+const openFile = () => fileInputRef.value.click();
+
+const handleFileOpen = (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    editorRef.value.value = r.result;
+    fileName.value = f.name;
+    updateStatus();
+  };
+  r.readAsText(f);
+};
+
+const saveFile = (as = false) => {
+  let name = fileName.value;
+  if (as || name === "untitled.txt") {
+    name = prompt("File name:", name) || "untitled.txt";
+  }
+  const blob = new Blob([editorRef.value.value], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  fileName.value = name;
+};
+
+const insertDate = () => {
+  if (!editorRef.value) return;
+  const dateStr = new Date().toLocaleString();
+  const start = editorRef.value.selectionStart;
+  const end = editorRef.value.selectionEnd;
+  editorRef.value.setRangeText(dateStr, start, end, "end");
+  updateStatus();
+};
+
+const handleFindNext = () => {
+  const q = findTextQuery.value;
+  const start = editorRef.value.selectionEnd;
+  const idx = editorRef.value.value.indexOf(q, start);
+  if (idx >= 0) {
+    editorRef.value.setSelectionRange(idx, idx + q.length);
+    editorRef.value.focus();
+  } else {
+    alert("Not found");
+  }
+};
+
+const handleReplace = () => {
+  if (editorRef.value.selectionStart !== editorRef.value.selectionEnd) {
+    editorRef.value.setRangeText(
+      repWithQuery.value,
+      editorRef.value.selectionStart,
+      editorRef.value.selectionEnd,
+      "end",
+    );
+    updateStatus();
+  }
+};
+
+const handleReplaceAll = () => {
+  editorRef.value.value = editorRef.value.value
+    .split(repFindQuery.value)
+    .join(repWithQuery.value);
+  updateStatus();
+};
+
+const handleGoto = () => {
+  const line = gotoLineNum.value;
+  const lines = editorRef.value.value.split("\n");
+  let pos = 0;
+  for (let i = 0; i < line - 1 && i < lines.length; i++) {
+    pos += lines[i].length + 1;
+  }
+  editorRef.value.setSelectionRange(pos, pos);
+  editorRef.value.focus();
+  gotoDialogRef.value.close();
+};
+
+const handleFontOk = () => {
+  fontFamily.value = fontFamilyInput.value;
+  fontSize.value = fontSizeInput.value;
+  fontDialogRef.value.close();
+};
+
+const executeAction = (action) => {
+  activeMenu.value = null;
+  switch (action) {
+    case "new":
+      newFile();
+      break;
+    case "open":
+      openFile();
+      break;
+    case "save":
+      saveFile(false);
+      break;
+    case "saveAs":
+      saveFile(true);
+      break;
+    case "exit":
+      isNotepadOpen.value = false;
+      break;
+    case "undo":
+      document.execCommand("undo");
+      break;
+    case "redo":
+      document.execCommand("redo");
+      break;
+    case "cut":
+      document.execCommand("cut");
+      break;
+    case "copy":
+      document.execCommand("copy");
+      break;
+    case "paste":
+      document.execCommand("paste");
+      break;
+    case "delete":
+      document.execCommand("delete");
+      break;
+    case "find":
+      findDialogRef.value.showModal();
+      break;
+    case "replace":
+      replaceDialogRef.value.showModal();
+      break;
+    case "goto":
+      gotoDialogRef.value.showModal();
+      break;
+    case "selectAll":
+      editorRef.value.select();
+      break;
+    case "time":
+      insertDate();
+      break;
+    case "wrap":
+      wordWrap.value = !wordWrap.value;
+      break;
+    case "font":
+      fontDialogRef.value.showModal();
+      break;
+    case "toggleStatus":
+      showStatusBar.value = !showStatusBar.value;
+      break;
+    case "about":
+      break;
+  }
+};
+
+// Global Keyboard Shortcuts
+const handleKeydown = (e) => {
+  if (!isNotepadOpen.value) return;
+
+  if (e.ctrlKey) {
+    switch (e.key.toLowerCase()) {
+      case "n":
+        e.preventDefault();
+        newFile();
+        break;
+      case "o":
+        e.preventDefault();
+        openFile();
+        break;
+      case "s":
+        e.preventDefault();
+        saveFile(e.shiftKey);
+        break;
+      case "a":
+        e.preventDefault();
+        editorRef.value.select();
+        break;
+      case "f":
+        e.preventDefault();
+        findDialogRef.value.showModal();
+        break;
+      case "h":
+        e.preventDefault();
+        replaceDialogRef.value.showModal();
+        break;
+      case "g":
+        e.preventDefault();
+        gotoDialogRef.value.showModal();
+        break;
+    }
   }
 
-  document.addEventListener('mousemove', onMouseMove)
-  document.addEventListener('mouseup', onMouseUp)
-}
+  if (e.key === "F5") {
+    e.preventDefault();
+    insertDate();
+  }
+  if (e.altKey && e.key.toLowerCase() === "w") {
+    e.preventDefault();
+    wordWrap.value = !wordWrap.value;
+  }
+  if (e.altKey && e.key.toLowerCase() === "f") {
+    e.preventDefault();
+    fontDialogRef.value.showModal();
+  }
+  if (e.altKey && e.key.toLowerCase() === "s") {
+    e.preventDefault();
+    showStatusBar.value = !showStatusBar.value;
+  }
+  if (e.key === "F1") {
+    e.preventDefault();
+    executeAction("about");
+  }
+};
+
+onMounted(() => {
+  updateTime();
+  timer = setInterval(updateTime, 1000);
+  window.addEventListener("keydown", handleKeydown);
+});
+
+onUnmounted(() => {
+  clearInterval(timer);
+  window.removeEventListener("keydown", handleKeydown);
+});
 </script>
 
 <style scoped>
- 
-/* Scope background styles to the component layout wrapper */
 .monitor {
   position: relative;
   width: 800px;
@@ -199,6 +662,153 @@ const startDrag = (e, iconKey) => {
   overflow: hidden;
 }
 
+/* --- Notepad Window Styling --- */
+.notepad-window {
+  position: absolute;
+  width: 480px;
+  height: 350px;
+  background: #c3c6cd;
+  border-top: 2px solid #deebf3;
+  border-left: 2px solid #deebf3;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.title-bar {
+  background: #000080;
+  color: white;
+  padding: 3px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: move;
+}
+
+.title-bar-controls button {
+  width: 16px;
+  height: 14px;
+  font-size: 9px;
+  line-height: 10px;
+  font-weight: bold;
+  background: #c3c6cd;
+  border-top: 1px solid #deebf3;
+  border-left: 1px solid #deebf3;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-left: 2px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.menubar {
+  display: flex;
+  background: #c3c6cd;
+  border-bottom: 1px solid #85888f;
+}
+
+.menu {
+  position: relative;
+}
+
+.menu button {
+  background: transparent;
+  border: none;
+  padding: 2px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.menu button:hover,
+.menu.open button {
+  background: #000080;
+  color: white;
+}
+
+.menu-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #c3c6cd;
+  border-top: 2px solid #deebf3;
+  border-left: 2px solid #deebf3;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  min-width: 120px;
+  z-index: 100;
+}
+
+.menu.open .menu-list {
+  display: block;
+}
+
+.menu-item {
+  padding: 3px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  color: black;
+}
+
+.menu-item:hover {
+  background: #000080;
+  color: white;
+}
+
+.menu-hr {
+  height: 1px;
+  border-top: 1px solid #85888f;
+  border-bottom: 1px solid #deebf3;
+  margin: 2px 0;
+}
+
+.editor {
+  flex: 1;
+  resize: none;
+  border: 2px inset #ffffff;
+  outline: none;
+  padding: 4px;
+  font-family: Consolas, monospace;
+  font-size: 14px;
+  background: white;
+  color: black;
+}
+
+.statusbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 5px;
+  font-size: 11px;
+  background: #c3c6cd;
+  border-top: 1px solid #85888f;
+}
+
+/* --- Dialog Styling --- */
+dialog {
+  border: 2px solid black;
+  background: #c3c6cd;
+  padding: 10px;
+  font-size: 12px;
+}
+
+dialog label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+dialog footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+/* Remaining Base Layout */
 .start {
   position: absolute;
   bottom: 0;
@@ -404,7 +1014,8 @@ const startDrag = (e, iconKey) => {
 }
 .computer__icon {
   width: 55px;
-  background: url("https://www.pngkey.com/png/full/44-448393_windows-95-icons-png-picture-free-stock-icon.png") no-repeat center;
+  background: url("https://www.pngkey.com/png/full/44-448393_windows-95-icons-png-picture-free-stock-icon.png")
+    no-repeat center;
   background-size: contain;
 }
 
@@ -414,7 +1025,8 @@ const startDrag = (e, iconKey) => {
 }
 .recycle__icon {
   width: 53px;
-  background: url("https://telegram-stickers.github.io/public/stickers/windows-95/27.png") no-repeat center;
+  background: url("https://telegram-stickers.github.io/public/stickers/windows-95/27.png")
+    no-repeat center;
   background-size: contain;
 }
 
