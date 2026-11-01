@@ -290,68 +290,6 @@
             <rect x="0" y="-3" width="1" height="7" fill="#4ade80" />
           </g>
         </svg>
-
-        <!-- Retro Sunglasses Inspection Modal Overlay -->
-        <div
-          class="glasses-modal-overlay"
-          :class="{ active: isGlassesModalOpen }"
-        >
-          <button class="close-btn" @click="closeGlassesModal">
-            [ X CLOSE ]
-          </button>
-
-          <div class="glasses-title">16-BIT GLASSES REFLECTION</div>
-
-          <!-- 8-Bit Pixel Close Up SVG -->
-          <svg viewBox="0 0 160 70" class="glasses-svg-container">
-            <!-- Glasses Golden Frame -->
-            <rect x="74" y="20" width="12" height="4" fill="#d97706" />
-
-            <!-- Left Lens (Red Pill Side) -->
-            <g class="cursor-pointer" @click="selectPill('red')">
-              <rect
-                x="10"
-                y="10"
-                width="60"
-                height="45"
-                fill="#111"
-                stroke="#d97706"
-                stroke-width="3"
-              />
-              <rect x="14" y="14" width="52" height="37" fill="#1a0803" />
-              <!-- Room & Fire Dither Reflection -->
-              <rect x="14" y="35" width="52" height="16" fill="#9a3412" />
-              <!-- Red Pill Large Pixel -->
-              <rect x="25" y="28" width="14" height="8" fill="#ef4444" />
-              <rect x="25" y="28" width="7" height="8" fill="#fca5a5" />
-              <!-- Neo Silhouette -->
-              <rect x="48" y="20" width="10" height="25" fill="#000" />
-              <text x="18" y="62" fill="#ef4444" font-size="6">RED PILL</text>
-            </g>
-
-            <!-- Right Lens (Blue Pill Side) -->
-            <g class="cursor-pointer" @click="selectPill('blue')">
-              <rect
-                x="90"
-                y="10"
-                width="60"
-                height="45"
-                fill="#111"
-                stroke="#d97706"
-                stroke-width="3"
-              />
-              <rect x="94" y="14" width="52" height="37" fill="#031024" />
-              <!-- Room Reflection -->
-              <rect x="94" y="35" width="52" height="16" fill="#1e40af" />
-              <!-- Blue Pill Large Pixel -->
-              <rect x="120" y="28" width="14" height="8" fill="#3b82f6" />
-              <rect x="120" y="28" width="7" height="8" fill="#bfdbfe" />
-              <!-- Neo Silhouette -->
-              <rect x="102" y="20" width="10" height="25" fill="#000" />
-              <text x="96" y="62" fill="#60a5fa" font-size="6">BLUE PILL</text>
-            </g>
-          </svg>
-        </div>
       </div>
 
       <!-- SCUMM / LucasArts 90s Adventure UI Bar -->
@@ -363,19 +301,6 @@
         </div>
       </div>
     </main>
-
-    <!-- Retro Game Choice Outcome Screen Modal -->
-    <div class="choice-modal-overlay" :class="{ active: isChoiceModalOpen }">
-      <div class="choice-card-box" :class="choiceBoxClass">
-        <h2 class="choice-title" :class="choiceTitleClass">
-          {{ choiceTitle }}
-        </h2>
-        <p class="choice-description">{{ choiceDescription }}</p>
-        <button class="restart-btn" @click="resetChoice">
-          [ RESTART CONSTRUCT ]
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 
