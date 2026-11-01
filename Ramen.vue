@@ -321,6 +321,7 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: left;
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  width: 100%;
 }
 
 .controls-bar {
@@ -365,6 +366,7 @@ onUnmounted(() => {
 .phone-frame {
   position: relative;
   width: 380px;
+  max-width: 100%;
   height: 710px;
   background-color: #000;
   border-radius: 46px;
@@ -377,6 +379,7 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   margin-left: 10px;
   margin-top: 10px;
+  box-sizing: border-box;
 }
 
 .phone-screen {
@@ -833,5 +836,25 @@ onUnmounted(() => {
   background-color: var(--wa-subtext);
   border-radius: 4px;
   opacity: 0.4;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 480px) {
+  .phone-frame {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .phone-screen {
+    border-radius: 0;
+  }
+
+  .dynamic-island {
+    display: none; /* Optionally hides simulated notch on real mobile screens */
+  }
 }
 </style>
