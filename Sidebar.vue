@@ -83,11 +83,12 @@
             </div>
             <div class="chat__conversation-panel__container">
               <button
-                class="chat__conversation-panel__button panel-item btn-icon add-file-button"
+                class="chat__conversation-panel__button panel-item btn-icon close-button"
                 @click="closeSidebarPanel"
+                title="Close sidebar"
+                aria-label="Close sidebar"
               >
                 <svg
-                  class="feather feather-plus sc-dnqmqq jxshSx"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -99,31 +100,8 @@
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-
-          <path
-            d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z"
-            stroke="#292D32"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M9.16998 14.83L14.83 9.17004"
-            stroke="#292D32"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M14.83 14.83L9.16998 9.17004"
-            stroke="#292D32"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
               </button>
 
@@ -186,7 +164,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 
 const isPanelOpen = ref(false);
 const showEmojiPicker = ref(false);
@@ -1046,18 +1024,6 @@ const addEmoji = (emoji) => {
   showEmojiPicker.value = false;
 };
 
-const handleFileUpload = () => {
-  const wittyReply =
-    "Whoa there, data hoarder! File attachments are currently disabled. My servers are on a strict diet—no bytes allowed!";
-  convo.value.push({ you: "📎 [Clicked add file]" });
-  scrollToBottom();
-  setTimeout(() => {
-    convo.value.push({ text: wittyReply });
-    scrollToBottom();
-    voiceControl(wittyReply);
-  }, 500);
-};
-
 const initFuse = () => {
   const searchData = [];
   userMessage.forEach((triggers, index) => {
@@ -1166,23 +1132,19 @@ const onquestion = () => {
   }, 1000);
 };
 
-const chatconvo = computed(() => [...convo.value]);
-
 onMounted(() => {
   initFuse();
 });
 </script>
 
-
 <style scoped>
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
-.slide-enter,
+.slide-enter-from,
 .slide-leave-to {
   transform: translateY(100%);
-  transition: all 150ms ease-in 0s;
 }
 .sidebar {
   bottom: 0;
@@ -1211,7 +1173,8 @@ onMounted(() => {
   --chat-panel-background: #131719;
   --chat-bubble-background: #14181a;
   --chat-bubble-active-background: #171a1b;
-  --chat-add-button-background: #212324;
+  --chat-close-button-background: #212324;
+  --chat-close-button-hover: #2f3336;
   --chat-send-button-background: #8147fc;
   --chat-text-color: #a3a3a3;
   --chat-options-svg: #a3a3a3;
@@ -1400,16 +1363,28 @@ onMounted(() => {
   outline: none;
   cursor: pointer;
 }
-.chat .chat__conversation-panel .add-file-button {
+.chat .chat__conversation-panel .close-button {
   height: 23px;
   min-width: 23px;
   width: 23px;
-  background: var(--chat-add-button-background);
+  background: var(--chat-close-button-background);
   border-radius: 50%;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
-.chat .chat__conversation-panel .add-file-button svg {
-  width: 70%;
-  stroke: #54575c;
+.chat .chat__conversation-panel .close-button svg {
+  width: 60%;
+  stroke: #a3a3a3;
+  fill: none;
+  transition: stroke 0.2s ease;
+}
+.chat .chat__conversation-panel .close-button:hover {
+  background: var(--chat-close-button-hover);
+}
+.chat .chat__conversation-panel .close-button:hover svg {
+  stroke: #ffffff;
+}
+.chat .chat__conversation-panel .close-button:active {
+  transform: scale(0.95);
 }
 .chat .chat__conversation-panel .emoji-button {
   min-width: 23px;
