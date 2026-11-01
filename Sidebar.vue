@@ -1,7 +1,10 @@
 <template>
   <div class="sidebar">
-    <div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen">
-    </div>
+    <div
+      class="sidebar-backdrop"
+      @click="closeSidebarPanel"
+      v-if="isPanelOpen"
+    ></div>
     <div v-if="!isPanelOpen" class="wishtochat" @click="isPanelOpen = true">
       <svg
         fill="#6e3bc2"
@@ -1000,11 +1003,11 @@ const alternative = [
   "That question broke my logic gate. I need a reboot and a snack.",
   "I'm multitasking: looking smart while pretending I understood that completely.",
 ];
-
+const urlRegex = /(https?:\/\/[^\s]+)/g;
 // Helper method to turn URLs starting with http:// or https:// into clickable links
 const formatMessage = (text) => {
   if (!text) return "";
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
+
   return text.replace(urlRegex, (url) => {
     return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="chat-link">${url}</a>`;
   });
@@ -1126,9 +1129,15 @@ const onquestion = () => {
   scrollToBottom();
   setTimeout(() => {
     const product = processInput(q);
-    convo.value.push({ text: product });
-    scrollToBottom();
-    voiceControl(product);
+    if (!!product) {
+      if (urlRegex.test(product)) {
+        window.open(product, "_blank");
+      } else {
+        convo.value.push({ text: product });
+        scrollToBottom();
+        voiceControl(product);
+      }
+    }
   }, 1000);
 };
 
@@ -1369,7 +1378,9 @@ onMounted(() => {
   width: 23px;
   background: var(--chat-close-button-background);
   border-radius: 50%;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 .chat .chat__conversation-panel .close-button svg {
   width: 60%;

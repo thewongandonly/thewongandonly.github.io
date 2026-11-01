@@ -290,8 +290,8 @@ const taskList = {
         }
         pushToList({ type: "success", label: "Success", message: "Opening" });
 
-        if (input.split(" ")[1].indexOf("http") === -1) {
-          url = "http://" + input.split(" ")[1];
+        if (input.split(" ")[1].indexOf("https://") === -1 && input.split(" ")[1].indexOf("http://") === -1) {
+          url = "https://" + input.split(" ")[1];
         }
         window.open(url, "_blank");
         resolve({ type: "success", label: "Done", message: "Page Opened!" });
