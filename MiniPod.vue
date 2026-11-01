@@ -215,6 +215,14 @@ const tracks = ref([
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/thunderstorm.mp3",
   },
+  {
+    id: 8,
+    name: "Windows 95 StartUp Sound",
+    artist: "Slopzilla",
+    href: "https://youtube.com/shorts/dJOyb9PcILo?si=i59gQM8lUp2sjXCG",
+    source:
+      "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/Windows_95.mp3",
+  },
 ]);
 
 const currentIndex = ref(0);

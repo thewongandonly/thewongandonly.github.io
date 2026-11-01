@@ -88,6 +88,7 @@
             loadModule("./OutlawHarbor.vue", options),
           ),
           Neo: Vue.defineAsyncComponent(() => loadModule("./Neo.vue", options)),
+          Windows95: Vue.defineAsyncComponent(() => loadModule("./Windows95.vue", options)),
         },
         setup() {
           const currentIndex = ref(0);
@@ -146,6 +147,7 @@
         <Ramen v-if="runningIndex === 4" />
         <OutlawHarbor v-if="runningIndex === 5" />
         <Neo v-if="runningIndex === 6" />
+        <Windows95 v-if="runningIndex === 7" />
         <Sidebar v-if="showchat" />
         `,
       });
