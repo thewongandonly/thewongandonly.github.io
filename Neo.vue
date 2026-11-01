@@ -542,7 +542,18 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
- 
+ /* Lightning Flash Animation */
+@keyframes lightning-strike {
+  0%, 85%, 89%, 93%, 96%, 100% {
+    background-color: #030503; /* Normal dark background */
+  }
+  86%, 94% {
+    background-color: rgba(255, 255, 255, 0.15); /* Bright flash burst */
+  }
+  87%, 90%, 95% {
+    background-color: transparent; /* Flash transparent */
+  }
+}
 /* Base Page Styles */
 .matrix-scene-wrapper {
   background-color: #030503;
@@ -559,6 +570,9 @@ onUnmounted(() => {
   align-items: center;
   position: relative;
   box-sizing: border-box;
+
+  /* Apply the lightning animation (adjust duration for frequency) */
+  animation: lightning-strike 8s infinite steps(1, end);
 }
 
 /* Pixel art crisp rendering rules */
