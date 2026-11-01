@@ -1120,6 +1120,7 @@ const processInput = (inputstr) => {
     : alternative[Math.floor(Math.random() * alternative.length)];
 };
 
+  
 const onquestion = () => {
   const q = question.value.trim();
   if (!q) return;
