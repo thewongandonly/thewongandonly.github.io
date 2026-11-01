@@ -300,6 +300,7 @@ const convo = ref([
   },
 ]);
 const userMessage = [
+  ["hangman"],
   ["hi", "hey", "hello"],
   ["sure", "yes", "no"],
   ["how are you", "how is life", "how are things", "how are you doing"],
@@ -534,6 +535,7 @@ const userMessage = [
 ];
 
 const botReply = [
+  ["https://thewongandonly.com/hangman/"],
   ["Hello!", "Hi!", "Hey!", "Hi there!"],
   ["Okay"],
   [
@@ -1120,7 +1122,6 @@ const processInput = (inputstr) => {
     : alternative[Math.floor(Math.random() * alternative.length)];
 };
 
-  
 const onquestion = () => {
   const q = question.value.trim();
   if (!q) return;
