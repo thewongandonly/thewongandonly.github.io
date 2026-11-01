@@ -848,10 +848,11 @@ dialog footer {
 }
 .start__logo::after {
   content: "";
+  background: url("https://thewongandonly.com/windows-95-start-removebg-preview.png") no-repeat;
   background-size: contain;
   mix-blend-mode: multiply;
   top: 0;
-  left: 0;
+  left: 8px;
   bottom: 0;
   right: 0;
   position: absolute;
@@ -1014,7 +1015,7 @@ dialog footer {
 }
 .computer__icon {
   width: 55px;
-  background: url("https://www.pngkey.com/png/full/44-448393_windows-95-icons-png-picture-free-stock-icon.png")
+  background: url("https://thewongandonly.com/windows-95.png")
     no-repeat center;
   background-size: contain;
 }
@@ -1025,7 +1026,7 @@ dialog footer {
 }
 .recycle__icon {
   width: 53px;
-  background: url("https://telegram-stickers.github.io/public/stickers/windows-95/27.png")
+  background: url("https://thewongandonly.com/bin.png")
     no-repeat center;
   background-size: contain;
 }
