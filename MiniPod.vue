@@ -219,9 +219,17 @@ const tracks = ref([
     id: 8,
     name: "Windows 95 StartUp Sound",
     artist: "Slopzilla",
-    href: "https://youtube.com/shorts/dJOyb9PcILo?si=i59gQM8lUp2sjXCG",
+    href: "https://youtube.com/shorts/dJOyb9PcILo",
     source:
       "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/Windows_95.mp3",
+  },
+    {
+    id: 9,
+    name: "Punchout",
+    artist: "Nintendo",
+    href: "https://youtu.be/RW6U_wQOGtM",
+    source:
+      "https://github.com/thewongandonly/thewongandonly.github.io/raw/refs/heads/master/Punchout.mp3",
   },
 ]);
 

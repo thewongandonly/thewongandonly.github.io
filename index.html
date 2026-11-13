@@ -16,6 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@600;700;800&family=Press+Start+2P&family=Segoe+UI:wght@400;600;700&family=Special+Elite&family=VT323&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>  
     <style>
       html,
       body {
@@ -28,8 +29,7 @@
       rel="icon"
       type="image/png"
       href="https://thewongandonly.com/favicon.ico"
-    />    
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>  
+    />
   </head>
 
   <body>
@@ -90,6 +90,7 @@
           ),
           Neo: Vue.defineAsyncComponent(() => loadModule("./Neo.vue", options)),
           Windows95: Vue.defineAsyncComponent(() => loadModule("./Windows95.vue", options)),
+          PunchMike: Vue.defineAsyncComponent(() => loadModule("./PunchMike.vue", options)),
         },
         setup() {
           const currentIndex = ref(0);
@@ -98,7 +99,7 @@
           const showppod = ref(false);
           const myvid = ref("sunset.mp4");
           const showchat = computed(
-            () => ![1, 4, 5, 6].includes(currentIndex.value),
+            () => ![1, 4, 5, 6, 8].includes(currentIndex.value),
           );
           const setVid = (newVid) => {
             myvid.value = newVid;
@@ -150,6 +151,7 @@
         <OutlawHarbor v-if="runningIndex === 5" />
         <Neo v-if="runningIndex === 6" />
         <Windows95 v-if="runningIndex === 7" />
+        <PunchMike v-if="runningIndex === 8" />
         <Sidebar v-if="showchat" />
         `,
       });

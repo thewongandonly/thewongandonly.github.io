@@ -1,6 +1,6 @@
 <template>
   <div class="full-height">
-    <div class="container">
+    <div class="containersun">
       <div class="centered-element">
         <div class="content">
           <img
@@ -221,7 +221,7 @@ onBeforeUnmount(() => {
   margin-top: 125px;
 }
 
-.container {
+.containersun {
   display: grid;
   align-items: center;
   height: 75vh;
